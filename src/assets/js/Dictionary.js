@@ -227,11 +227,11 @@ const Dictionary = {
 		'kr': '줄바꿈 없음',
 		'cn': '不换行'
 	},
-	'save': {
-		'en': 'Save',
-		'jp': '保存',
-		'kr': '저장',
-		'cn': '保存'
+	'close': {
+		'en': 'Close',
+		'jp': '閉じる',
+		'kr': '닫기',
+		'cn': '关'
 	},
 	'reset': {
 		'en': 'Reset',

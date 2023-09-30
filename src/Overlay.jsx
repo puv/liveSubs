@@ -81,6 +81,11 @@ function Overlay() {
 			let encodedConfig = btoa(JSON.stringify(Config));
 			localStorage.setItem('config', encodedConfig);
 			setConfig(Config);
+			let userLang = navigator.language || navigator.userLanguage;
+			if (userLang.includes('ja')) setLanguage('jp');
+			else if (userLang.includes('ko')) setLanguage('kr');
+			else if (userLang.includes('zh')) setLanguage('cn');
+			else setLanguage('en');
 		}
 	};
 
@@ -305,8 +310,8 @@ function Overlay() {
 						display: 'flex',
 						gap: '1em',
 					}}>
-						<div className="button saveButton" onClick={closeOverlay}>
-							<a>{Dictionary['save'][config.lang]}</a>
+						<div className="button closeButton" onClick={closeOverlay}>
+							<a>{Dictionary['close'][config.lang]}</a>
 						</div>
 
 						<div className="button resetButton" onClick={resetSettings}>
