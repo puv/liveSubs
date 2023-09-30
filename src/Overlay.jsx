@@ -5,6 +5,8 @@ import Dictionary from './assets/js/Dictionary.js';
 import Config from './assets/js/Config';
 import { useEffect } from 'react';
 import $ from 'jquery';
+import Languages from './assets/js/Languages';
+import Fonts from './assets/js/Fonts';
 
 
 function Overlay() {
@@ -183,57 +185,24 @@ function Overlay() {
 							</td>
 							<td>
 								<select id="SubLang" onChange={handleInput} name="sub.lang" value={config.sub.lang}>
-									<option value="ja">日本語</option>
-									<option value="en">English</option>
-									<option value="ko">한국어</option>
-									<option value="zh-CN">普通话</option>
-									<option value="zh-TW">臺灣話</option>
-									<option value="fr">Français</option>
-									<option value="it">Italiano</option>
-									<option value="de">Deutsch</option>
-									<option value="tr">Türkçe</option>
-									<option value="pl">Polski</option>
-									<option value="uk">Українська</option>
-									<option value="ru">Русский</option>
-									<option value="es">Español</option>
-									<option value="pt">Português</option>
-									<option value="nl">Nederlands</option>
-									<option value="id">हिन्दी</option>
-									<option value="vi">Tiếng Việt</option>
-									<option value="th">ภาษาไทย</option>
-									<option value="ar">عربي</option>
-									<option value="so">Af-Soomaali</option>
+									{
+										Languages.map((lang) => {
+											return (
+												<option key={lang.code} value={lang.code}>{lang.name}</option>
+											);
+										})
+									}
 								</select>
 							</td>
 							<td>
 								<select id="SubFont" onChange={handleInput} name="sub.font" value={config.sub.font}>
-									<option value="M PLUS 1p">M PLUS 1p</option>
-									<option value="M PLUS Rounded 1c">M PLUS Rounded 1c</option>
-									<option value="Mamelon">Mamelon</option>
-									<option value="YasashisaB">Yasashisa B</option>
-									<option value="HuiFont29">Hui Font 29</option>
-									<option value="Hachi Maru Pop">Hachi Maru Pop</option>
-									<option value="MkPOP">Mk POP</option>
-									<option value="bananaslipplus">Banana Slip Plus</option>
-									<option value="katyou">Katyou</option>
-									<option value="TanukiMagic">Tanuki Magic</option>
-									<option value="hakidame">Hakidame</option>
-									<option value="umeboshi">Umeboshi</option>
-									<option value="Jiyucho">Jiyucho</option>
-									<option value="HitmoR">Hitmo R</option>
-									<option value="nishikiteki">Nishikiteki</option>
-									<option value="Yusei Magic">Yusei Magic</option>
-									<option value="Nikumaru">Nikumaru</option>
-									<option value="KTEGAKI">KTEGAKI</option>
-									<option value="JKGL">JK Gothic L</option>
-									<option value="Reggae One">Reggae One</option>
-									<option value="OhisamaFont">Ohisama Font</option>
-									<option value="nukamiso">Nukamiso</option>
-									<option value="genkai">Genkai</option>
-									<option value="CP">Checkpoint</option>
-									<option value="Noto Sans JP">Noto Sans JP</option>
-									<option value="Sawarabi Gothic">Sawarabi Gothic</option>
-									<option value="Nico Moji">Nico Moji</option>
+									{
+										Fonts.map((font) => {
+											return (
+												<option key={font.code} value={font.code}>{font.name}</option>
+											);
+										})
+									}
 								</select>
 							</td>
 						</tr>
@@ -374,57 +343,24 @@ function TranslationOption(number, config, handleInput, deleteTranslation) {
 			</td>
 			<td>
 				<select onChange={handleInput} name={`translations.${number}.lang`} value={config.translations[number].lang}>
-					<option value="ja">日本語</option>
-					<option value="en">English</option>
-					<option value="ko">한국어</option>
-					<option value="zh-CN">普通话</option>
-					<option value="zh-TW">臺灣話</option>
-					<option value="fr">Français</option>
-					<option value="it">Italiano</option>
-					<option value="de">Deutsch</option>
-					<option value="tr">Türkçe</option>
-					<option value="pl">Polski</option>
-					<option value="uk">Українська</option>
-					<option value="ru">Русский</option>
-					<option value="es">Español</option>
-					<option value="pt">Português</option>
-					<option value="nl">Nederlands</option>
-					<option value="id">हिन्दी</option>
-					<option value="vi">Tiếng Việt</option>
-					<option value="th">ภาษาไทย</option>
-					<option value="ar">عربي</option>
-					<option value="so">Af-Soomaali</option>
+					{
+						Languages.map((lang) => {
+							return (
+								<option key={lang.code} value={lang.code}>{lang.name}</option>
+							);
+						})
+					}
 				</select>
 			</td>
 			<td>
 				<select id="SubFont" onChange={handleInput} name={`translations.${number}.font`} value={config.translations[number].font}>
-					<option value="M PLUS 1p">M PLUS 1p</option>
-					<option value="M PLUS Rounded 1c">M PLUS Rounded 1c</option>
-					<option value="Mamelon">Mamelon</option>
-					<option value="YasashisaB">Yasashisa B</option>
-					<option value="HuiFont29">Hui Font 29</option>
-					<option value="Hachi Maru Pop">Hachi Maru Pop</option>
-					<option value="MkPOP">Mk POP</option>
-					<option value="bananaslipplus">Banana Slip Plus</option>
-					<option value="katyou">Katyou</option>
-					<option value="TanukiMagic">Tanuki Magic</option>
-					<option value="hakidame">Hakidame</option>
-					<option value="umeboshi">Umeboshi</option>
-					<option value="Jiyucho">Jiyucho</option>
-					<option value="HitmoR">Hitmo R</option>
-					<option value="nishikiteki">Nishikiteki</option>
-					<option value="Yusei Magic">Yusei Magic</option>
-					<option value="Nikumaru">Nikumaru</option>
-					<option value="KTEGAKI">KTEGAKI</option>
-					<option value="JKGL">JK Gothic L</option>
-					<option value="Reggae One">Reggae One</option>
-					<option value="OhisamaFont">Ohisama Font</option>
-					<option value="nukamiso">Nukamiso</option>
-					<option value="genkai">Genkai</option>
-					<option value="CP">Checkpoint</option>
-					<option value="Noto Sans JP">Noto Sans JP</option>
-					<option value="Sawarabi Gothic">Sawarabi Gothic</option>
-					<option value="Nico Moji">Nico Moji</option>
+					{
+						Fonts.map((font) => {
+							return (
+								<option key={font.code} value={font.code}>{font.name}</option>
+							);
+						})
+					}
 				</select>
 			</td>
 			<td>
