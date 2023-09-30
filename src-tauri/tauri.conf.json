@@ -3,7 +3,7 @@
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
     "devPath": "http://localhost:1420",
-    "distDir": "../docs",
+    "distDir": "../dist",
     "withGlobalTauri": false
   },
   "package": {
@@ -21,7 +21,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "puv.bar",
+      "identifier": "com.puv.bar",
       "icon": [
         "icons/icon32.png",
         "icons/icon128.png",
