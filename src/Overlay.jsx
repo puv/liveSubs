@@ -41,6 +41,15 @@ function Overlay() {
 		saveConfig(newConfig);
 	};
 
+	const setLanguageByText = (lang) => {
+		let newConfig = {
+			...config,
+			['lang']: lang,
+		};
+		setConfig(newConfig);
+		saveConfig(newConfig);
+	};
+
 	const addTranslation = () => {
 		let newConfig = {
 			...config,
@@ -82,10 +91,10 @@ function Overlay() {
 			localStorage.setItem('config', encodedConfig);
 			setConfig(Config);
 			let userLang = navigator.language || navigator.userLanguage;
-			if (userLang.includes('ja')) setLanguage('jp');
-			else if (userLang.includes('ko')) setLanguage('kr');
-			else if (userLang.includes('zh')) setLanguage('cn');
-			else setLanguage('en');
+			if (userLang.includes('ja')) setLanguageByText('jp');
+			else if (userLang.includes('ko')) setLanguageByText('kr');
+			else if (userLang.includes('zh')) setLanguageByText('cn');
+			else setLanguageByText('en');
 		}
 	};
 
