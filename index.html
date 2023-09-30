@@ -1,15 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icon128.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>liveSubs</title>
-  </head>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <!-- <script src="/public/js/VoiceRecognitionClient.js"></script> -->
-  </body>
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/icon128.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>liveSubs</title>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-9QHQRQ1QS9"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-9QHQRQ1QS9');
+	</script>
+</head>
+
+<body>
+	<div id="root"></div>
+	<script type="module" src="/src/main.jsx"></script>
+	<!-- <script src="/public/js/VoiceRecognitionClient.js"></script> -->
+</body>
+
 </html>
