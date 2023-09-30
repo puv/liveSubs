@@ -254,10 +254,10 @@ const Dictionary = {
 		}
 	],
 	'bottomText': {
-		'en': 'WARNING: Translations with API keys might not work. We suggest using Google without an API key. If you encounter issues, please report them here.',
-		'jp': '警告：APIキーを使用した翻訳は機能しない場合があります。APIキーなしでGoogleを使用することをお勧めします。問題が発生した場合は、こちらで報告してください。',
-		'kr': '경고 : API 키를 사용한 번역이 작동하지 않을 수 있습니다. API 키없이 Google을 사용하는 것이 좋습니다. 문제가 발생하면 여기에 보고하십시오.',
-		'cn': '警告：使用API密钥的翻译可能无法正常工作。 我们建议使用没有API密钥的Google。 如果遇到问题，请在此处报告。'
+		'en': 'WARNING: Translations with API keys might not work. We suggest using Google without an API key. If you encounter issues, <a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>please report them here.</a>',
+		'jp': '警告：APIキーを使用した翻訳は機能しない場合があります。APIキーなしでGoogleを使用することをお勧めします。問題が発生した場合は、<a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>こちらで報告してください。</a>',
+		'kr': '경고 : API 키를 사용한 번역이 작동하지 않을 수 있습니다. API 키없이 Google을 사용하는 것이 좋습니다. 문제가 발생하면 <a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>여기에 보고하십시오.</a>',
+		'cn': '警告：使用API密钥的翻译可能无法正常工作。 我们建议使用没有API密钥的Google。 如果遇到问题，<a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>请在此处报告。</a>'
 	}
 };
 
