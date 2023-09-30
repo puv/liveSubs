@@ -1,0 +1,161 @@
+:root {
+    --success: #4bbc4f;
+    --success-hover: #3e9e41;
+    --error: #d86666;
+    --error-hover: #b84a4a;
+    --info: #6697d8;
+    --info-hover: #4e7ac7;
+}
+
+#overlay {
+    position: absolute;
+    width: 1280px;
+    min-height: 448px;
+    background-color: rgba(241, 239, 241, 255);
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    transform: translate(25%, 10%);
+    padding: 1em;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 50px 0px;
+
+
+
+    & #settings {
+        display: grid;
+        grid-gap: 1em;
+        width: 100%;
+        height: 100%;
+    }
+
+    & table {
+        border-collapse: collapse;
+        width: 100%;
+
+        & tr {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: center;
+
+            & th {
+                padding: 4px;
+                background-color: var(--info);
+                color: white;
+                border: 1px solid #ddd;
+            }
+
+            & td {
+                padding: 4px;
+                border: 1px solid #ddd;
+            }
+        }
+
+        & #addTranslation {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: var(--success);
+            color: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+    }
+
+    #setting_table {
+        display: grid;
+        grid-template-rows: repeat(auto-fill, 2em);
+
+        .row {
+            display: grid;
+            grid-gap: 1em;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            align-items: center;
+
+            .title {
+                font-weight: bold;
+            }
+        }
+
+        .mainSettings {
+            grid-template-columns: 7em 5em 5em 12em 12em 12em 10em 10em;
+        }
+
+        .extraSettings {
+            grid-template-columns: 7em 10em 8em 6em 12em 14em 8em 8em;
+        }
+
+        .row > input[type="range"] {
+            height: 100%;
+            margin: 0%;
+        }
+
+        span {
+            height: 100%;
+        }
+    }
+
+    .footer {
+        display: grid;
+        grid-gap: 5em;
+        grid-template-columns: max-content max-content max-content;
+        justify-content: space-between;
+
+        .credits {
+            display: grid;
+            grid-template-rows: auto auto;
+            text-align: center;
+            align-content: center;
+        }
+
+        .language {
+            display: grid;
+            grid-template-columns: max-content max-content;
+            grid-gap: 1em;
+            align-items: center;
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            color: #fff;
+            /* border-bottom: solid 4px #627295; */
+            border-radius: 3px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .saveButton {
+            background: var(--success);
+            font-size: xx-large;
+            width: max-content;
+            place-self: center;
+
+            &:hover {
+                background: var(--success-hover);
+            }
+        }
+
+        .resetButton {
+            background: var(--error);
+            font-size: xx-large;
+            width: max-content;
+            place-self: center;
+
+            &:hover {
+                background: var(--error-hover);
+            }
+        }
+
+        .langButton {
+            background: var(--info);
+            font-size: medium;
+
+            &:hover {
+                background: var(--info-hover);
+            }
+        }
+    }
+}
