@@ -36,158 +36,136 @@ function App() {
 
 	const handleAudio = () => {
 		console.log('handleAudio');
-		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-			let config = JSON.parse(atob(localStorage.getItem('config')));
-			var VoiceRecognition = new webkitSpeechRecognition();
-			VoiceRecognition.continuous = true;
-			VoiceRecognition.interimResults = true;
-			VoiceRecognition.lang = config.sub.lang;
-			VoiceRecognition.start();
+		let config = JSON.parse(atob(localStorage.getItem('config')));
+		var VoiceRecognition = new webkitSpeechRecognition();
+		VoiceRecognition.continuous = true;
+		VoiceRecognition.interimResults = true;
+		VoiceRecognition.lang = config.sub.lang;
+		VoiceRecognition.start();
 
-			let init = false;
+		let init = false;
 
-			window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+		window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-			VoiceRecognition.onstart = (e) => {
-				console.log('onStart', VoiceRecognition, e);
-				config = JSON.parse(atob(localStorage.getItem('config')));
-			};
-			VoiceRecognition.onaudiostart = (e) => {
-				console.log('onAudioStart', VoiceRecognition, e);
-				init = true;
-			};
-			VoiceRecognition.onsoundstart = (e) => {
-				console.log('onSoundStart', VoiceRecognition, e);
-				config = JSON.parse(atob(localStorage.getItem('config')));
-				if (VoiceRecognition.lang != config.sub.lang) {
-					VoiceRecognition.lang = config.sub.lang;
-					VoiceRecognition.stop();
-				}
-			};
-			VoiceRecognition.onspeechstart = (e) => console.log('onSoundStart', VoiceRecognition, e);
-			VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
-			VoiceRecognition.onsoundend = (e) => console.log('onSoundEnd', VoiceRecognition, e);
-			VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
-			VoiceRecognition.onend = (e) => {
-				console.log('onEnd', VoiceRecognition, e);
-				if (init) {
-					init = false;
-					VoiceRecognition.start();
-				}
-			};
-			VoiceRecognition.onerror = (e) => { console.log('onError', VoiceRecognition, e, e.error); VoiceRecognition.stop(); };
-			VoiceRecognition.onnomatch = (e) => { console.log('onNoMatch', VoiceRecognition, e); VoiceRecognition.stop(); };
+		VoiceRecognition.onstart = (e) => {
+			console.log('onStart', VoiceRecognition, e);
+			config = JSON.parse(atob(localStorage.getItem('config')));
+		};
+		VoiceRecognition.onaudiostart = (e) => {
+			console.log('onAudioStart', VoiceRecognition, e);
+			init = true;
+		};
+		VoiceRecognition.onsoundstart = (e) => {
+			console.log('onSoundStart', VoiceRecognition, e);
+			config = JSON.parse(atob(localStorage.getItem('config')));
+			if (VoiceRecognition.lang != config.sub.lang) {
+				VoiceRecognition.lang = config.sub.lang;
+				VoiceRecognition.stop();
+			}
+		};
+		VoiceRecognition.onspeechstart = (e) => console.log('onSoundStart', VoiceRecognition, e);
+		VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
+		VoiceRecognition.onsoundend = (e) => console.log('onSoundEnd', VoiceRecognition, e);
+		VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
+		VoiceRecognition.onend = (e) => {
+			console.log('onEnd', VoiceRecognition, e);
+			if (init) {
+				init = false;
+				VoiceRecognition.start();
+			}
+		};
+		VoiceRecognition.onerror = (e) => { console.log('onError', VoiceRecognition, e, e.error); VoiceRecognition.stop(); };
+		VoiceRecognition.onnomatch = (e) => { console.log('onNoMatch', VoiceRecognition, e); VoiceRecognition.stop(); };
 
-			let pauseTimeout = 0;
-			const pauseStop = function () {
-				if (init == true) {
-					// console.log("Pause Stop")
-					VoiceRecognition.stop();
-				}
-			};
+		let pauseTimeout = 0;
+		const pauseStop = function () {
+			if (init == true) {
+				// console.log("Pause Stop")
+				VoiceRecognition.stop();
+			}
+		};
 
-			let deleteTimeout = 0;
-			const Delete = function () {
-				$('#SubBGText')[0].innerText = '';
-				$('#SubFGText')[0].innerText = '';
-				config.translations.forEach((translation, index) => {
-					$(`#TFg[data-tr="${index}"]`).innerText = '';
-					$(`#TBg[data-tr="${index}"]`).innerText = '';
-				});
-			};
+		let deleteTimeout = 0;
+		const Delete = function () {
+			$('#SubBGText')[0].innerText = '';
+			$('#SubFGText')[0].innerText = '';
+			config.translations.forEach((translation, index) => {
+				$(`#TFg[data-tr="${index}"]`).innerText = '';
+				$(`#TBg[data-tr="${index}"]`).innerText = '';
+			});
+		};
 
-			let spokenText;
+		let spokenText;
 
-			const translateLocal = () => {
-			};
+		const translateLocal = () => {
+		};
 
-			const translateLibre = () => {
-			};
+		const translateLibre = () => {
+		};
 
-			const translateGoogle = (text, targetLangs) => {
-				for (let i = 0; i < targetLangs.length; i++) {
-					let request = new XMLHttpRequest();
-					let query;
-
-					if (config.api.key.length != 0) {
-						query = 'https://translation.googleapis.com/language/translate/v2?key=' + config.api.key + '&source=' + config.sub.lang + '&target=' + targetLangs[i] + '&q=' + encodeURI(text);
-					} else {
-						query = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + config.sub.lang + '&tl=' + targetLangs[i] + '&dt=t&q=' + encodeURI(text);
-					}
-					request.open('GET', query, true);
-
-					request.onreadystatechange = function () {
-						if (request.readyState === 4 && request.status === 200) {
-							let response = JSON.parse(request.responseText);
-							let translation;
-							console.log('translateGoogle', `[${targetLangs[i]}]`, response);
-							if (config.api.key.length != 0) {
-								translation = response.data.translations[0].translatedText;
-							} else {
-								translation = response[0][0][0];
-							}
-							$('#TFg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-							$('#TBg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-						}
-					};
-					request.send(null);
-				}
-			};
-
-			const translateDeepl = (text, targetLangs) => {
-				if (config.api.key.length <= 0) return;
-				let query = 'https://api-free.deepl.com/v2/translate?auth_key=' + config.api.key + '&text=' + encodeURI(text) + '&source_lang=' + config.sub.lang + '&target_lang=' + targetLangs[0];
+		const translateGoogle = (text, targetLangs) => {
+			for (let i = 0; i < targetLangs.length; i++) {
 				let request = new XMLHttpRequest();
+				let query;
+
+				if (config.api.key.length != 0) {
+					query = 'https://translation.googleapis.com/language/translate/v2?key=' + config.api.key + '&source=' + config.sub.lang + '&target=' + targetLangs[i] + '&q=' + encodeURI(text);
+				} else {
+					query = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + config.sub.lang + '&tl=' + targetLangs[i] + '&dt=t&q=' + encodeURI(text);
+				}
 				request.open('GET', query, true);
+
 				request.onreadystatechange = function () {
 					if (request.readyState === 4 && request.status === 200) {
 						let response = JSON.parse(request.responseText);
-						console.log('translateDeepL', response);
-						let translation = response.translations[0].text;
-						$('#TFg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-						$('#TBg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+						let translation;
+						console.log('translateGoogle', `[${targetLangs[i]}]`, response);
+						if (config.api.key.length != 0) {
+							translation = response.data.translations[0].translatedText;
+						} else {
+							translation = response[0][0][0];
+						}
+						$('#TFg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+						$('#TBg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
 					}
 				};
 				request.send(null);
-			};
+			}
+		};
 
-
-			VoiceRecognition.onresult = function (event) {
-				var results = event.results;
-				spokenText = '';
-
-				for (let i = event.resultIndex; i < results.length; i++) {
-					spokenText += results[i][0].transcript;
+		const translateDeepl = (text, targetLangs) => {
+			if (config.api.key.length <= 0) return;
+			let query = 'https://api-free.deepl.com/v2/translate?auth_key=' + config.api.key + '&text=' + encodeURI(text) + '&source_lang=' + config.sub.lang + '&target_lang=' + targetLangs[0];
+			let request = new XMLHttpRequest();
+			request.open('GET', query, true);
+			request.onreadystatechange = function () {
+				if (request.readyState === 4 && request.status === 200) {
+					let response = JSON.parse(request.responseText);
+					console.log('translateDeepL', response);
+					let translation = response.translations[0].text;
+					$('#TFg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+					$('#TBg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
 				}
+			};
+			request.send(null);
+		};
 
-				for (let i = event.resultIndex; i < results.length; i++) {
-					if (!results[i].isFinal) {
-						if (config.pause_timer != 0) {
-							clearTimeout(pauseTimeout);
-							console.log('pauseTimeout', pauseTimeout, config.pause_timer);
-							pauseTimeout = setTimeout(pauseStop, config.pause_timer);
-						}
 
-						// if (config.word_censor == true) {
-						//     for (var j = 0; j < sexual_words.length; j++) {
-						//         if (spokenText.includes(sexual_words[j])) {
-						//             spokenText = spokenText.replace(sexual_words[j], "***");
-						//         }
-						//     }
-						// }
+		VoiceRecognition.onresult = function (event) {
+			var results = event.results;
+			spokenText = '';
 
-						console.log('[LIVE] ', spokenText);
+			for (let i = event.resultIndex; i < results.length; i++) {
+				spokenText += results[i][0].transcript;
+			}
 
-						if (spokenText.length > 0) {
-							$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
-							$('#SubFGText')[0].innerText = '<< ' + spokenText + ' >>';
-						}
-						return;
+			for (let i = event.resultIndex; i < results.length; i++) {
+				if (!results[i].isFinal) {
+					if (config.pause_timer != 0) {
+						clearTimeout(pauseTimeout);
+						console.log('pauseTimeout', pauseTimeout, config.pause_timer);
+						pauseTimeout = setTimeout(pauseStop, config.pause_timer);
 					}
-
-					if (spokenText.length <= 0) return;
-
-					console.log('Final', spokenText);
 
 					// if (config.word_censor == true) {
 					//     for (var j = 0; j < sexual_words.length; j++) {
@@ -197,48 +175,65 @@ function App() {
 					//     }
 					// }
 
-					$('#SubBGText')[0].innerText = spokenText;
-					$('#SubFGText')[0].innerText = spokenText;
+					console.log('[LIVE] ', spokenText);
 
-
-					if (config.reader_support == true) {
-						let bouyomiChanClient = new BouyomiChanClient();
-						bouyomiChanClient.talk(spokenText);
+					if (spokenText.length > 0) {
+						$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
+						$('#SubFGText')[0].innerText = '<< ' + spokenText + ' >>';
 					}
-
-					let targetLangs = [];
-
-					config.translations.forEach((translation) => {
-						targetLangs.push(translation.lang);
-					});
-
-					switch (config.api.type) {
-					case 'local':
-						translateLocal(spokenText, targetLangs);
-						break;
-					case 'libre':
-						translateLibre(spokenText, targetLangs);
-						break;
-					case 'google':
-						translateGoogle(spokenText, targetLangs);
-						break;
-					case 'deepl':
-						translateDeepl(spokenText, targetLangs);
-						break;
-					default:
-						break;
-					}
+					return;
 				}
 
-				if (config.delete_timer != 0) {
-					clearTimeout(deleteTimeout);
-					deleteTimeout = setTimeout(Delete, config.delete_timer);
+				if (spokenText.length <= 0) return;
+
+				console.log('Final', spokenText);
+
+				// if (config.word_censor == true) {
+				//     for (var j = 0; j < sexual_words.length; j++) {
+				//         if (spokenText.includes(sexual_words[j])) {
+				//             spokenText = spokenText.replace(sexual_words[j], "***");
+				//         }
+				//     }
+				// }
+
+				$('#SubBGText')[0].innerText = spokenText;
+				$('#SubFGText')[0].innerText = spokenText;
+
+
+				if (config.reader_support == true) {
+					let bouyomiChanClient = new BouyomiChanClient();
+					bouyomiChanClient.talk(spokenText);
 				}
-			};
-		}).catch((err) => {
-			console.log('err', err);
-			handleAudio();
-		});
+
+				let targetLangs = [];
+
+				config.translations.forEach((translation) => {
+					targetLangs.push(translation.lang);
+				});
+
+				switch (config.api.type) {
+				case 'local':
+					translateLocal(spokenText, targetLangs);
+					break;
+				case 'libre':
+					translateLibre(spokenText, targetLangs);
+					break;
+				case 'google':
+					translateGoogle(spokenText, targetLangs);
+					break;
+				case 'deepl':
+					translateDeepl(spokenText, targetLangs);
+					break;
+				default:
+					break;
+				}
+			}
+
+			if (config.delete_timer != 0) {
+				clearTimeout(deleteTimeout);
+				deleteTimeout = setTimeout(Delete, config.delete_timer);
+			}
+		};
 
 	};
 
