@@ -89,7 +89,7 @@
             margin: 0%;
         }
 
-        span {
+        & span {
             height: 100%;
         }
     }
