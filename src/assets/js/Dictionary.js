@@ -78,10 +78,10 @@ const Dictionary = {
 		'cn': '重量'
 	},
 	'borderWeight': {
-		'en': 'Border Weight',
-		'jp': '境界の重さ',
-		'kr': '경계 무게',
-		'cn': '边界重量'
+		'en': 'Border Size',
+		'jp': '境界のサイズ',
+		'kr': '경계 크기',
+		'cn': '边界大小'
 	},
 	'lang': {
 		'en': 'Language',
@@ -174,10 +174,10 @@ const Dictionary = {
 		'cn': '防止酱'
 	},
 	'wordCensor': {
-		'en': 'Word Censor',
-		'jp': 'ワードセンサー',
-		'kr': '단어 센서',
-		'cn': '词传感器'
+		'en': 'Censor Words',
+		'jp': '単語を検閲',
+		'kr': '단어 검열',
+		'cn': '审查词语'
 	},
 	'left': {
 		'en': 'Left',
