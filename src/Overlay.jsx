@@ -43,15 +43,6 @@ function Overlay() {
 		saveConfig(newConfig);
 	};
 
-	const setLanguageByText = (lang) => {
-		let newConfig = {
-			...config,
-			['lang']: lang,
-		};
-		setConfig(newConfig);
-		saveConfig(newConfig);
-	};
-
 	const addTranslation = () => {
 		let newConfig = {
 			...config,
@@ -92,11 +83,6 @@ function Overlay() {
 			let encodedConfig = btoa(JSON.stringify(Config));
 			localStorage.setItem('config', encodedConfig);
 			setConfig(Config);
-			let userLang = navigator.language || navigator.userLanguage;
-			if (userLang.includes('ja')) setLanguageByText('jp');
-			else if (userLang.includes('ko')) setLanguageByText('kr');
-			else if (userLang.includes('zh')) setLanguageByText('cn');
-			else setLanguageByText('en');
 		}
 	};
 
@@ -305,13 +291,13 @@ function Overlay() {
 						<div className="button langButton" name='en' onClick={setLanguage}>
 							English
 						</div>
-						<div className="button langButton" name='jp' onClick={setLanguage}>
+						<div className="button langButton" name='ja' onClick={setLanguage}>
 							日本語
 						</div>
-						<div className="button langButton" name='kr' onClick={setLanguage}>
+						<div className="button langButton" name='ko' onClick={setLanguage}>
 							한국인
 						</div>
-						<div className="button langButton" name='cn' onClick={setLanguage}>
+						<div className="button langButton" name='zh' onClick={setLanguage}>
 							中國人
 						</div>
 					</div>

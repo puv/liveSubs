@@ -3,14 +3,14 @@ let Config = {
 		'type': 'google',
 		'key': '',
 	},
-	'lang': 'en',
+	'lang': getLang(),
 	'sub': {
 		'color': '#ffffff',
 		'border_color': '#000000',
 		'size': 36,
 		'weight': 900,
 		'border_width': 5,
-		'lang': 'ja',
+		'lang': getLang(),
 		'font': 'YasashisaB',
 	},
 	'translations': [],
@@ -24,5 +24,14 @@ let Config = {
 	'pos_v': 'bottom',
 	'white_space': 'normal',
 };
+
+function getLang() {
+	let lang = navigator.language || navigator.userLanguage || 'en';
+	lang = lang.toLowerCase();
+	if (lang.includes('ja')) return 'ja';
+	else if (lang.includes('ko')) return 'ko';
+	else if (lang.includes('zh')) return 'zh';
+	else return 'en';
+}
 
 export default Config;

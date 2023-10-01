@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import './assets/css/App.css';
 import './assets/css/Fonts.css';
 import Config from './assets/js/Config';
+import Dictionary from './assets/js/Dictionary';
 import $ from 'jquery';
 
 function App() {
@@ -40,9 +41,16 @@ function App() {
 		try {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 		} catch (e) {
+			localStorage.setItem('config', btoa(JSON.stringify(Config)));
 			window.location.reload();
 		}
-		var VoiceRecognition = new webkitSpeechRecognition();
+		let VoiceRecognition;
+		try {
+			VoiceRecognition = new webkitSpeechRecognition();
+		} catch (e) {
+			window.alert(Dictionary['browser_not_supported'][config.lang]);
+			window.location.reload();
+		}
 		VoiceRecognition.continuous = true;
 		VoiceRecognition.interimResults = true;
 		VoiceRecognition.lang = config.sub.lang;
@@ -229,20 +237,20 @@ function App() {
 				});
 
 				switch (config.api.type) {
-					case 'local':
-						translateLocal(spokenText, targetLangs);
-						break;
-					case 'libre':
-						translateLibre(spokenText, targetLangs);
-						break;
-					case 'google':
-						translateGoogle(spokenText, targetLangs);
-						break;
-					case 'deepl':
-						translateDeepl(spokenText, targetLangs);
-						break;
-					default:
-						break;
+				case 'local':
+					translateLocal(spokenText, targetLangs);
+					break;
+				case 'libre':
+					translateLibre(spokenText, targetLangs);
+					break;
+				case 'google':
+					translateGoogle(spokenText, targetLangs);
+					break;
+				case 'deepl':
+					translateDeepl(spokenText, targetLangs);
+					break;
+				default:
+					break;
 				}
 			}
 
@@ -276,13 +284,13 @@ function App() {
 						style={{
 							WebkitTextStroke: `${config.sub.border_width}pt ${config.sub.border_color}`,
 						}}>
-						Text 1
+						{Dictionary['subtitle'][config.lang]}
 					</div>
 					<div className="text_fg" id="SubFGText"
 						style={{
 							color: config.sub.color,
 						}}>
-						Text 1
+						{Dictionary['subtitle'][config.lang]}
 					</div>
 				</div>
 				{
@@ -299,13 +307,13 @@ function App() {
 									style={{
 										WebkitTextStroke: `${config.translations[index].border_width}pt ${config.translations[index].border_color}`,
 									}}>
-									{'Translation ' + (index + 1)}
+									{Dictionary['translation'][config.lang] + ' ' + (index + 1)}
 								</div>
 								<div className="text_fg" id="TFg" data-tr={index}
 									style={{
 										color: config.translations[index].color,
 									}}>
-									{'Translation ' + (index + 1)}
+									{Dictionary['translation'][config.lang] + ' ' + (index + 1)}
 								</div>
 							</div>
 						);
