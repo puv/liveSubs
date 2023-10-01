@@ -36,7 +36,12 @@ function App() {
 
 	const handleAudio = () => {
 		console.log('handleAudio');
-		let config = JSON.parse(atob(localStorage.getItem('config')));
+		let config;
+		try {
+			config = JSON.parse(atob(localStorage.getItem('config')));
+		} catch (e) {
+			window.location.reload();
+		}
 		var VoiceRecognition = new webkitSpeechRecognition();
 		VoiceRecognition.continuous = true;
 		VoiceRecognition.interimResults = true;
@@ -74,8 +79,20 @@ function App() {
 				VoiceRecognition.start();
 			}
 		};
-		VoiceRecognition.onerror = (e) => { console.log('onError', VoiceRecognition, e, e.error); VoiceRecognition.stop(); };
-		VoiceRecognition.onnomatch = (e) => { console.log('onNoMatch', VoiceRecognition, e); VoiceRecognition.stop(); };
+		VoiceRecognition.onerror = (e) => {
+			console.log('onError', VoiceRecognition, e, e.error);
+			if (e.error == 'not-allowed') {
+				window.alert('Please allow microphone access');
+			} else {
+				init = true;
+				VoiceRecognition.stop();
+			}
+		};
+		VoiceRecognition.onnomatch = (e) => {
+			console.log('onNoMatch', VoiceRecognition, e);
+			init = true;
+			VoiceRecognition.stop();
+		};
 
 		let pauseTimeout = 0;
 		const pauseStop = function () {
@@ -212,20 +229,20 @@ function App() {
 				});
 
 				switch (config.api.type) {
-				case 'local':
-					translateLocal(spokenText, targetLangs);
-					break;
-				case 'libre':
-					translateLibre(spokenText, targetLangs);
-					break;
-				case 'google':
-					translateGoogle(spokenText, targetLangs);
-					break;
-				case 'deepl':
-					translateDeepl(spokenText, targetLangs);
-					break;
-				default:
-					break;
+					case 'local':
+						translateLocal(spokenText, targetLangs);
+						break;
+					case 'libre':
+						translateLibre(spokenText, targetLangs);
+						break;
+					case 'google':
+						translateGoogle(spokenText, targetLangs);
+						break;
+					case 'deepl':
+						translateDeepl(spokenText, targetLangs);
+						break;
+					default:
+						break;
 				}
 			}
 
