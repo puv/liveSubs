@@ -59,6 +59,12 @@
             color: white;
             border: 1px solid #ddd;
             cursor: pointer;
+            animation: flash 1000ms infinite;
+
+            &:hover {
+                background-color: var(--success-hover);
+                animation: none;
+            }
         }
     }
 
@@ -158,5 +164,17 @@
                 background: var(--info-hover);
             }
         }
+    }
+}
+
+@keyframes flash {
+    0% {
+        filter:hue-rotate(0deg);
+    }
+    50% {
+        filter:hue-rotate(60deg);
+    }
+    100% {
+        filter:hue-rotate(0deg);
     }
 }

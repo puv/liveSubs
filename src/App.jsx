@@ -51,7 +51,7 @@ function App() {
 			window.alert(Dictionary['browser_not_supported'][config.lang]);
 			window.location.reload();
 		}
-		VoiceRecognition.continuous = true;
+		// VoiceRecognition.continuous = true;
 		VoiceRecognition.interimResults = true;
 		VoiceRecognition.lang = config.sub.lang;
 		VoiceRecognition.start();
@@ -60,26 +60,24 @@ function App() {
 
 		window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-		VoiceRecognition.onstart = (e) => {
-			console.log('onStart', VoiceRecognition, e);
+		VoiceRecognition.onstart = () => {
+			// console.log('onStart', VoiceRecognition, e);
 			config = JSON.parse(atob(localStorage.getItem('config')));
 		};
 		VoiceRecognition.onaudiostart = (e) => {
 			console.log('onAudioStart', VoiceRecognition, e);
 			init = true;
-		};
-		VoiceRecognition.onsoundstart = (e) => {
-			console.log('onSoundStart', VoiceRecognition, e);
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			if (VoiceRecognition.lang != config.sub.lang) {
 				VoiceRecognition.lang = config.sub.lang;
 				VoiceRecognition.stop();
 			}
 		};
-		VoiceRecognition.onspeechstart = (e) => console.log('onSoundStart', VoiceRecognition, e);
-		VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
-		VoiceRecognition.onsoundend = (e) => console.log('onSoundEnd', VoiceRecognition, e);
-		VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
+		// VoiceRecognition.onsoundstart = (e) => console.log('onSoundStart', VoiceRecognition, e);
+		// VoiceRecognition.onspeechstart = (e) => console.log('onSpeechStart', VoiceRecognition, e);
+		// VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
+		// VoiceRecognition.onsoundend = (e) => console.log('onSoundEnd', VoiceRecognition, e);
+		// VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
 		VoiceRecognition.onend = (e) => {
 			console.log('onEnd', VoiceRecognition, e);
 			if (init) {
@@ -105,7 +103,7 @@ function App() {
 		let pauseTimeout = 0;
 		const pauseStop = function () {
 			if (init == true) {
-				// console.log("Pause Stop")
+				console.log('Pause Stop', pauseTimeout, config.pause_timer);
 				VoiceRecognition.stop();
 			}
 		};
@@ -125,7 +123,33 @@ function App() {
 		const translateLocal = () => {
 		};
 
-		const translateLibre = () => {
+		const translateLibre = (text, targetLangs) => {
+			for (let i = 0; i < targetLangs.length; i++) {
+				let request = new XMLHttpRequest();
+
+				let query = 'http://193.122.7.216:5000/translate';
+				let body = {
+					q: text,
+					source: config.sub.lang,
+					target: targetLangs[i],
+					format: 'text',
+					api_key: ''
+				};
+
+				request.open('POST', query, true);
+
+				request.setRequestHeader('Content-Type', 'application/json');
+				request.send(JSON.stringify(body));
+
+				request.onreadystatechange = function () {
+					if (request.readyState === 4 && request.status === 200) {
+						let response = JSON.parse(request.responseText);
+						let translation = response.translatedText;
+						$('#TFg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+						$('#TBg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+					}
+				};
+			}
 		};
 
 		const translateGoogle = (text, targetLangs) => {
@@ -177,6 +201,7 @@ function App() {
 
 
 		VoiceRecognition.onresult = function (event) {
+			clearTimeout(pauseTimeout);
 			var results = event.results;
 			spokenText = '';
 
@@ -187,8 +212,7 @@ function App() {
 			for (let i = event.resultIndex; i < results.length; i++) {
 				if (!results[i].isFinal) {
 					if (config.pause_timer != 0) {
-						clearTimeout(pauseTimeout);
-						console.log('pauseTimeout', pauseTimeout, config.pause_timer);
+						console.log('pauseTimeout', pauseTimeout.toString(), config.pause_timer);
 						pauseTimeout = setTimeout(pauseStop, config.pause_timer);
 					}
 
@@ -200,7 +224,7 @@ function App() {
 					//     }
 					// }
 
-					console.log('[LIVE] ', spokenText);
+					// console.log('[LIVE] ', spokenText);
 
 					if (spokenText.length > 0) {
 						$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
@@ -208,6 +232,8 @@ function App() {
 					}
 					return;
 				}
+
+				spokenText = spokenText.trim();
 
 				if (spokenText.length <= 0) return;
 
@@ -321,8 +347,6 @@ function App() {
 				}
 			</div>
 		</div>
-
-
 	);
 }
 

@@ -116,21 +116,20 @@ function Overlay() {
 							<td>
 								<select id="apiType" onChange={handleInput} name="api.type" value={config.api.type}>
 									<option value="local" disabled={true}>Local</option>
-									<option value="libre" disabled={true}>Libre Translate</option>
+									<option value="libre">Libre Translate</option>
 									<option value="google">Google</option>
 									<option value="deepl" disabled={true}>DeepL</option>
 								</select>
 							</td>
 							<td>
 								<input type="text" name="api_key" id="api_key"
-									size="60" onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libreTranslate'} />
+									size="60" onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
 								<br />
 								<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				{/* <span dangerouslySetInnerHTML={{ __html: Dictionary['api_explained'][config.lang] }}></span> */}
 				<table id="translationTable">
 					<thead>
 						<tr>
