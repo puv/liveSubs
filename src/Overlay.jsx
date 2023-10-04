@@ -173,7 +173,7 @@ function Overlay() {
 									{
 										Languages.map((lang) => {
 											return (
-												<option key={lang.code} value={lang.code}>{lang.name}</option>
+												<option key={lang.code} value={lang.code}>{lang.name.native} ({lang['name'][config.lang]})</option>
 											);
 										})
 									}
@@ -331,7 +331,7 @@ function TranslationOption(number, config, handleInput, deleteTranslation) {
 					{
 						Languages.map((lang) => {
 							return (
-								<option key={lang.code} value={lang.code}>{lang.name}</option>
+								<option key={lang.code} value={lang.code}>{lang.name.native} ({lang['name'][config.lang]})</option>
 							);
 						})
 					}
