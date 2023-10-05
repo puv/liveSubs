@@ -18,7 +18,7 @@ let Config = {
 	'reader_support': false,
 	'word_censor': false,
 	'lang_names': false,
-	'pause_timer': 500,
+	'pause_timer': 1000,
 	'delete_timer': 0,
 	'pos_h': 'left',
 	'pos_v': 'bottom',

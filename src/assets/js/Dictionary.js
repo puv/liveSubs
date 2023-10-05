@@ -12,13 +12,13 @@ const Dictionary = {
 		'zh': 'API金鑰'
 	},
 	'api_local_get': {
-		'en': 'API Key is not needed.',
+		'en': 'API Key is not required.',
 		'ja': 'APIキーは必要ありません。',
 		'ko': 'API 키가 필요하지 않습니다.',
 		'zh': '不需要API密钥。'
 	},
 	'api_libre_get': {
-		'en': 'API Key is not needed.',
+		'en': 'API Key is not required.',
 		'ja': 'APIキーは必要ありません。',
 		'ko': 'API 키가 필요하지 않습니다.',
 		'zh': '不需要API密钥。'

@@ -67,15 +67,15 @@ function App() {
 		VoiceRecognition.onaudiostart = (e) => {
 			console.log('onAudioStart', VoiceRecognition, e);
 			init = true;
-			config = JSON.parse(atob(localStorage.getItem('config')));
-			if (VoiceRecognition.lang != config.sub.lang) {
+			if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
+				config = JSON.parse(atob(localStorage.getItem('config')));
 				VoiceRecognition.lang = config.sub.lang;
 				VoiceRecognition.stop();
 			}
 		};
 		// VoiceRecognition.onsoundstart = (e) => console.log('onSoundStart', VoiceRecognition, e);
-		// VoiceRecognition.onspeechstart = (e) => console.log('onSpeechStart', VoiceRecognition, e);
-		// VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
+		VoiceRecognition.onspeechstart = (e) => console.log('onSpeechStart', VoiceRecognition, e);
+		VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
 		// VoiceRecognition.onsoundend = (e) => console.log('onSoundEnd', VoiceRecognition, e);
 		// VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
 		VoiceRecognition.onend = (e) => {
@@ -100,7 +100,7 @@ function App() {
 			VoiceRecognition.stop();
 		};
 
-		let pauseTimeout = 0;
+		let pauseTimeout;
 		const pauseStop = function () {
 			if (init == true) {
 				console.log('Pause Stop', pauseTimeout, config.pause_timer);
@@ -108,7 +108,7 @@ function App() {
 			}
 		};
 
-		let deleteTimeout = 0;
+		let deleteTimeout;
 		const Delete = function () {
 			$('#SubBGText')[0].innerText = '';
 			$('#SubFGText')[0].innerText = '';
@@ -212,7 +212,7 @@ function App() {
 			for (let i = event.resultIndex; i < results.length; i++) {
 				if (!results[i].isFinal) {
 					if (config.pause_timer != 0) {
-						console.log('pauseTimeout', pauseTimeout.toString(), config.pause_timer);
+						// console.log('pauseTimeout', config.pause_timer);
 						pauseTimeout = setTimeout(pauseStop, config.pause_timer);
 					}
 
@@ -224,7 +224,7 @@ function App() {
 					//     }
 					// }
 
-					// console.log('[LIVE] ', spokenText);
+					console.log('[LIVE] ', spokenText, event);
 
 					if (spokenText.length > 0) {
 						$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
