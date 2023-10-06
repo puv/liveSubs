@@ -2,15 +2,20 @@ import React from 'react';
 import { useState } from 'react';
 import './assets/css/Overlay.css';
 import Dictionary from './assets/js/Dictionary.js';
-import Config from './assets/js/Config';
+import getConfig from './assets/js/Config';
 import { useEffect } from 'react';
 import $ from 'jquery';
 import Languages from './assets/js/Languages';
 import Fonts from './assets/js/Fonts';
 
+import PropTypes from 'prop-types';
 
-function Overlay() {
-	const [config, setConfig] = useState(Config);
+Overlay.propTypes = {
+	config: PropTypes.object.isRequired,
+};
+
+
+function Overlay( { config } ) {
 	const [inputDevices, setInputDevices] = useState([]);
 	const [outputDevices, setOutputDevices] = useState([]);
 
@@ -22,7 +27,6 @@ function Overlay() {
 			currentConfig = currentConfig[keys[i]];
 		}
 		currentConfig[keys[keys.length - 1]] = e.target.value;
-		setConfig(newConfig);
 		saveConfig(newConfig);
 	};
 
@@ -41,7 +45,6 @@ function Overlay() {
 			...config,
 			['lang']: e.target.getAttribute('name'),
 		};
-		setConfig(newConfig);
 		saveConfig(newConfig);
 	};
 
@@ -62,7 +65,6 @@ function Overlay() {
 				}
 			]
 		};
-		setConfig(newConfig);
 		saveConfig(newConfig);
 	};
 
@@ -71,22 +73,10 @@ function Overlay() {
 			...config,
 			['translations']: config['translations'].filter((_, i) => i !== parseInt(e.target.getAttribute('name').split('.')[1])),
 		};
-		setConfig(newConfig);
 		saveConfig(newConfig);
 	};
 
 	const onPageLoad = () => {
-		let parsedConfig = null;
-		if (localStorage.getItem('config')) {
-			let stringConfig = atob(localStorage.getItem('config'));
-			parsedConfig = JSON.parse(stringConfig);
-			setConfig(parsedConfig);
-		} else {
-			let encodedConfig = btoa(JSON.stringify(Config));
-			localStorage.setItem('config', encodedConfig);
-			setConfig(Config);
-		}
-
 		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
 			console.log('Got stream');
 			navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -108,8 +98,7 @@ function Overlay() {
 	}, []);
 
 	const resetSettings = () => {
-		let newConfig = Config;
-		setConfig(newConfig);
+		let newConfig = getConfig();
 		saveConfig(newConfig);
 	};
 

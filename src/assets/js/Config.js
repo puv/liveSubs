@@ -25,6 +25,28 @@ let Config = {
 	'white_space': 'normal',
 };
 
+function getConfig() {
+	const config = localStorage.getItem('config');
+	if (config === null) return Config;
+
+	const bytesConfig = atob(config);
+	const configObj = updateConfig(JSON.parse(bytesConfig)) || Config;
+	return configObj;
+}
+
+function updateConfig(configObj) {
+	if (configObj === null) return null;
+
+	const keys = Object.keys(getConfig);
+	for (const key of keys) {
+		if (configObj[key] === undefined) {
+			configObj[key] = Config[key];
+		}
+	}
+
+	return configObj;
+}
+
 function getLang() {
 	let lang = navigator.language || navigator.userLanguage || 'en';
 	lang = lang.toLowerCase();
@@ -34,4 +56,4 @@ function getLang() {
 	else return 'en';
 }
 
-export default Config;
+export default getConfig;
