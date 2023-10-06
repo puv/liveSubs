@@ -1,4 +1,7 @@
 import $ from 'jquery';
+import BouyomiChanClient from './BouyomiChanClient';
+import Dictionary from './Dictionary';
+import getConfig from './Config';
 
 const handleAudio = (config) => {
 	console.log('handleAudio');
@@ -11,6 +14,7 @@ const handleAudio = (config) => {
 	}
 	let VoiceRecognition;
 	try {
+		// eslint-disable-next-line no-undef
 		VoiceRecognition = new webkitSpeechRecognition();
 	} catch (e) {
 		window.alert(Dictionary['browser_not_supported'][config.lang]);
@@ -149,19 +153,23 @@ const handleAudio = (config) => {
 
 	const translateDeepl = (text, targetLangs) => {
 		if (config.api.key.length <= 0) return;
-		let query = 'https://api-free.deepl.com/v2/translate?auth_key=' + config.api.key + '&text=' + encodeURI(text) + '&source_lang=' + config.sub.lang + '&target_lang=' + targetLangs[0];
-		let request = new XMLHttpRequest();
-		request.open('GET', query, true);
-		request.onreadystatechange = function () {
-			if (request.readyState === 4 && request.status === 200) {
-				let response = JSON.parse(request.responseText);
-				console.log('translateDeepL', response);
-				let translation = response.translations[0].text;
-				$('#TFg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-				$('#TBg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-			}
-		};
-		request.send(null);
+		for (let i = 0; i < targetLangs.length; i++) {
+			let request = new XMLHttpRequest();
+			let query = 'https://api-free.deepl.com/v2/translate?auth_key=' + config.api.key + '&text=' + encodeURI(text) + '&source_lang=' + config.sub.lang + '&target_lang=' + targetLangs[0];
+			
+			request.open('GET', query, true);
+			
+			request.onreadystatechange = function () {
+				if (request.readyState === 4 && request.status === 200) {
+					let response = JSON.parse(request.responseText);
+					console.log('translateDeepL', response);
+					let translation = response.translations[0].text;
+					$('#TFg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+					$('#TBg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				}
+			};
+			request.send(null);
+		}
 	};
 
 
