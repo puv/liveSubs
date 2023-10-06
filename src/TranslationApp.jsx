@@ -42,7 +42,6 @@ function TranslationApp({ config }) {
 				<Subtitle config={config} />
 				{
 					config.translations.map((translation, index) => {
-						// console.log(translation);
 						return (
 							<Translation key={index} config={config} index={index} />
 						);

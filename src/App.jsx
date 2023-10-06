@@ -14,8 +14,10 @@ function App() {
 	 * Loads the config from localStorage if it exists, otherwise it creates it
 	 */
 	const onPageLoad = () => {
-		if (!localStorage.getItem('config')) return localStorage.setItem('config', btoa(JSON.stringify(config)));
-		updateConfig();
+		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(JSON.stringify(config)));
+		else updateConfig();
+
+		useAudioDevice();
 	};
 
 	/**
@@ -47,6 +49,21 @@ function App() {
 			let parsedConfig = JSON.parse(stringConfig);
 			setConfig(parsedConfig);
 		}
+	};
+
+	/**
+	 * Uses the audio device specified in the config
+	 */
+	const useAudioDevice = () => {
+		navigator.mediaDevices.getUserMedia({
+			audio: {
+				deviceId: {
+					exact: config.input_device,
+				}
+			}
+		}).then(stream => {
+			window.stream = stream;
+		});
 	};
 
 	return (

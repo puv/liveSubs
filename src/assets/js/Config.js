@@ -23,6 +23,8 @@ let Config = {
 	'pos_h': 'left',
 	'pos_v': 'bottom',
 	'white_space': 'normal',
+	'input_device': 'default',
+	'output_device': 'default',
 };
 
 /**

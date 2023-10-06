@@ -13,7 +13,7 @@ Overlay.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function Overlay( { config } ) {
+function Overlay({ config }) {
 	const [inputDevices, setInputDevices] = useState([]);
 	const [outputDevices, setOutputDevices] = useState([]);
 
@@ -122,15 +122,26 @@ function Overlay( { config } ) {
 	 * @param {Element} e 
 	 */
 	const handleDevice = (e) => {
-		let constraints = {
-			audio: {
-				deviceId: e.target.value ? { exact: e.target.value } : undefined,
-			}
-		};
-
-		navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-			window.stream = stream;
-		});
+		switch (e.target.id) {
+		case 'inputDevice':
+			config.input_device = e.target.value;
+			navigator.mediaDevices.getUserMedia({
+				audio: {
+					deviceId: e.target.value ? { exact: e.target.value } : undefined,
+				}
+			}).then((stream) => {
+				window.stream = stream;
+			});
+			console.log(e.target.value, config.input_device);
+			saveConfig(config);
+			break;
+		case 'outputDevice':
+			config.output_device = e.target.value;
+			saveConfig(config);
+			break;
+		default:
+			break;
+		}
 	};
 
 	return (
@@ -162,11 +173,11 @@ function Overlay( { config } ) {
 								<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
 							</td>
 							<td>
-								<select id="inputDevice" onChange={handleDevice} name="input_device" style={{
+								<select id="inputDevice" onChange={handleDevice} value={config.input_device} name="input_device" style={{
 									maxWidth: '15em'
 								}}>
 									{
-										inputDevices.length === 0 ? <option value="">{Dictionary['no_input_device'][config.lang]}</option> : 
+										inputDevices.length === 0 ? <option value="">{Dictionary['no_input_device'][config.lang]}</option> :
 											inputDevices.map((device) => {
 												return (
 													<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
@@ -176,11 +187,11 @@ function Overlay( { config } ) {
 								</select>
 							</td>
 							<td>
-								<select id="outputDevice" onChange={handleDevice} name="output_device" style={{
+								<select id="outputDevice" onChange={handleDevice} value={config.output_device} name="output_device" style={{
 									maxWidth: '15em'
 								}}>
 									{
-										outputDevices.length === 0 ? <option value="">{Dictionary['no_output_device'][config.lang]}</option> :
+										(outputDevices.length === 0) ? <option value="">{Dictionary['no_output_device'][config.lang]}</option> :
 											outputDevices.map((device) => {
 												return (
 													<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
