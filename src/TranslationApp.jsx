@@ -6,6 +6,8 @@ import './assets/css/Fonts.css';
 import getConfig from './assets/js/Config';
 import Dictionary from './assets/js/Dictionary';
 import $ from 'jquery';
+import Translation from './objects/Translation';
+import Subtitle from './objects/Subtitle';
 
 import PropTypes from 'prop-types';
 
@@ -287,50 +289,10 @@ function TranslationApp({ config }) {
 					bottom: config.pos_v == 'bottom' ? '0' : 'unset',
 					whiteSpace: config.white_space,
 				}}>
-				<div id='Sub'
-					style={{
-						fontSize: `${config.sub.size}px`,
-						fontFamily: config.sub.font,
-						fontWeight: config.sub.weight,
-						textAlign: config.pos_h,
-					}}>
-					<div className="text_bg" id="SubBGText"
-						style={{
-							WebkitTextStroke: `${config.sub.border_width}pt ${config.sub.border_color}`,
-						}}>
-						{Dictionary['subtitle'][config.lang]}
-					</div>
-					<div className="text_fg" id="SubFGText"
-						style={{
-							color: config.sub.color,
-						}}>
-						{Dictionary['subtitle'][config.lang]}
-					</div>
-				</div>
+				<Subtitle config={config} />
 				{
 					config.translations.map((translation, index) => {
-						return (
-							<div key={index} id="Translation" data-tr={index} data-lang={translation.lang}
-								style={{
-									fontSize: `${config.translations[index].size}px`,
-									fontFamily: config.translations[index].font,
-									fontWeight: config.translations[index].weight,
-									textAlign: config.pos_h,
-								}}>
-								<div className="text_bg" id="TBg" data-tr={index}
-									style={{
-										WebkitTextStroke: `${config.translations[index].border_width}pt ${config.translations[index].border_color}`,
-									}}>
-									{Dictionary['translation'][config.lang] + ' ' + (index + 1)}
-								</div>
-								<div className="text_fg" id="TFg" data-tr={index}
-									style={{
-										color: config.translations[index].color,
-									}}>
-									{Dictionary['translation'][config.lang] + ' ' + (index + 1)}
-								</div>
-							</div>
-						);
+						<Translation key={index} translation={translation} index={index} />;
 					})
 				}
 			</div>
