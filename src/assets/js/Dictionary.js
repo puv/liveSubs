@@ -288,6 +288,12 @@ const Dictionary = {
 		'ja': 'お使いのブラウザは音声認識に対応していません。Google ChromeまたはMicrosoft Edgeをご使用ください。',
 		'ko': '사용하고 계신 브라우저는 음성 인식을 지원하지 않습니다. Google Chrome 또는 Microsoft Edge를 사용하십시오.',
 		'zh': '您的浏览器不支持语音识别。 请使用Google Chrome或Microsoft Edge。'
+	},
+	'download': {
+		'en': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Download for Windows</a>',
+		'ja': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Windows用ダウンロード</a>',
+		'ko': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Windows 용 다운로드</a>',
+		'zh': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Windows下载</a>'
 	}
 };
 

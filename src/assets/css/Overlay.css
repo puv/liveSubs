@@ -164,6 +164,21 @@
                 background: var(--info-hover);
             }
         }
+
+        .downloadButton {
+            margin-top: 1em;
+            background: var(--info);
+            font-size: medium;
+
+            &:hover {
+                background: var(--info-hover);
+            }
+
+            & a {
+                color: white;
+                text-decoration: none;
+            }
+        }
     }
 }
 

@@ -337,6 +337,9 @@ function Overlay() {
 					<div className="credits">
 						<span dangerouslySetInnerHTML={{ __html: Dictionary['credits'][0][config.lang] }}></span>
 						<span dangerouslySetInnerHTML={{ __html: Dictionary['credits'][1][config.lang] }}></span>
+						<div className='button downloadButton'>
+							<span dangerouslySetInnerHTML={{ __html: Dictionary['download'][config.lang] }}></span>
+						</div>
 					</div>
 					<div className="language">
 						<div className="button langButton" name='en' onClick={setLanguage}>
