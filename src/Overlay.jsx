@@ -35,10 +35,6 @@ function Overlay( { config } ) {
 		localStorage.setItem('config', encodedConfig);
 	};
 
-	const closeOverlay = () => {
-		$('#overlay').css('display', 'none');
-	};
-
 	const setLanguage = (e) => {
 		let newConfig = {
 			...config,
@@ -95,11 +91,6 @@ function Overlay( { config } ) {
 			return () => window.removeEventListener('load', onPageLoad);
 		}
 	}, []);
-
-	const resetSettings = () => {
-		let newConfig = getConfig();
-		saveConfig(newConfig);
-	};
 
 	const handleDevice = (e) => {
 		let constraints = {
@@ -313,11 +304,15 @@ function Overlay( { config } ) {
 						display: 'flex',
 						gap: '1em',
 					}}>
-						<div className="button closeButton" onClick={closeOverlay}>
+						<div className="button closeButton" onClick={() => {
+							$('#overlay').css('display', 'none');
+						}}>
 							<a>{Dictionary['close'][config.lang]}</a>
 						</div>
 
-						<div className="button resetButton" onClick={resetSettings}>
+						<div className="button resetButton" onClick={() => {
+							saveConfig(getConfig());
+						}}>
 							<a>{Dictionary['reset'][config.lang]}</a>
 						</div>
 					</div>

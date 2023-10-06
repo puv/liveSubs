@@ -11,12 +11,12 @@ function App() {
 	const [config, setConfig] = useState(getConfig);
 
 	const onPageLoad = () => {
-		if (localStorage.getItem('config')) {
-			if (localStorage.getItem('config').localeCompare(btoa(JSON.stringify(config)))) {
-				let stringConfig = atob(localStorage.getItem('config'));
-				let parsedConfig = JSON.parse(stringConfig);
-				setConfig(parsedConfig);
-			}
+		if (!localStorage.getItem('config')) return localStorage.setItem('config', btoa(JSON.stringify(config)));
+
+		if (localStorage.getItem('config').localeCompare(btoa(JSON.stringify(config)))) {
+			let stringConfig = atob(localStorage.getItem('config'));
+			let parsedConfig = JSON.parse(stringConfig);
+			setConfig(parsedConfig);
 		}
 	};
 
