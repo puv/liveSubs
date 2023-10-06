@@ -10,12 +10,17 @@ function App() {
 
 	const [config, setConfig] = useState(getConfig);
 
+	/**
+	 * Loads the config from localStorage if it exists, otherwise it creates it
+	 */
 	const onPageLoad = () => {
 		if (!localStorage.getItem('config')) return localStorage.setItem('config', btoa(JSON.stringify(config)));
-
 		updateConfig();
 	};
 
+	/**
+	 * Checks if the page is loaded, then calls onPageLoad()
+	 */
 	useEffect(() => {
 		if (document.readyState === 'complete') {
 			onPageLoad();
@@ -25,10 +30,17 @@ function App() {
 		}
 	}, []);
 
+	/**
+	 * Attempts to update the config every 100ms
+	 * TODO: Find a better way to do this.
+	 */
 	setInterval(() => {
 		updateConfig();
 	}, 100);
 
+	/**
+	 * Updates the config if it has changed
+	 */
 	const updateConfig = () => {
 		if (localStorage.getItem('config') != (btoa(JSON.stringify(config)))) {
 			let stringConfig = atob(localStorage.getItem('config'));

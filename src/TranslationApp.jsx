@@ -15,6 +15,10 @@ TranslationApp.propTypes = {
 };
 
 function TranslationApp({ config }) {
+
+	/**
+	 * Checks if the page is loaded, then calls handleAudio()
+	 */
 	useEffect(() => {
 		if (document.readyState === 'complete') {
 			handleAudio(config);

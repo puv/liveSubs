@@ -17,6 +17,10 @@ function Overlay( { config } ) {
 	const [inputDevices, setInputDevices] = useState([]);
 	const [outputDevices, setOutputDevices] = useState([]);
 
+	/**
+	 * Handles input from the settings menu
+	 * @param {Element} e 
+	 */
 	const handleInput = (e) => {
 		console.log(e.target.name);
 		let newConfig = { ...config };
@@ -29,12 +33,20 @@ function Overlay( { config } ) {
 		saveConfig(newConfig);
 	};
 
+	/**
+	 * Saves the config to localStorage
+	 * @param {Object} config 
+	 */
 	const saveConfig = (config) => {
 		let stringConfig = JSON.stringify(config);
 		let encodedConfig = btoa(stringConfig);
 		localStorage.setItem('config', encodedConfig);
 	};
 
+	/**
+	 * Sets the language of the overlay
+	 * @param {Element} e 
+	 */
 	const setLanguage = (e) => {
 		let newConfig = {
 			...config,
@@ -43,6 +55,9 @@ function Overlay( { config } ) {
 		saveConfig(newConfig);
 	};
 
+	/**
+	 * Adds a translation to the config
+	 */
 	const addTranslation = () => {
 		let newConfig = {
 			...config,
@@ -63,6 +78,10 @@ function Overlay( { config } ) {
 		saveConfig(newConfig);
 	};
 
+	/**
+	 * Deletes a translation from the config
+	 * @param {Element} e 
+	 */
 	const deleteTranslation = (e) => {
 		let newConfig = {
 			...config,
@@ -71,6 +90,9 @@ function Overlay( { config } ) {
 		saveConfig(newConfig);
 	};
 
+	/**
+	 * Gets the input and output devices after the page loads
+	 */
 	const onPageLoad = () => {
 		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
 			console.log('Got stream');
@@ -83,6 +105,9 @@ function Overlay( { config } ) {
 		});
 	};
 
+	/**
+	 * Checks if the page is loaded, then calls onPageLoad()
+	 */
 	useEffect(() => {
 		if (document.readyState === 'complete') {
 			onPageLoad();
@@ -92,6 +117,10 @@ function Overlay( { config } ) {
 		}
 	}, []);
 
+	/**
+	 * Handles the input device selection
+	 * @param {Element} e 
+	 */
 	const handleDevice = (e) => {
 		let constraints = {
 			audio: {
@@ -99,7 +128,9 @@ function Overlay( { config } ) {
 			}
 		};
 
-		navigator.mediaDevices.getUserMedia(constraints);
+		navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+			window.stream = stream;
+		});
 	};
 
 	return (
