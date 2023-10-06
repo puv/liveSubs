@@ -25,6 +25,10 @@ let Config = {
 	'white_space': 'normal',
 };
 
+/**
+ * Get renewed config object
+ * @returns Config object
+ */
 function getConfig() {
 	const config = localStorage.getItem('config');
 	if (config === null) return Config;
@@ -34,6 +38,11 @@ function getConfig() {
 	return configObj;
 }
 
+/**
+ * Update config object with missing keys
+ * @param {Object} configObj Config object
+ * @returns New config object
+ */
 function updateConfig(configObj) {
 	if (configObj === null) return null;
 
@@ -47,6 +56,10 @@ function updateConfig(configObj) {
 	return configObj;
 }
 
+/**
+ * Retrieve supported language code browser
+ * @returns Language code
+ */
 function getLang() {
 	let lang = navigator.language || navigator.userLanguage || 'en';
 	lang = lang.toLowerCase();

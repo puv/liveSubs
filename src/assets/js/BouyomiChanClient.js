@@ -1,20 +1,21 @@
 /**
- * 接続先
+ * Access to BouyomiChan WebSocket Server
  */
 const HOST = 'localhost';
 const PORT = 50002;  // WebSocketサーバー経由
 
 /**
- * コンストラクタ
+ * BouyomiChanClient Class
  */
 const BouyomiChanClient = function () {
 };
 
 /**
- * 読み上げる
+ * Reads given text out loud
+ * @param {string} text 
  */
-BouyomiChanClient.prototype.talk = function (cmntStr) {
-	this.cmntStr = cmntStr;
+BouyomiChanClient.prototype.talk = function (text) {
+	this.text = text;
 	let _socket = new WebSocket('ws://' + HOST + ':' + PORT + '/ws/');
 	this.socket = _socket;
 	this.socket.binaryType = 'arraybuffer';
@@ -24,20 +25,19 @@ BouyomiChanClient.prototype.talk = function (cmntStr) {
 	this.socket.onmessage = this.socket_onmessage.bind(this);
 };
 
+
 /**
- * WebSocketが接続した
+ * On WebSocket Opened
  */
 BouyomiChanClient.prototype.socket_onopen = function () {
-	// 棒読みちゃんデータを生成
-	let data = this.makeBouyomiChanDataToSend(this.cmntStr);
+	let data = this.makeBouyomiChanDataToSend(this.text);
 	console.log('socket_onopen', data);
-	// 送信
 	this.socket.send(data.buffer);
 };
 
 
 /**
- * WebSocketが接続に失敗した
+ * On WebSocket Error
  */
 BouyomiChanClient.prototype.socket_onerror = function () {
 	console.log('socket_onerror');
@@ -46,39 +46,56 @@ BouyomiChanClient.prototype.socket_onerror = function () {
 };
 
 /**
- * WebSocketがクローズした
+ * On WebSocket Closed
  */
 BouyomiChanClient.prototype.socket_onclose = function () {
 	console.log('socket_onclose');
 };
 
 /**
- * WebSocketがデータを受信した
+ * On WebSocket Message
  */
 BouyomiChanClient.prototype.socket_onmessage = function (e) {
 	console.log('socket_onmessage', e.data);
 
-	// データ受信したら切断する
 	this.socket.close();
 };
 
 
 /**
- * 棒読みちゃんへ送信するデータの生成
+ * Generate data to send to BouyomiChan
+ * @param {string} text 
+ * @returns data
  */
-BouyomiChanClient.prototype.makeBouyomiChanDataToSend = function (cmntStr) {
-	let command = 0x0001; //[0-1]  (16Bit) コマンド          （ 0:メッセージ読み上げ）
-	let speed = -1; //[2-3]  (16Bit) 速度              （-1:棒読みちゃん画面上の設定）
-	let tone = -1; //[4-5]  (16Bit) 音程              （-1:棒読みちゃん画面上の設定）
-	let volume = -1; //[6-7]  (16Bit) 音量              （-1:棒読みちゃん画面上の設定）
-	let voice = 0; //[8-9]  (16Bit) 声質              （ 0:棒読みちゃん画面上の設定、1:女性1、2:女性2、3:男性1、4:男性2、5:中性、6:ロボット、7:機械1、8:機械2、10001～:SAPI5）
-	let code = 0; //[10]   ( 8Bit) 文字列の文字コード（ 0:UTF-8, 1:Unicode, 2:Shift-JIS）
-	let len = 0; //[11-14](32Bit) 文字列の長さ
+BouyomiChanClient.prototype.makeBouyomiChanDataToSend = function (text) {
+	let command = 0x0001;	//[0-1]		(16Bit)		Command			(0: Message Reading)
+	let speed = -1;			//[2-3]		(16Bit)		Speed				(-1: Settings on the Reader Screen)
+	let tone = -1;			//[4-5]		(16Bit)		Pitch				(-1: Settings on the Reader Screen)
+	let volume = -1;		//[6-7]		(16Bit)		Volume				(-1: Settings on the Reader Screen)
+	let voice = 0;			//[8-9]		(16Bit)		Voice
+	/*
+		0: Settings on the Reader Screen,
+		1: Female 1, 
+		2: Female 2, 
+		3: Male 1, 
+		4: Male 2, 
+		5: Neutral, 
+		6: Robot, 
+		7: Machine 1, 
+		8: Machine 2
+	*/													
+	let code = 0; 			//[10]		(8Bit)		Text encoding 
+	/*
+		0:UTF-8, 
+		1:Unicode, 
+		2:Shift-JIS
+	*/
+	let len = 0; 			//[11-14]	(32Bit)		Text length
 
-	let cmntByteArray = stringToUtf8ByteArray(cmntStr);
+	let textByteArray = stringToUtf8ByteArray(text);
 
-	len = cmntByteArray.length;
-	let bytesLen = 2 + 2 + 2 + 2 + 2 + 1 + 4 + cmntByteArray.length;
+	len = textByteArray.length;
+	let bytesLen = 2 + 2 + 2 + 2 + 2 + 1 + 4 + textByteArray.length;
 	let data = new Uint8Array(bytesLen);
 	let pos = 0;
 	data[pos++] = command & 0xFF;
@@ -96,16 +113,16 @@ BouyomiChanClient.prototype.makeBouyomiChanDataToSend = function (cmntStr) {
 	data[pos++] = (len >> 8) & 0xFF;
 	data[pos++] = (len >> 16) & 0xFF;
 	data[pos++] = (len >> 24) & 0xFF;
-	for (let i = 0; i < cmntByteArray.length; i++) {
-		data[pos++] = cmntByteArray[i];
+	for (let i = 0; i < textByteArray.length; i++) {
+		data[pos++] = textByteArray[i];
 	}
 	return data;
 };
 
-///////////////////////////////////////////////////////////////////////////////////////
-// Util
 /**
- * string --> UTF8 byteArray変換
+ * Convert string to UTF-8 byte array
+ * @param {string} str 
+ * @returns UTF-8 byte array
  */
 function stringToUtf8ByteArray(str) {
 	let out = [], p = 0;
