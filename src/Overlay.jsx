@@ -156,11 +156,12 @@ function Overlay() {
 									maxWidth: '15em'
 								}}>
 									{
-										inputDevices.map((device) => {
-											return (
-												<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
-											);
-										})
+										inputDevices.length === 0 ? <option value="">{Dictionary['no_input_device'][config.lang]}</option> : 
+											inputDevices.map((device) => {
+												return (
+													<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
+												);
+											})
 									}
 								</select>
 							</td>
@@ -169,11 +170,12 @@ function Overlay() {
 									maxWidth: '15em'
 								}}>
 									{
-										outputDevices.map((device) => {
-											return (
-												<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
-											);
-										})
+										outputDevices.length === 0 ? <option value="">{Dictionary['no_output_device'][config.lang]}</option> :
+											outputDevices.map((device) => {
+												return (
+													<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
+												);
+											})
 									}
 								</select>
 							</td>

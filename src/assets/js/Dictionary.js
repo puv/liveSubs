@@ -59,6 +59,18 @@ const Dictionary = {
 		'ko': '출력 장치',
 		'zh': '输出设备'
 	},
+	'no_input_device': {
+		'en': 'No Input Device',
+		'ja': '入力デバイスがありません',
+		'ko': '입력 장치가 없습니다',
+		'zh': '没有输入设备'
+	},
+	'no_output_device': {
+		'en': 'No Output Device',
+		'ja': '出力デバイスがありません',
+		'ko': '출력 장치가 없습니다',
+		'zh': '没有输出设备'
+	},
 	'type': {
 		'en': 'Type',
 		'ja': 'タイプ',
