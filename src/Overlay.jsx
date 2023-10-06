@@ -7,12 +7,11 @@ import Dictionary from './assets/js/Dictionary.js';
 import Fonts from './assets/js/Fonts';
 import Languages from './assets/js/Languages';
 import PropTypes from 'prop-types';
-import getConfig from './assets/js/Config';
+import { getNewConfig } from './assets/js/Config';
 
 Overlay.propTypes = {
 	config: PropTypes.object.isRequired,
 };
-
 
 function Overlay( { config } ) {
 	const [inputDevices, setInputDevices] = useState([]);
@@ -312,7 +311,7 @@ function Overlay( { config } ) {
 						</div>
 
 						<div className="button resetButton" onClick={() => {
-							saveConfig(getConfig());
+							saveConfig(getNewConfig());
 						}}>
 							<a>{Dictionary['reset'][config.lang]}</a>
 						</div>

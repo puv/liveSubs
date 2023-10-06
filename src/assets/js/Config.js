@@ -69,4 +69,14 @@ function getLang() {
 	else return 'en';
 }
 
+/**
+ * Returns default config object
+ * @returns New config object
+ */
+function getNewConfig() {
+	return Config;
+}
+
 export default getConfig;
+
+export { getNewConfig };
