@@ -13,11 +13,7 @@ function App() {
 	const onPageLoad = () => {
 		if (!localStorage.getItem('config')) return localStorage.setItem('config', btoa(JSON.stringify(config)));
 
-		if (localStorage.getItem('config').localeCompare(btoa(JSON.stringify(config)))) {
-			let stringConfig = atob(localStorage.getItem('config'));
-			let parsedConfig = JSON.parse(stringConfig);
-			setConfig(parsedConfig);
-		}
+		updateConfig();
 	};
 
 	useEffect(() => {
@@ -30,8 +26,16 @@ function App() {
 	}, []);
 
 	setInterval(() => {
-		onPageLoad();
+		updateConfig();
 	}, 100);
+
+	const updateConfig = () => {
+		if (localStorage.getItem('config') != (btoa(JSON.stringify(config)))) {
+			let stringConfig = atob(localStorage.getItem('config'));
+			let parsedConfig = JSON.parse(stringConfig);
+			setConfig(parsedConfig);
+		}
+	};
 
 	return (
 		<>

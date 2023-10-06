@@ -19,8 +19,8 @@ function TranslationApp({ config }) {
 		if (document.readyState === 'complete') {
 			handleAudio(config);
 		} else {
-			window.addEventListener('load', onPageLoad, false);
-			return () => window.removeEventListener('load', onPageLoad);
+			window.addEventListener('load', handleAudio(config), false);
+			return () => window.removeEventListener('load', handleAudio(config));
 		}
 	}, []);
 

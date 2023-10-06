@@ -154,3 +154,5 @@ function stringToUtf8ByteArray(str) {
 	}
 	return out;
 }
+
+export default BouyomiChanClient;

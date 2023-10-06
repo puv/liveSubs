@@ -19,6 +19,7 @@ function Overlay( { config } ) {
 	const [outputDevices, setOutputDevices] = useState([]);
 
 	const handleInput = (e) => {
+		console.log(e.target.name);
 		let newConfig = { ...config };
 		const keys = e.target.name.split('.');
 		let currentConfig = newConfig;
