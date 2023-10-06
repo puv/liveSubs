@@ -1,19 +1,16 @@
 import './assets/css/Overlay.css';
 
+import { Config, getConfig, getNewConfig } from './assets/js/Config';
 import React, { useEffect, useState } from 'react';
 
 import $ from 'jquery';
 import Dictionary from './assets/js/Dictionary.js';
 import Fonts from './assets/js/Fonts';
 import Languages from './assets/js/Languages';
-import PropTypes from 'prop-types';
-import { getNewConfig } from './assets/js/Config';
 
-Overlay.propTypes = {
-	config: PropTypes.object.isRequired,
-};
+function Overlay() {
+	const [config, setConfig] = useState(getConfig() || Config);
 
-function Overlay({ config }) {
 	const [inputDevices, setInputDevices] = useState([]);
 	const [outputDevices, setOutputDevices] = useState([]);
 
@@ -22,14 +19,15 @@ function Overlay({ config }) {
 	 * @param {Element} e 
 	 */
 	const handleInput = (e) => {
-		console.log(e.target.name);
 		let newConfig = { ...config };
 		const keys = e.target.name.split('.');
+		console.log(e.target.name, e.target.value);
 		let currentConfig = newConfig;
 		for (let i = 0; i < keys.length - 1; i++) {
 			currentConfig = currentConfig[keys[i]];
 		}
-		currentConfig[keys[keys.length - 1]] = e.target.value;
+		currentConfig[keys[keys.length - 1]] = e.target.type == 'checkbox' ? !currentConfig[keys[keys.length - 1]] : e.target.value;
+		console.log(e.target);
 		saveConfig(newConfig);
 	};
 
@@ -41,6 +39,7 @@ function Overlay({ config }) {
 		let stringConfig = JSON.stringify(config);
 		let encodedConfig = btoa(stringConfig);
 		localStorage.setItem('config', encodedConfig);
+		setConfig(config);
 	};
 
 	/**

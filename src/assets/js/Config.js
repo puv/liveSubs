@@ -81,4 +81,4 @@ function getNewConfig() {
 
 export default getConfig;
 
-export { getNewConfig };
+export { getNewConfig, Config, getConfig };

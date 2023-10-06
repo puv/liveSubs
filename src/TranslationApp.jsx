@@ -3,18 +3,24 @@
 import './assets/css/App.css';
 import './assets/css/Fonts.css';
 
-import React, { useEffect } from 'react';
+import { Config, getConfig } from './assets/js/Config';
+import React, { useEffect, useState } from 'react';
 
-import PropTypes from 'prop-types';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
 import handleAudio from './assets/js/AudioHandler';
 
-TranslationApp.propTypes = {
-	config: PropTypes.object.isRequired,
-};
+function TranslationApp() {
+	const [config, setConfig] = useState(getConfig() || Config);
 
-function TranslationApp({ config }) {
+	setInterval(() => {
+		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(JSON.stringify(config)));
+		else if (btoa(JSON.stringify(config)) != localStorage.getItem('config')) {
+			let stringConfig = atob(localStorage.getItem('config'));
+			let parsedConfig = JSON.parse(stringConfig);
+			setConfig(parsedConfig);
+		}
+	}, 100);
 
 	/**
 	 * Checks if the page is loaded, then calls handleAudio()

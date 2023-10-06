@@ -1,34 +1,24 @@
 /* eslint-disable no-undef */
 
+import { Config, getConfig } from './assets/js/Config';
 import React, { useEffect, useState } from 'react';
 
 import Overlay from './Overlay';
 import TranslationApp from './TranslationApp';
-import getConfig from './assets/js/Config';
 
 function App() {
-
-	const [config, setConfig] = useState(getConfig);
-
-	/**
-	 * Loads the config from localStorage if it exists, otherwise it creates it
-	 */
-	const onPageLoad = () => {
-		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(JSON.stringify(config)));
-		else updateConfig();
-
-		useAudioDevice();
-	};
+	const [config, setConfig] = useState(getConfig() || Config);
 
 	/**
-	 * Checks if the page is loaded, then calls onPageLoad()
+	 * Checks if the page is loaded, then calls updateConfig() and useAudioDevice()
 	 */
 	useEffect(() => {
 		if (document.readyState === 'complete') {
-			onPageLoad();
+			updateConfig();
+			useAudioDevice();
 		} else {
-			window.addEventListener('load', onPageLoad, false);
-			return () => window.removeEventListener('load', onPageLoad);
+			window.addEventListener('load', updateConfig, false);
+			return () => window.removeEventListener('load', updateConfig);
 		}
 	}, []);
 
@@ -38,13 +28,14 @@ function App() {
 	 */
 	setInterval(() => {
 		updateConfig();
-	}, 100);
+	}, 1000);
 
 	/**
 	 * Updates the config if it has changed
 	 */
 	const updateConfig = () => {
-		if (localStorage.getItem('config') != (btoa(JSON.stringify(config)))) {
+		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(JSON.stringify(config)));
+		else if (btoa(JSON.stringify(config)) != localStorage.getItem('config')) {
 			let stringConfig = atob(localStorage.getItem('config'));
 			let parsedConfig = JSON.parse(stringConfig);
 			setConfig(parsedConfig);
@@ -55,6 +46,7 @@ function App() {
 	 * Uses the audio device specified in the config
 	 */
 	const useAudioDevice = () => {
+		console.log('Using audio device', config.input_device);
 		navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
