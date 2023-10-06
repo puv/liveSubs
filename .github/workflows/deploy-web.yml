@@ -9,9 +9,12 @@ on:
 permissions:
   contents: write
 
+concurrency: 
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
-    concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
