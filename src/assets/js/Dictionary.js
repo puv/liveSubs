@@ -290,10 +290,10 @@ const Dictionary = {
 		'zh': '您的浏览器不支持语音识别。 请使用Google Chrome或Microsoft Edge。'
 	},
 	'download': {
-		'en': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Download for Windows</a>',
-		'ja': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Windows用ダウンロード</a>',
-		'ko': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Windows 용 다운로드</a>',
-		'zh': '<a target=\'_blank\' href=\'github.com/puv/liveSubs/releases/latest\'>Windows下载</a>'
+		'en': '<a target=\'_blank\' href=\'https://github.com/puv/liveSubs/releases/latest\'>Download for Windows</a>',
+		'ja': '<a target=\'_blank\' href=\'https://github.com/puv/liveSubs/releases/latest\'>Windows用ダウンロード</a>',
+		'ko': '<a target=\'_blank\' href=\'https://github.com/puv/liveSubs/releases/latest\'>Windows 용 다운로드</a>',
+		'zh': '<a target=\'_blank\' href=\'https://github.com/puv/liveSubs/releases/latest\'>Windows下载</a>'
 	}
 };
 
