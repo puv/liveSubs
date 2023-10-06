@@ -47,6 +47,18 @@ const Dictionary = {
 		'ko': '이게 뭔지 모르시나요?<a target=\'_blank\' href=\'http://www.sayonari.com/trans_asr/index_asr.html\'> 여기를 클릭하고 지침을 따르세요. </a>',
 		'zh': '不確定這是什麼？<a target=\'_blank\' href=\'http://www.sayonari.com/trans_asr/index_asr.html\'> 按一下此處並按照說明進行操作。</a>'
 	},
+	'input_device': {
+		'en': 'Input Device',
+		'ja': '入力デバイス',
+		'ko': '입력 장치',
+		'zh': '输入设备'
+	},
+	'output_device': {
+		'en': 'Output Device',
+		'ja': '出力デバイス',
+		'ko': '출력 장치',
+		'zh': '输出设备'
+	},
 	'type': {
 		'en': 'Type',
 		'ja': 'タイプ',

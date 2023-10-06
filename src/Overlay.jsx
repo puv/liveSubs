@@ -11,6 +11,8 @@ import Fonts from './assets/js/Fonts';
 
 function Overlay() {
 	const [config, setConfig] = useState(Config);
+	const [inputDevices, setInputDevices] = useState([]);
+	const [outputDevices, setOutputDevices] = useState([]);
 
 	const handleInput = (e) => {
 		let newConfig = { ...config };
@@ -84,6 +86,16 @@ function Overlay() {
 			localStorage.setItem('config', encodedConfig);
 			setConfig(Config);
 		}
+
+		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+			console.log('Got stream');
+			navigator.mediaDevices.enumerateDevices().then((devices) => {
+				console.log('Got devices');
+
+				setInputDevices(devices.filter((device) => device.kind === 'audioinput'));
+				setOutputDevices(devices.filter((device) => device.kind === 'audiooutput'));
+			});
+		});
 	};
 
 	useEffect(() => {
@@ -101,6 +113,16 @@ function Overlay() {
 		saveConfig(newConfig);
 	};
 
+	const handleDevice = (e) => {
+		let constraints = {
+			audio: {
+				deviceId: e.target.value ? { exact: e.target.value } : undefined,
+			}
+		};
+
+		navigator.mediaDevices.getUserMedia(constraints);
+	};
+
 	return (
 		<div id="overlay">
 			<div id="settings">
@@ -109,6 +131,8 @@ function Overlay() {
 						<tr>
 							<th>{Dictionary['api_type'][config.lang]}</th>
 							<th>{Dictionary['api_key'][config.lang]}</th>
+							<th>{Dictionary['input_device'][config.lang]}</th>
+							<th>{Dictionary['output_device'][config.lang]}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -126,6 +150,32 @@ function Overlay() {
 									size="60" onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
 								<br />
 								<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
+							</td>
+							<td>
+								<select id="inputDevice" onChange={handleDevice} name="input_device" style={{
+									maxWidth: '15em'
+								}}>
+									{
+										inputDevices.map((device) => {
+											return (
+												<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
+											);
+										})
+									}
+								</select>
+							</td>
+							<td>
+								<select id="outputDevice" onChange={handleDevice} name="output_device" style={{
+									maxWidth: '15em'
+								}}>
+									{
+										outputDevices.map((device) => {
+											return (
+												<option key={device.deviceId} value={device.deviceId}>{device.label}</option>
+											);
+										})
+									}
+								</select>
 							</td>
 						</tr>
 					</tbody>
@@ -260,7 +310,7 @@ function Overlay() {
 								<input type="checkbox" id="LangNames" onChange={handleInput} checked={config.lang_names} name="lang_names"></input>
 							</td>
 							<td>
-								<input type="checkbox" id="ChatReader" onChange={handleInput} checked={config.reader_support} name="reader_support"></input>
+								<input type="checkbox" id="ChatReader" onChange={handleInput} disabled={true} checked={config.reader_support} name="reader_support"></input>
 							</td>
 							<td>
 								<input type="checkbox" id="WordCensor" onChange={handleInput} disabled={true} checked={config.word_censor} name="word_censor"></input>
