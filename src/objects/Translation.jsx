@@ -14,7 +14,7 @@ Translation.propTypes = {
 
 function Translation({ config, index }) {
 	return (
-		<div key={index} id="Translation" data-tr={index} data-lang={translation.lang}
+		<div id="Translation" data-tr={index} data-lang={config.translations[index].lang}
 			style={{
 				fontSize: `${config.translations[index].size}px`,
 				fontFamily: config.translations[index].font,
