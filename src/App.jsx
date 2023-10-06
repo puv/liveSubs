@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-import React from 'react';
-import { useState, useEffect } from 'react';
-import getConfig from './assets/js/Config';
+
+import React, { useEffect, useState } from 'react';
+
 import Overlay from './Overlay';
 import TranslationApp from './TranslationApp';
+import getConfig from './assets/js/Config';
 
 function App() {
 

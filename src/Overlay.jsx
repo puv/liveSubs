@@ -1,14 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
 import './assets/css/Overlay.css';
-import Dictionary from './assets/js/Dictionary.js';
-import getConfig from './assets/js/Config';
-import { useEffect } from 'react';
-import $ from 'jquery';
-import Languages from './assets/js/Languages';
-import Fonts from './assets/js/Fonts';
 
+import React, { useEffect, useState } from 'react';
+
+import $ from 'jquery';
+import Dictionary from './assets/js/Dictionary.js';
+import Fonts from './assets/js/Fonts';
+import Languages from './assets/js/Languages';
 import PropTypes from 'prop-types';
+import getConfig from './assets/js/Config';
 
 Overlay.propTypes = {
 	config: PropTypes.object.isRequired,

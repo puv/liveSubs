@@ -1,15 +1,16 @@
 /* eslint-disable no-undef */
-import React from 'react';
-import { useEffect } from 'react';
+
 import './assets/css/App.css';
 import './assets/css/Fonts.css';
-import getConfig from './assets/js/Config';
-import Dictionary from './assets/js/Dictionary';
-import $ from 'jquery';
-import Translation from './objects/Translation';
-import Subtitle from './objects/Subtitle';
 
+import React, { useEffect } from 'react';
+
+import $ from 'jquery';
+import Dictionary from './assets/js/Dictionary';
 import PropTypes from 'prop-types';
+import Subtitle from './objects/Subtitle';
+import Translation from './objects/Translation';
+import getConfig from './assets/js/Config';
 
 TranslationApp.propTypes = {
 	config: PropTypes.object.isRequired,

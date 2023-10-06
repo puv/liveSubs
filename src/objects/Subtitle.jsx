@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
-import React from 'react';
+
 import './assets/css/App.css';
 import './assets/css/Fonts.css';
-import Dictionary from './assets/js/Dictionary';
 
+import Dictionary from './assets/js/Dictionary';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 Subtitle.propTypes = {
 	config: PropTypes.object.isRequired,
