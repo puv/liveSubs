@@ -20,9 +20,11 @@ const handleAudio = (config) => {
 		window.alert(Dictionary['browser_not_supported'][config.lang]);
 		window.location.reload();
 	}
-	// VoiceRecognition.continuous = true;
+	
+	VoiceRecognition.continuous = true;
 	VoiceRecognition.interimResults = true;
 	VoiceRecognition.lang = config.sub.lang;
+	useAudioDevice(config);
 	VoiceRecognition.start();
 
 	let init = false;
@@ -49,6 +51,11 @@ const handleAudio = (config) => {
 	// VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
 	VoiceRecognition.onend = (e) => {
 		console.log('onEnd', VoiceRecognition, e);
+		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
+			config = JSON.parse(atob(localStorage.getItem('config')));
+			VoiceRecognition.lang = config.sub.lang;
+			VoiceRecognition.stop();
+		}
 		if (init) {
 			init = false;
 			VoiceRecognition.start();
@@ -56,6 +63,11 @@ const handleAudio = (config) => {
 	};
 	VoiceRecognition.onerror = (e) => {
 		console.log('onError', VoiceRecognition, e, e.error);
+		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
+			config = JSON.parse(atob(localStorage.getItem('config')));
+			VoiceRecognition.lang = config.sub.lang;
+			VoiceRecognition.stop();
+		}
 		if (e.error == 'not-allowed') {
 			window.alert('Please allow microphone access');
 		} else {
@@ -65,6 +77,11 @@ const handleAudio = (config) => {
 	};
 	VoiceRecognition.onnomatch = (e) => {
 		console.log('onNoMatch', VoiceRecognition, e);
+		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
+			config = JSON.parse(atob(localStorage.getItem('config')));
+			VoiceRecognition.lang = config.sub.lang;
+			VoiceRecognition.stop();
+		}
 		init = true;
 		VoiceRecognition.stop();
 	};
@@ -284,6 +301,23 @@ const translateDeepl = (config, text, targetLangs) => {
 		};
 		request.send(null);
 	}
+};
+
+/**
+ * Selects the audio input device
+ * @param {Object} config 
+ */
+const useAudioDevice = (config) => {
+	console.log('Using audio device', config.input_device);
+	navigator.mediaDevices.getUserMedia({
+		audio: {
+			deviceId: {
+				exact: config.input_device,
+			}
+		}
+	}).then(stream => {
+		window.stream = stream;
+	});
 };
 
 export default handleAudio;

@@ -27,7 +27,6 @@ function Overlay() {
 			currentConfig = currentConfig[keys[i]];
 		}
 		currentConfig[keys[keys.length - 1]] = e.target.type == 'checkbox' ? !currentConfig[keys[keys.length - 1]] : e.target.value;
-		console.log(e.target);
 		saveConfig(newConfig);
 	};
 
@@ -140,6 +139,7 @@ function Overlay() {
 		default:
 			break;
 		}
+		window.location.reload();
 	};
 
 	return (
