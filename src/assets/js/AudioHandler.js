@@ -66,7 +66,6 @@ const handleAudio = (config) => {
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
-			VoiceRecognition.stop();
 		}
 		if (e.error == 'not-allowed') {
 			window.alert('Please allow microphone access');
@@ -80,7 +79,6 @@ const handleAudio = (config) => {
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
-			VoiceRecognition.stop();
 		}
 		init = true;
 		VoiceRecognition.stop();
