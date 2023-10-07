@@ -91,6 +91,7 @@ const handleAudio = (config) => {
 		if (init == true) {
 			console.log('Pause Stop', pauseTimeout, config.pause_timer);
 			VoiceRecognition.stop();
+			// handleTranslation(config, text, config.translations.map((translation) => translation.lang));
 		}
 	};
 
@@ -122,7 +123,7 @@ const handleAudio = (config) => {
 			if (!results[i].isFinal) {
 				if (config.pause_timer != 0) {
 					// console.log('pauseTimeout', config.pause_timer);
-					pauseTimeout = setTimeout(pauseStop, config.pause_timer);
+					pauseTimeout = setTimeout(pauseStop, config.pause_timer, spokenText);
 				}
 
 				// if (config.word_censor == true) {
@@ -133,7 +134,7 @@ const handleAudio = (config) => {
 				//     }
 				// }
 
-				console.log('[LIVE] ', spokenText, event);
+				console.log('[LIVE] ', spokenText);
 
 				if (spokenText.length > 0) {
 					$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
@@ -146,7 +147,8 @@ const handleAudio = (config) => {
 
 			if (spokenText.length <= 0) return;
 
-			console.log('Final', spokenText);
+			init = true;
+			VoiceRecognition.stop();
 
 			// if (config.word_censor == true) {
 			//     for (var j = 0; j < sexual_words.length; j++) {
@@ -165,28 +167,7 @@ const handleAudio = (config) => {
 				bouyomiChanClient.talk(spokenText);
 			}
 
-			let targetLangs = [];
-
-			config.translations.forEach((translation) => {
-				targetLangs.push(translation.lang);
-			});
-
-			switch (config.api.type) {
-			case 'local':
-				translateLocal(config, spokenText, targetLangs);
-				break;
-			case 'libre':
-				translateLibre(config, spokenText, targetLangs);
-				break;
-			case 'google':
-				translateGoogle(config, spokenText, targetLangs);
-				break;
-			case 'deepl':
-				translateDeepl(config, spokenText, targetLangs);
-				break;
-			default:
-				break;
-			}
+			handleTranslation(config, spokenText, config.translations.map((translation) => translation.lang));
 		}
 
 		if (config.delete_timer != 0) {
@@ -194,6 +175,26 @@ const handleAudio = (config) => {
 			deleteTimeout = setTimeout(Delete, config.delete_timer);
 		}
 	};
+};
+
+const handleTranslation = (config, text, targetLangs) => {
+	console.log('[ FINAL ]', text);
+	switch (config.api.type) {
+	case 'local':
+		translateLocal(config, text, targetLangs);
+		break;
+	case 'libre':
+		translateLibre(config, text, targetLangs);
+		break;
+	case 'google':
+		translateGoogle(config, text, targetLangs);
+		break;
+	case 'deepl':
+		translateDeepl(config, text, targetLangs);
+		break;
+	default:
+		break;
+	}
 };
 
 /**
