@@ -2,9 +2,10 @@ import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanClient';
 import Dictionary from './Dictionary';
 import getConfig from './Config';
+import { log } from './Logging';
 
 const handleAudio = (config) => {
-	console.log('handleAudio');
+	log('handleAudio');
     
 	try {
 		config = JSON.parse(atob(localStorage.getItem('config')));
@@ -32,11 +33,11 @@ const handleAudio = (config) => {
 	window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 	VoiceRecognition.onstart = () => {
-		// console.log('onStart', VoiceRecognition, e);
+		// log('onStart', VoiceRecognition, e);
 		config = JSON.parse(atob(localStorage.getItem('config')));
 	};
 	VoiceRecognition.onaudiostart = (e) => {
-		console.log('onAudioStart', VoiceRecognition, e);
+		log('onAudioStart', VoiceRecognition, e);
 		init = true;
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
@@ -44,13 +45,13 @@ const handleAudio = (config) => {
 			VoiceRecognition.stop();
 		}
 	};
-	// VoiceRecognition.onsoundstart = (e) => console.log('onSoundStart', VoiceRecognition, e);
-	VoiceRecognition.onspeechstart = (e) => console.log('onSpeechStart', VoiceRecognition, e);
-	VoiceRecognition.onspeechend = (e) => console.log('onSpeechEnd', VoiceRecognition, e);
-	// VoiceRecognition.onsoundend = (e) => console.log('onSoundEnd', VoiceRecognition, e);
-	// VoiceRecognition.onaudioend = (e) => console.log('onAudioEnd', VoiceRecognition, e);
+	// VoiceRecognition.onsoundstart = (e) => log('onSoundStart', VoiceRecognition, e);
+	VoiceRecognition.onspeechstart = (e) => log('onSpeechStart', VoiceRecognition, e);
+	VoiceRecognition.onspeechend = (e) => log('onSpeechEnd', VoiceRecognition, e);
+	// VoiceRecognition.onsoundend = (e) => log('onSoundEnd', VoiceRecognition, e);
+	// VoiceRecognition.onaudioend = (e) => log('onAudioEnd', VoiceRecognition, e);
 	VoiceRecognition.onend = (e) => {
-		console.log('onEnd', VoiceRecognition, e);
+		log('onEnd', VoiceRecognition, e);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
@@ -61,7 +62,7 @@ const handleAudio = (config) => {
 		}
 	};
 	VoiceRecognition.onerror = (e) => {
-		console.log('onError', VoiceRecognition, e, e.error);
+		log('onError', VoiceRecognition, e, e.error);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
@@ -74,7 +75,7 @@ const handleAudio = (config) => {
 		}
 	};
 	VoiceRecognition.onnomatch = (e) => {
-		console.log('onNoMatch', VoiceRecognition, e);
+		log('onNoMatch', VoiceRecognition, e);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
@@ -89,7 +90,7 @@ const handleAudio = (config) => {
      */
 	const pauseStop = function () {
 		if (init == true) {
-			console.log('Pause Stop', pauseTimeout, config.pause_timer);
+			log('Pause Stop', pauseTimeout, config.pause_timer);
 			VoiceRecognition.stop();
 			// handleTranslation(config, text, config.translations.map((translation) => translation.lang));
 		}
@@ -122,7 +123,7 @@ const handleAudio = (config) => {
 		for (let i = event.resultIndex; i < results.length; i++) {
 			if (!results[i].isFinal) {
 				if (config.pause_timer != 0) {
-					// console.log('pauseTimeout', config.pause_timer);
+					// log('pauseTimeout', config.pause_timer);
 					pauseTimeout = setTimeout(pauseStop, config.pause_timer, spokenText);
 				}
 
@@ -134,7 +135,7 @@ const handleAudio = (config) => {
 				//     }
 				// }
 
-				console.log('[LIVE] ', spokenText);
+				log('[LIVE] ', spokenText);
 
 				if (spokenText.length > 0) {
 					$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
@@ -178,7 +179,7 @@ const handleAudio = (config) => {
 };
 
 const handleTranslation = (config, text, targetLangs) => {
-	console.log('[ FINAL ]', text);
+	log('[ FINAL ]', text);
 	switch (config.api.type) {
 	case 'local':
 		translateLocal(config, text, targetLangs);
@@ -259,7 +260,7 @@ const translateGoogle = (config, text, targetLangs) => {
 			if (request.readyState === 4 && request.status === 200) {
 				let response = JSON.parse(request.responseText);
 				let translation;
-				console.log('translateGoogle', `[${targetLangs[i]}]`, response);
+				log('translateGoogle', `[${targetLangs[i]}]`, response);
 				if (config.api.key.length != 0) {
 					translation = response.data.translations[0].translatedText;
 				} else {
@@ -291,7 +292,7 @@ const translateDeepl = (config, text, targetLangs) => {
 		request.onreadystatechange = function () {
 			if (request.readyState === 4 && request.status === 200) {
 				let response = JSON.parse(request.responseText);
-				console.log('translateDeepL', response);
+				log('translateDeepL', response);
 				let translation = response.translations[0].text;
 				$('#TFg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
 				$('#TBg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
@@ -306,7 +307,7 @@ const translateDeepl = (config, text, targetLangs) => {
  * @param {Object} config 
  */
 const useAudioDevice = (config) => {
-	console.log('Using audio device', config.input_device);
+	log('Using audio device', config.input_device);
 	navigator.mediaDevices.getUserMedia({
 		audio: {
 			deviceId: {

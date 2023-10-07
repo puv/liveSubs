@@ -7,6 +7,7 @@ import $ from 'jquery';
 import Dictionary from './assets/js/Dictionary.js';
 import Fonts from './assets/js/Fonts';
 import Languages from './assets/js/Languages';
+import { log } from './assets/js/Logging';
 
 function Overlay() {
 	const [config, setConfig] = useState(getConfig() || Config);
@@ -21,7 +22,7 @@ function Overlay() {
 	const handleInput = (e) => {
 		let newConfig = { ...config };
 		const keys = e.target.name.split('.');
-		console.log(e.target.name, e.target.value);
+		log(e.target.name, e.target.value);
 		let currentConfig = newConfig;
 		for (let i = 0; i < keys.length - 1; i++) {
 			currentConfig = currentConfig[keys[i]];
@@ -93,9 +94,9 @@ function Overlay() {
 	 */
 	const onPageLoad = () => {
 		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-			console.log('Got stream');
+			log('Got stream');
 			navigator.mediaDevices.enumerateDevices().then((devices) => {
-				console.log('Got devices');
+				log('Got devices');
 
 				setInputDevices(devices.filter((device) => device.kind === 'audioinput'));
 				setOutputDevices(devices.filter((device) => device.kind === 'audiooutput'));

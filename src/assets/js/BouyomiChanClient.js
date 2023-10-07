@@ -1,3 +1,5 @@
+import { log } from './Logging';
+
 /**
  * Access to BouyomiChan WebSocket Server
  */
@@ -31,7 +33,7 @@ BouyomiChanClient.prototype.talk = function (text) {
  */
 BouyomiChanClient.prototype.socket_onopen = function () {
 	let data = this.makeBouyomiChanDataToSend(this.text);
-	console.log('socket_onopen', data);
+	log('socket_onopen', data);
 	this.socket.send(data.buffer);
 };
 
@@ -40,7 +42,7 @@ BouyomiChanClient.prototype.socket_onopen = function () {
  * On WebSocket Error
  */
 BouyomiChanClient.prototype.socket_onerror = function () {
-	console.log('socket_onerror');
+	log('socket_onerror');
 
 	this.socket.close();
 };
@@ -49,14 +51,14 @@ BouyomiChanClient.prototype.socket_onerror = function () {
  * On WebSocket Closed
  */
 BouyomiChanClient.prototype.socket_onclose = function () {
-	console.log('socket_onclose');
+	log('socket_onclose');
 };
 
 /**
  * On WebSocket Message
  */
 BouyomiChanClient.prototype.socket_onmessage = function (e) {
-	console.log('socket_onmessage', e.data);
+	log('socket_onmessage', e.data);
 
 	this.socket.close();
 };
