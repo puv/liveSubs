@@ -223,7 +223,7 @@ const translateLibre = (config, text, targetLangs) => {
 
 		request.open('POST', query, true);
 
-		request.setRequestHeader('Content-Type', 'Translationlication/json');
+		request.setRequestHeader('Content-Type', 'application/json');
 		request.send(JSON.stringify(body));
 
 		request.onreadystatechange = function () {
