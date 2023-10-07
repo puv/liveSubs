@@ -54,7 +54,6 @@ const handleAudio = (config) => {
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
-			VoiceRecognition.stop();
 		}
 		if (init) {
 			init = false;
