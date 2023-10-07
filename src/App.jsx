@@ -15,7 +15,6 @@ function App() {
 	useEffect(() => {
 		if (document.readyState === 'complete') {
 			updateConfig();
-			useAudioDevice();
 		} else {
 			window.addEventListener('load', updateConfig, false);
 			return () => window.removeEventListener('load', updateConfig);
@@ -42,26 +41,10 @@ function App() {
 		}
 	};
 
-	/**
-	 * Uses the audio device specified in the config
-	 */
-	const useAudioDevice = () => {
-		console.log('Using audio device', config.input_device);
-		navigator.mediaDevices.getUserMedia({
-			audio: {
-				deviceId: {
-					exact: config.input_device,
-				}
-			}
-		}).then(stream => {
-			window.stream = stream;
-		});
-	};
-
 	return (
 		<>
-			<TranslationApp config={config} />
-			<Overlay config={config} />
+			<TranslationApp />
+			<Overlay />
 		</>
 	);
 }

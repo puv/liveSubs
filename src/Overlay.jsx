@@ -126,12 +126,11 @@ function Overlay() {
 			config.input_device = e.target.value;
 			navigator.mediaDevices.getUserMedia({
 				audio: {
-					deviceId: e.target.value ? { exact: e.target.value } : undefined,
+					deviceId: e.target.value ? { exact: e.target.value } : 'default',
 				}
 			}).then((stream) => {
 				window.stream = stream;
 			});
-			console.log(e.target.value, config.input_device);
 			saveConfig(config);
 			break;
 		case 'outputDevice':
