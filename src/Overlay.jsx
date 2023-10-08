@@ -172,7 +172,7 @@ function Overlay() {
 								<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
 							</td>
 							<td>
-								<select id="inputDevice" onChange={handleDevice} value={config.input_device} name="input_device" style={{
+								<select id="inputDevice" onChange={handleDevice} disabled={true} value={config.input_device} name="input_device" style={{
 									maxWidth: '15em'
 								}}>
 									{
@@ -186,7 +186,7 @@ function Overlay() {
 								</select>
 							</td>
 							<td>
-								<select id="outputDevice" onChange={handleDevice} value={config.output_device} name="output_device" style={{
+								<select id="outputDevice" onChange={handleDevice} disabled={true} value={config.output_device} name="output_device" style={{
 									maxWidth: '15em'
 								}}>
 									{
