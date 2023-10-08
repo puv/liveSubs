@@ -1,14 +1,19 @@
 /* eslint-disable no-undef */
+let logCss = 'background-color: #348fff; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
+let warnCss = 'background-color: #ff9f00; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
+let errCss = 'background-color: #ff0000; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
+let reset = 'background-color: transparent; color: unset; font-weight: unset';
+
 const log = (...args) => {
-	console.log(`[${prettyTime(Date.now() - startTimestamp)}]`, ...args);
+	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, logCss, reset, ...args);
 };
 
 const warn = (...args) => {
-	console.warn(`[${prettyTime(Date.now() - startTimestamp)}]`, ...args);
+	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, warnCss, reset, ...args);
 };
 
-const error = (...args) => {
-	console.error(`[${prettyTime(Date.now() - startTimestamp)}]`, ...args);
+const err = (...args) => {
+	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, errCss, reset, ...args);
 };
 
 function prettyTime(milliseconds) {
@@ -22,4 +27,4 @@ function prettyTime(milliseconds) {
 	return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds_remainder.toString().padStart(3, '0')}`;
 }
 
-export { log, warn, error };
+export { log, warn, err };
