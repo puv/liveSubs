@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanClient';
 import Dictionary from './Dictionary';
-import getConfig from './Config';
+import { getConfig } from './Config';
 import { log } from './Logging';
 
 const handleAudio = (config) => {
@@ -10,7 +10,7 @@ const handleAudio = (config) => {
 	try {
 		config = JSON.parse(atob(localStorage.getItem('config')));
 	} catch (e) {
-		localStorage.setItem('config', btoa(JSON.stringify(getConfig)));
+		localStorage.setItem('config', btoa(JSON.stringify(getConfig())));
 		window.location.reload();
 	}
 	let VoiceRecognition;
@@ -69,6 +69,7 @@ const handleAudio = (config) => {
 		}
 		if (e.error == 'not-allowed') {
 			window.alert('Please allow microphone access');
+			navigator.mediaDevices.getUserMedia({ audio: true });
 		} else {
 			init = true;
 			VoiceRecognition.stop();

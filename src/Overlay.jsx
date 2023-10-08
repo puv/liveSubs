@@ -1,7 +1,7 @@
 import './assets/css/Overlay.css';
 
-import { Config, getConfig, getNewConfig } from './assets/js/Config';
 import React, { useEffect, useState } from 'react';
+import { getConfig, getNewConfig } from './assets/js/Config';
 
 import $ from 'jquery';
 import Dictionary from './assets/js/Dictionary.js';
@@ -10,7 +10,7 @@ import Languages from './assets/js/Languages';
 import { log } from './assets/js/Logging';
 
 function Overlay() {
-	const [config, setConfig] = useState(getConfig() || Config);
+	const [config, setConfig] = useState(getConfig());
 
 	const [inputDevices, setInputDevices] = useState([]);
 	const [outputDevices, setOutputDevices] = useState([]);

@@ -33,10 +33,9 @@ let Config = {
  */
 function getConfig() {
 	const config = localStorage.getItem('config');
-	if (config === null) return Config;
-
+	if (!config || (atob(config) == undefined)) return Config;
 	const bytesConfig = atob(config);
-	const configObj = updateConfig(JSON.parse(bytesConfig)) || Config;
+	const configObj = updateConfig(JSON.parse(bytesConfig || JSON.stringify(Config)));
 	return configObj;
 }
 

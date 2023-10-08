@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
 
-import { Config, getConfig } from './assets/js/Config';
 import React, { useEffect, useState } from 'react';
 
 import Overlay from './Overlay';
 import TranslationApp from './TranslationApp';
+import { getConfig } from './assets/js/Config';
 
 function App() {
-	const [config, setConfig] = useState(getConfig() || Config);
+	const [config, setConfig] = useState(getConfig());
 
 	/**
 	 * Checks if the page is loaded, then calls updateConfig() and useAudioDevice()
@@ -33,12 +33,8 @@ function App() {
 	 * Updates the config if it has changed
 	 */
 	const updateConfig = () => {
-		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(JSON.stringify(config)));
-		else if (btoa(JSON.stringify(config)) != localStorage.getItem('config')) {
-			let stringConfig = atob(localStorage.getItem('config'));
-			let parsedConfig = JSON.parse(stringConfig);
-			setConfig(parsedConfig);
-		}
+		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(getConfig()));
+		else if (btoa(JSON.stringify(config)) != localStorage.getItem('config')) setConfig(getConfig());
 	};
 
 	return (

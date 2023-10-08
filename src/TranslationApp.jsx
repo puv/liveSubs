@@ -3,15 +3,15 @@
 import './assets/css/App.css';
 import './assets/css/Fonts.css';
 
-import { Config, getConfig } from './assets/js/Config';
 import React, { useEffect, useState } from 'react';
 
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
+import { getConfig } from './assets/js/Config';
 import handleAudio from './assets/js/AudioHandler';
 
 function TranslationApp() {
-	const [config, setConfig] = useState(getConfig() || Config);
+	const [config, setConfig] = useState(getConfig());
 
 	setInterval(() => {
 		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(JSON.stringify(config)));
