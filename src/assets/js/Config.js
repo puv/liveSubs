@@ -47,6 +47,16 @@ function getConfig() {
 }
 
 /**
+ * Saves the config to localStorage
+ * @param {Object} config 
+ */
+const saveConfig = (config) => {
+	let stringConfig = JSON.stringify(config);
+	let encodedConfig = btoa(stringConfig);
+	localStorage.setItem('config', encodedConfig);
+};
+
+/**
  * Update config object with missing keys
  * @param {Object} configObj Config object
  * @returns New config object
@@ -87,4 +97,4 @@ function getNewConfig() {
 
 export default getConfig;
 
-export { getNewConfig, Config, getConfig };
+export { getNewConfig, Config, getConfig, saveConfig };
