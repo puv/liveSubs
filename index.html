@@ -8,11 +8,31 @@
 	<title>liveSubs</title>
 	<!-- Add SEO -->
 	<meta name="description" content="A free and open source live-caption & translation application for streaming.">
-	<meta name="keywords" content="live,subs,subtitles,captions,translation,streaming,open source,free,free software,free and open source,FOSS,open source software,open source project,open source projects,open source community,open source communities,open source development,open source developer,open source developers,open source contribution,open source contributions,open source contributions welcome,open source contribution welcome,open source contribution needed,open source contribution need,open source contribution needs,open source contribution wanted,open source contribution want,open source contribution wants,open source contribution required,open source contribution require,open source contribution requires,open source contribution request,open source contribution requests,open source contribution requesting,open source contribution request needed,open source contribution request need,open source contribution request needs,open source contribution request wanted,open source contribution request want,open source contribution request wants,open source contribution request required,open source contribution request require,open source contribution request requires,open source contribution request request,open source contribution request requests,open source contribution request requesting,open source contribution request request needed,open source contribution request request need,open source contribution request request needs,open source contribution request request wanted,open source contribution request request want,open source contribution request request wants,open source contribution request request required,open source contribution request request require,open source contribution request request requires">
+	<meta name="keywords"
+		content="live,subs,subtitles,captions,translation,streaming,open source,free,free software,free and open source,FOSS,open source software,open source project,open source projects,open source community,open source communities,open source development,open source developer,open source developers,open source contribution,open source contributions,open source contributions welcome,open source contribution welcome,open source contribution needed,open source contribution need,open source contribution needs,open source contribution wanted,open source contribution want,open source contribution wants,open source contribution required,open source contribution require,open source contribution requires,open source contribution request,open source contribution requests,open source contribution requesting,open source contribution request needed,open source contribution request need,open source contribution request needs,open source contribution request wanted,open source contribution request want,open source contribution request wants,open source contribution request required,open source contribution request require,open source contribution request requires,open source contribution request request,open source contribution request requests,open source contribution request requesting,open source contribution request request needed,open source contribution request request need,open source contribution request request needs,open source contribution request request wanted,open source contribution request request want,open source contribution request request wants,open source contribution request request required,open source contribution request request require,open source contribution request request requires">
 	<meta name="author" content="puv">
 
 	<script>
 		const startTimestamp = Date.now();
+
+		function dispatchStorageEvent(key, oldValue, newValue) {
+			const storageEvent = new Event('storage');
+			storageEvent.key = key;
+			storageEvent.oldValue = oldValue;
+			storageEvent.newValue = newValue;
+			window.dispatchEvent(storageEvent);
+		}
+
+		const originalSetItem = localStorage.setItem;
+		localStorage.setItem = function (key, value) {
+			console.log('localStorage.setItem() called');
+			const oldValue = localStorage.getItem(key);
+			originalSetItem.apply(this, arguments);
+			const newValue = localStorage.getItem(key);
+			if (newValue !== oldValue) {
+				dispatchStorageEvent(key, oldValue, newValue);
+			}
+		};
 	</script>
 
 	<!-- Google tag (gtag.js) -->

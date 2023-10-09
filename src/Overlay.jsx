@@ -1,17 +1,20 @@
 import './assets/css/Overlay.css';
 
 import React, { useEffect, useState } from 'react';
-import { getConfig, getNewConfig } from './assets/js/Config';
 
 import $ from 'jquery';
 import Dictionary from './assets/js/Dictionary.js';
 import Fonts from './assets/js/Fonts';
 import Languages from './assets/js/Languages';
+import PropTypes from 'prop-types';
+import { getNewConfig } from './assets/js/Config';
 import { log } from './assets/js/Logging';
 
-function Overlay() {
-	const [config, setConfig] = useState(getConfig());
+Overlay.propTypes = {
+	config: PropTypes.object.isRequired,
+};
 
+function Overlay({ config }) {
 	const [inputDevices, setInputDevices] = useState([]);
 	const [outputDevices, setOutputDevices] = useState([]);
 
@@ -39,7 +42,6 @@ function Overlay() {
 		let stringConfig = JSON.stringify(config);
 		let encodedConfig = btoa(stringConfig);
 		localStorage.setItem('config', encodedConfig);
-		setConfig(config);
 	};
 
 	/**

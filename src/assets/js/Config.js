@@ -34,9 +34,12 @@ let Config = {
 function getConfig() {
 	try {
 		const config = localStorage.getItem('config');
-		if (!config) return Config;
+		if (!config) {
+			localStorage.setItem('config', btoa(JSON.stringify(Config)));
+			return Config;
+		}
 		const bytesConfig = atob(config);
-		const configObj = updateConfig(JSON.parse(bytesConfig || JSON.stringify(Config)));
+		const configObj = updateConfigValues(JSON.parse(bytesConfig || JSON.stringify(Config)));
 		return configObj;
 	} catch (e) {
 		return Config;
@@ -48,7 +51,7 @@ function getConfig() {
  * @param {Object} configObj Config object
  * @returns New config object
  */
-function updateConfig(configObj) {
+function updateConfigValues(configObj) {
 	if (configObj === null) return null;
 
 	const keys = Object.keys(getConfig);
@@ -59,7 +62,7 @@ function updateConfig(configObj) {
 	}
 
 	return configObj;
-}
+}	
 
 /**
  * Retrieve supported language code browser
