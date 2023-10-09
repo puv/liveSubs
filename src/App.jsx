@@ -33,8 +33,8 @@ function App() {
 	 * Updates the config if it has changed
 	 */
 	const updateConfig = () => {
-		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(getConfig()));
-		else if (btoa(JSON.stringify(config)) != localStorage.getItem('config')) setConfig(getConfig());
+		if (!localStorage.getItem('config')) localStorage.setItem('config', btoa(config));
+		else if (btoa(JSON.stringify(config)) != localStorage.getItem('config')) setConfig(config);
 	};
 
 	return (

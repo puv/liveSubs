@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanClient';
 import Dictionary from './Dictionary';
-import { getConfig } from './Config';
 import { log } from './Logging';
 
 const handleAudio = (config) => {
@@ -10,7 +9,7 @@ const handleAudio = (config) => {
 	try {
 		config = JSON.parse(atob(localStorage.getItem('config')));
 	} catch (e) {
-		localStorage.setItem('config', btoa(JSON.stringify(getConfig())));
+		localStorage.setItem('config', btoa(JSON.stringify(config)));
 		window.location.reload();
 	}
 	let VoiceRecognition;

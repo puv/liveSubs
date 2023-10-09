@@ -34,7 +34,7 @@ let Config = {
 function getConfig() {
 	try {
 		const config = localStorage.getItem('config');
-		if (!config || (typeof(atob(config)) != Object)) return Config;
+		if (!config) return Config;
 		const bytesConfig = atob(config);
 		const configObj = updateConfig(JSON.parse(bytesConfig || JSON.stringify(Config)));
 		return configObj;
