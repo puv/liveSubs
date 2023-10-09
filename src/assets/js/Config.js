@@ -32,11 +32,15 @@ let Config = {
  * @returns Config object
  */
 function getConfig() {
-	const config = localStorage.getItem('config');
-	if (!config || (atob(config) == undefined)) return Config;
-	const bytesConfig = atob(config);
-	const configObj = updateConfig(JSON.parse(bytesConfig || JSON.stringify(Config)));
-	return configObj;
+	try {
+		const config = localStorage.getItem('config');
+		if (!config || (typeof(atob(config)) != Object)) return Config;
+		const bytesConfig = atob(config);
+		const configObj = updateConfig(JSON.parse(bytesConfig || JSON.stringify(Config)));
+		return configObj;
+	} catch (e) {
+		return Config;
+	}
 }
 
 /**
