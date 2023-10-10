@@ -21,7 +21,7 @@ const handleAudio = (config) => {
 		window.location.reload();
 	}
 	
-	VoiceRecognition.continuous = true;
+	// VoiceRecognition.continuous = true;
 	VoiceRecognition.interimResults = true;
 	VoiceRecognition.lang = config.sub.lang;
 	useAudioDevice(config);
