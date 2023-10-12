@@ -19,6 +19,7 @@ function Subtitle({ config }) {
 				fontFamily: config.sub.font,
 				fontWeight: config.sub.weight,
 				textAlign: config.pos_h,
+				minHeight: `${config.sub.size}pt`
 			}}>
 			<div className="text_bg" id="SubBGText"
 				style={{
