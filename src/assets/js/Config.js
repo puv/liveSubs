@@ -7,7 +7,7 @@ let Config = {
 	'sub': {
 		'color': '#ffffff',
 		'border_color': '#000000',
-		'size': 36,
+		'size': 16,
 		'weight': 900,
 		'border_width': 5,
 		'lang': getLang(),
@@ -20,7 +20,7 @@ let Config = {
 	'lang_names': false,
 	'pause_timer': 1000,
 	'delete_timer': 0,
-	'pos_h': 'left',
+	'pos_h': 'center',
 	'pos_v': 'bottom',
 	'white_space': 'normal',
 	'input_device': 'default',
