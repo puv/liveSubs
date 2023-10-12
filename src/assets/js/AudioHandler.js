@@ -39,7 +39,7 @@ const handleAudio = (config) => {
 		config = JSON.parse(atob(localStorage.getItem('config')));
 	};
 	VoiceRecognition.onaudiostart = (e) => {
-		log('onAudioStart', VoiceRecognition, e);
+		log('onAudioStart', [VoiceRecognition, e]);
 		init = true;
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
@@ -53,7 +53,7 @@ const handleAudio = (config) => {
 	// VoiceRecognition.onsoundend = (e) => log('onSoundEnd', VoiceRecognition, e);
 	// VoiceRecognition.onaudioend = (e) => log('onAudioEnd', VoiceRecognition, e);
 	VoiceRecognition.onend = (e) => {
-		log('onEnd', spokenText.length, VoiceRecognition, e);
+		log('onEnd', spokenText.length, [VoiceRecognition, e]);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
@@ -67,7 +67,7 @@ const handleAudio = (config) => {
 		}
 	};
 	VoiceRecognition.onerror = (e) => {
-		log('onError', VoiceRecognition, e, e.error);
+		log('onError', [VoiceRecognition, e], e.error);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
@@ -81,7 +81,7 @@ const handleAudio = (config) => {
 		}
 	};
 	VoiceRecognition.onnomatch = (e) => {
-		log('onNoMatch', VoiceRecognition, e);
+		log('onNoMatch', [VoiceRecognition, e]);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
