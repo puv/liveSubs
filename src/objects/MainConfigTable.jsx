@@ -3,13 +3,14 @@
 import '../assets/css/App.css';
 import '../assets/css/Fonts.css';
 
+import { addTranslation, deleteTranslation, saveConfig } from '../assets/js/Config';
+
 import Dictionary from '../assets/js/Dictionary';
 import Fonts from '../assets/js/Fonts';
 import Languages from '../assets/js/Languages';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { log } from '../assets/js/Logging';
-import { saveConfig } from '../assets/js/Config';
 
 MainConfig.propTypes = {
 	config: PropTypes.object.isRequired,
@@ -29,41 +30,6 @@ function MainConfig({ config }) {
 			currentConfig = currentConfig[keys[i]];
 		}
 		currentConfig[keys[keys.length - 1]] = e.target.type == 'checkbox' ? !currentConfig[keys[keys.length - 1]] : e.target.value;
-		saveConfig(newConfig);
-	};
-
-	/**
-	 * Adds a translation to the config
-	 */
-	const addTranslation = () => {
-		let newConfig = {
-			...config,
-			['translations']: [
-				...config['translations'],
-				{
-					'text': '',
-					'color': '#ffffff',
-					'border_color': '#000000',
-					'size': 36,
-					'weight': 900,
-					'border_width': 5,
-					'lang': 'en',
-					'font': 'YasashisaB',
-				}
-			]
-		};
-		saveConfig(newConfig);
-	};
-
-	/**
-	 * Deletes a translation from the config
-	 * @param {Element} e 
-	 */
-	const deleteTranslation = (e) => {
-		let newConfig = {
-			...config,
-			['translations']: config['translations'].filter((_, i) => i !== parseInt(e.target.getAttribute('name').split('.')[1])),
-		};
 		saveConfig(newConfig);
 	};
 

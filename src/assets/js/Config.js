@@ -95,6 +95,44 @@ function getNewConfig() {
 	return Config;
 }
 
+/**
+	 * Adds a translation to the config
+	 */
+const addTranslation = () => {
+	let config = getConfig();
+	let newConfig = {
+		...config,
+		['translations']: [
+			...config['translations'],
+			{
+				'text': '',
+				'color': '#ffffff',
+				'border_color': '#000000',
+				'size': 32,
+				'weight': 900,
+				'border_width': 5,
+				'lang': 'en',
+				'font': 'YasashisaB',
+			}
+		]
+	};
+	saveConfig(newConfig);
+};
+
+/**
+ * Deletes a translation from the config
+ * @param {Element} e 
+ */
+const deleteTranslation = (e) => {
+	let config = getConfig();
+	let newConfig = {
+		...config,
+		['translations']: config['translations'].filter((_, i) => i !== parseInt(e.target.getAttribute('name').split('.')[1])),
+	};
+	saveConfig(newConfig);
+};
+
+
 export default getConfig;
 
-export { getNewConfig, Config, getConfig, saveConfig };
+export { getNewConfig, addTranslation, deleteTranslation, Config, getConfig, saveConfig };
