@@ -38,6 +38,7 @@ function TranslationApp({ config }) {
 					top: config.pos_v == 'top' ? '0' : 'unset',
 					bottom: config.pos_v == 'bottom' ? '0' : 'unset',
 					whiteSpace: config.white_space,
+					gridTemplateRows: `${config.sub.size}pt ${config.translations.map((translation) => `${translation.size}pt `)}`
 				}}>
 				<Subtitle config={config} />
 				{

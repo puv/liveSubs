@@ -19,8 +19,9 @@ body {
 #wrapper {
   position: absolute;
   display: grid;
-  grid-template-rows: auto auto auto;
   width: 100%;
+  padding: 2px;
+  grid-gap: 2px;
 }
 
 #Sub {
