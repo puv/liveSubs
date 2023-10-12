@@ -95,7 +95,7 @@ function MainConfig({ config }) {
 					<td><input id="SubBorderColor" type="color" value={config.sub.border_color} name="sub.border_color" onInput={handleInput} /></td>
 					<td><input id="SubSize" type="range" value={config.sub.size} min="0" max="72" step="1" name="sub.size"
 						onInput={handleInput} />
-					<span id="_SubSize">{config.sub.size}</span>px</td>
+					<span id="_SubSize">{config.sub.size}</span>pt</td>
 					<td>
 						<input id="SubWeight" type="range" value={config.sub.weight} min="100" max="900" step="100" name="sub.weight"
 							onInput={handleInput} />
@@ -157,7 +157,7 @@ function TranslationOption(number, config, handleInput, deleteTranslation) {
 			<td><input type="color" value={config.translations[number].border_color} name={`translations.${number}.border_color`} onInput={handleInput} /></td>
 			<td><input type="range" value={config.translations[number].size} min="0" max="72" step="1" name={`translations.${number}.size`}
 				onInput={handleInput} />
-			<span>{config.translations[number].size}</span>px</td>
+			<span>{config.translations[number].size}</span>pt</td>
 			<td>
 				<input type="range" value={config.translations[number].weight} min="100" max="900" step="100" name={`translations.${number}.weight`}
 					onInput={handleInput} />

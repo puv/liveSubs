@@ -16,7 +16,7 @@ function Translation({ config, index }) {
 	return (
 		<div id="Translation" data-tr={index} data-lang={config.translations[index].lang}
 			style={{
-				fontSize: `${config.translations[index].size}px`,
+				fontSize: `${config.translations[index].size}pt`,
 				fontFamily: config.translations[index].font,
 				fontWeight: config.translations[index].weight,
 				textAlign: config.pos_h,

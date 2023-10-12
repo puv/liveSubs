@@ -15,7 +15,7 @@ function Subtitle({ config }) {
 	return (
 		<div id='Subtitle'
 			style={{
-				fontSize: `${config.sub.size}px`,
+				fontSize: `${config.sub.size}pt`,
 				fontFamily: config.sub.font,
 				fontWeight: config.sub.weight,
 				textAlign: config.pos_h,

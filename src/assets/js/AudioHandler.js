@@ -3,6 +3,12 @@ import BouyomiChanClient from './BouyomiChanClient';
 import Dictionary from './Dictionary';
 import { log } from './Logging';
 
+let VoiceRecognition;
+let init = false;
+let pauseTimeout;
+let deleteTimeout;
+let spokenText = '';
+
 const handleAudio = (config) => {
 	log('handleAudio');
     
@@ -12,7 +18,6 @@ const handleAudio = (config) => {
 		localStorage.setItem('config', btoa(JSON.stringify(config)));
 		window.location.reload();
 	}
-	let VoiceRecognition;
 	try {
 		// eslint-disable-next-line no-undef
 		VoiceRecognition = new webkitSpeechRecognition();
@@ -26,8 +31,6 @@ const handleAudio = (config) => {
 	VoiceRecognition.lang = config.sub.lang;
 	useAudioDevice(config);
 	VoiceRecognition.start();
-
-	let init = false;
 
 	window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -84,7 +87,6 @@ const handleAudio = (config) => {
 		VoiceRecognition.stop();
 	};
 
-	let pauseTimeout;
 	/**
      * Stops the voice recognition after a given time with no input
      */
@@ -96,7 +98,6 @@ const handleAudio = (config) => {
 		}
 	};
 
-	let deleteTimeout;
 	/**
      * Removes translated text from the screen
      */
@@ -104,12 +105,10 @@ const handleAudio = (config) => {
 		$('#SubBGText')[0].innerText = '';
 		$('#SubFGText')[0].innerText = '';
 		config.translations.forEach((translation, index) => {
-			$(`#TFg[data-tr="${index}"]`).innerText = '';
-			$(`#TBg[data-tr="${index}"]`).innerText = '';
+			$(`#TFg[data-tr="${index}"]`)[0].innerText = '';
+			$(`#TBg[data-tr="${index}"]`)[0].innerText = '';
 		});
 	};
-
-	let spokenText;
 
 	VoiceRecognition.onresult = function (event) {
 		clearTimeout(pauseTimeout);
