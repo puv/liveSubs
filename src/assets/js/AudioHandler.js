@@ -230,8 +230,8 @@ const translateLibre = (config, text, targetLangs) => {
 			if (request.readyState === 4 && request.status === 200) {
 				let response = JSON.parse(request.responseText);
 				let translation = response.translatedText;
-				$('#TFg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-				$('#TBg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				$(`#TFg[data-tr="${i}"]`)[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				$(`#TBg[data-tr="${i}"]`)[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
 			}
 		};
 	}
@@ -265,8 +265,8 @@ const translateGoogle = (config, text, targetLangs) => {
 				} else {
 					translation = response[0][0][0];
 				}
-				$('#TFg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-				$('#TBg[data-tr="' + i + '"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				$(`#TFg[data-tr="${i}"]`)[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				$(`#TBg[data-tr="${i}"]`)[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
 			}
 		};
 		request.send(null);
@@ -293,8 +293,8 @@ const translateDeepl = (config, text, targetLangs) => {
 				let response = JSON.parse(request.responseText);
 				log('translateDeepL', response);
 				let translation = response.translations[0].text;
-				$('#TFg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
-				$('#TBg[data-tr="0"]')[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				$(`#TFg[data-tr=${i}]`)[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
+				$(`#TBg[data-tr=${i}]`)[0].innerText = `${config.lang_names ? `[${targetLangs[i].toUpperCase()}] ` : ''}${translation}`;
 			}
 		};
 		request.send(null);
