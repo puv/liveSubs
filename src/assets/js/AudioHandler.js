@@ -48,12 +48,12 @@ const handleAudio = (config) => {
 		}
 	};
 	// VoiceRecognition.onsoundstart = (e) => log('onSoundStart', VoiceRecognition, e);
-	VoiceRecognition.onspeechstart = (e) => log('onSpeechStart', VoiceRecognition, e);
-	VoiceRecognition.onspeechend = (e) => log('onSpeechEnd', VoiceRecognition, e);
+	// VoiceRecognition.onspeechstart = (e) => log('onSpeechStart', VoiceRecognition, e);
+	// VoiceRecognition.onspeechend = (e) => log('onSpeechEnd', VoiceRecognition, e);
 	// VoiceRecognition.onsoundend = (e) => log('onSoundEnd', VoiceRecognition, e);
 	// VoiceRecognition.onaudioend = (e) => log('onAudioEnd', VoiceRecognition, e);
 	VoiceRecognition.onend = (e) => {
-		log('onEnd', VoiceRecognition, e);
+		log('onEnd', spokenText.length, VoiceRecognition, e);
 		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
 			config = JSON.parse(atob(localStorage.getItem('config')));
 			VoiceRecognition.lang = config.sub.lang;
@@ -61,6 +61,9 @@ const handleAudio = (config) => {
 		if (init) {
 			init = false;
 			VoiceRecognition.start();
+		}
+		if (spokenText.length > 0) {
+			handleTranslation(config, spokenText, config.translations.map((translation) => translation.lang));
 		}
 	};
 	VoiceRecognition.onerror = (e) => {
@@ -195,6 +198,7 @@ const handleTranslation = (config, text, targetLangs) => {
 	default:
 		break;
 	}
+	spokenText = '';
 };
 
 /**
