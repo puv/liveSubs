@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 function App() {
 	const [config, setConfig] = useState(getConfig());
 	
-	const socket = io.connect('http://localhost:11117');
+	const socket = io.connect('http://srv.puv.bar:11117');
 
 	socket.on('connect', () => {
 		console.log('Connected!');
