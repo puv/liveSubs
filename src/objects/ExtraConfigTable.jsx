@@ -6,8 +6,8 @@ import '../assets/css/Fonts.css';
 import Dictionary from '../assets/js/Dictionary';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { log } from '../assets/js/Logging';
-import { saveConfig } from '../assets/js/Config';
+import { log } from '../assets/js/ConsoleHandler';
+import { saveConfig } from '../assets/js/ConfigHandler';
 
 ExtraConfig.propTypes = {
 	config: PropTypes.object.isRequired,

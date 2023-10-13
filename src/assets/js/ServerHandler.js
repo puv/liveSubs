@@ -1,4 +1,4 @@
-import { err, log, warn } from './Logging.js';
+import { err, log, warn } from './ConsoleHandler.js';
 
 const ws = new WebSocket('ws://srv.puv.bar:11117');
 

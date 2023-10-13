@@ -2,7 +2,7 @@
 
 import './assets/css/Overlay.css';
 
-import { getNewConfig, saveConfig } from './assets/js/Config';
+import { getNewConfig, saveConfig } from './assets/js/ConfigHandler';
 
 import $ from 'jquery';
 import BaseConfigTable from './objects/BaseConfigTable';

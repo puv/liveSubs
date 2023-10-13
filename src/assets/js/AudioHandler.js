@@ -2,7 +2,7 @@ import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanClient';
 import Dictionary from './Dictionary';
 import handleTranslation from './TranslationHandler';
-import { log } from './Logging';
+import { log } from './ConsoleHandler';
 
 let VoiceRecognition;
 let init = false;

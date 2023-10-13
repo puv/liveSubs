@@ -3,14 +3,14 @@
 import '../assets/css/App.css';
 import '../assets/css/Fonts.css';
 
-import { addTranslation, deleteTranslation, saveConfig } from '../assets/js/Config';
+import { addTranslation, deleteTranslation, saveConfig } from '../assets/js/ConfigHandler';
 
 import Dictionary from '../assets/js/Dictionary';
 import Fonts from '../assets/js/Fonts';
 import Languages from '../assets/js/Languages';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { log } from '../assets/js/Logging';
+import { log } from '../assets/js/ConsoleHandler';
 
 MainConfig.propTypes = {
 	config: PropTypes.object.isRequired,

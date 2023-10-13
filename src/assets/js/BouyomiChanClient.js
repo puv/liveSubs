@@ -1,4 +1,4 @@
-import { log } from './Logging';
+import { log } from './ConsoleHandler';
 
 /**
  * Access to BouyomiChan WebSocket Server

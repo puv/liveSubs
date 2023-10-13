@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
-import { getConfig } from './assets/js/Config';
+import { getConfig } from './assets/js/ConfigHandler';
 import io from 'socket.io-client';
 
 function App() {

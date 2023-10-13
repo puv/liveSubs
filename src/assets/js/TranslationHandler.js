@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { log } from './Logging';
+import { log } from './ConsoleHandler';
 
 const handleTranslation = (config, text, targetLangs) => {
 	log('[ FINAL ]', text);
