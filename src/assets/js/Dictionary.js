@@ -47,6 +47,12 @@ const Dictionary = {
 		'ko': '이게 뭔지 모르시나요?<a target=\'_blank\' href=\'http://www.sayonari.com/trans_asr/index_asr.html\'> 여기를 클릭하고 지침을 따르세요. </a>',
 		'zh': '不確定這是什麼？<a target=\'_blank\' href=\'http://www.sayonari.com/trans_asr/index_asr.html\'> 按一下此處並按照說明進行操作。</a>'
 	},
+	'server_mode': {
+		'en': 'Server Mode',
+		'ja': 'サーバーモード',
+		'ko': '서버 모드',
+		'zh': '服务器模式'
+	},
 	'input_device': {
 		'en': 'Input Device',
 		'ja': '入力デバイス',
