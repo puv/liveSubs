@@ -11,7 +11,7 @@ let spokenText = '';
 
 const handleAudio = (config) => {
 	log('handleAudio');
-    
+	
 	try {
 		config = JSON.parse(atob(localStorage.getItem('config')));
 	} catch (e) {
@@ -323,3 +323,5 @@ const useAudioDevice = (config) => {
 };
 
 export default handleAudio;
+
+export { handleTranslation };

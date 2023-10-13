@@ -15,6 +15,6 @@ export default defineConfig(async () => ({
 	
 	envPrefix: ['VITE_'],
 	build: {
-		outDir: './dist'
-	}
+		outDir: './dist',
+	},
 }));
