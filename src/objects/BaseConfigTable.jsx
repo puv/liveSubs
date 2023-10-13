@@ -94,6 +94,7 @@ function BaseConfig({ config }) {
 				<tr>
 					<th>{Dictionary['api_type'][config.lang]}</th>
 					<th>{Dictionary['api_key'][config.lang]}</th>
+					<th>{Dictionary['server_mode'][config.lang]}</th>
 					<th>{Dictionary['input_device'][config.lang]}</th>
 					<th>{Dictionary['output_device'][config.lang]}</th>
 				</tr>
@@ -113,6 +114,9 @@ function BaseConfig({ config }) {
 							size="60" onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
 						<br />
 						<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
+					</td>
+					<td>
+						<input type="checkbox" id="server_mode" onChange={handleInput} disabled={true} checked={config.server} name="server"></input>
 					</td>
 					<td>
 						<select id="inputDevice" onChange={handleDevice} disabled={true} value={config.input_device} name="input_device" style={{
