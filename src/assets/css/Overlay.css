@@ -43,7 +43,7 @@
 
             & th {
                 padding: 4px;
-                background-color: var(--info);
+                background-color: #2f2f2f;
                 color: white;
                 border: 1px solid #ddd;
             }
