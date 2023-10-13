@@ -5,6 +5,8 @@
     --error-hover: #b84a4a;
     --info: #6697d8;
     --info-hover: #4e7ac7;
+    --neutral: #afafaf;
+    --neutral-hover: #8f8f8f;
 }
 
 #overlay {
@@ -134,45 +136,57 @@
             transition: all 0.1s ease-in-out;
         }
 
-        .closeButton {
+        .btn_success {
             background: var(--success);
-            font-size: xx-large;
-            width: max-content;
-            place-self: center;
 
             &:hover {
                 background: var(--success-hover);
             }
         }
 
-        .resetButton {
+        .btn_error {
             background: var(--error);
-            font-size: xx-large;
-            width: max-content;
-            place-self: center;
 
             &:hover {
                 background: var(--error-hover);
             }
         }
 
-        .langButton {
+        .btn_info {
             background: var(--info);
-            font-size: medium;
 
             &:hover {
                 background: var(--info-hover);
             }
         }
 
-        .downloadButton {
-            margin-top: 1em;
-            background: var(--info);
-            font-size: medium;
+        .btn_neutral {
+            background: var(--neutral);
 
             &:hover {
-                background: var(--info-hover);
+                background: var(--neutral-hover);
             }
+        }
+
+        .closeButton {
+            font-size: xx-large;
+            width: max-content;
+            place-self: center;
+        }
+
+        .resetButton {
+            font-size: xx-large;
+            width: max-content;
+            place-self: center;
+        }
+
+        .langButton {
+            font-size: medium;
+        }
+
+        .downloadButton {
+            margin-top: 1em;
+            font-size: medium;
 
             & a {
                 color: white;
