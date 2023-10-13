@@ -20,7 +20,8 @@ function Translation({ config, index }) {
 				fontFamily: config.translations[index].font,
 				fontWeight: config.translations[index].weight,
 				textAlign: config.pos_h,
-				minHeight: `${config.translations[index].size}pt`
+				minHeight: `${config.translations[index].size}pt`,
+				display: config.server == true ? 'none' : 'block',
 			}}>
 			<div className="text_bg" id="TBg" data-tr={index}
 				style={{

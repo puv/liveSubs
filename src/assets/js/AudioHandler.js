@@ -173,6 +173,10 @@ const handleAudio = (config) => {
 				bouyomiChanClient.talk(spokenText);
 			}
 
+			if (config.server == true) {
+				return;
+			}
+
 			handleTranslation(config, spokenText, config.translations.map((translation) => translation.lang));
 			spokenText = '';
 		}
