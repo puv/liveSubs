@@ -216,7 +216,7 @@ const translateLibre = (config, text, targetLangs) => {
 	for (let i = 0; i < targetLangs.length; i++) {
 		let request = new XMLHttpRequest();
 
-		let query = 'http://193.122.7.216:5000/translate';
+		let query = 'http://srv.puv.bar:5000/translate';
 		let body = {
 			q: text,
 			source: config.sub.lang,
