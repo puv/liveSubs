@@ -190,7 +190,7 @@ const handleAudio = () => {
 				return;
 			}
 
-			if (config.server == false) handleTranslation(config, spokenText);
+			handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 
