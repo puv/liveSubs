@@ -15,17 +15,20 @@ TranslationApp.propTypes = {
 };
 
 function TranslationApp({ config }) {
-	
+
 	/**
 	 * Checks if the page is loaded, then calls handleAudio()
 	 */
 	useEffect(() => {
-		if (document.readyState === 'complete') {
-			handleAudio(config);
-		} else {
-			window.addEventListener('load', handleAudio(config), false);
-			return () => window.removeEventListener('load', handleAudio(config));
+		if (config.server != true) {
+			if (document.readyState === 'complete') {
+				handleAudio();
+			} else {
+				window.addEventListener('load', handleAudio, false);
+				return () => window.removeEventListener('load', handleAudio);
+			}
 		}
+
 	}, []);
 
 	return (
