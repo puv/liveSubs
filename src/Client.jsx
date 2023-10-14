@@ -1,31 +1,40 @@
 import React, { useState } from 'react';
 
+import $ from 'jquery';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
 import { getConfig } from './assets/js/ConfigHandler';
-import io from 'socket.io-client';
+import { log } from './assets/js/ConsoleHandler';
+import ws from './assets/js/ServerHandler';
 
 function App() {
 	const [config, setConfig] = useState(getConfig());
-	
-	const socket = io.connect('http://srv.puv.bar:11117');
 
-	socket.on('connect', () => {
-		console.log('Connected!');
-	});
+	ws.onmessage = (e) => {
+		try {
+			const msg = JSON.parse(e.data);
+			log('onmessage', msg);
 
-	socket.on('disconnect', () => {
-		console.log('Disconnected!');
-	});
-
-	socket.on('config', (data) => {
-		console.log('Config received!');
-		setConfig(data);
-	});
-
-	socket.on('translation', (data) => {
-		console.log('Translation received!', data);
-	});
+			switch (msg.type) {
+			case 'config':
+				setConfig(msg.data);
+				break;
+			case 'text':
+				if (msg.data.final == true) {
+					$('#SubBGText')[0].innerText = msg.data.text;
+					$('#SubFGText')[0].innerText = msg.data.text;
+				} else {
+					$('#SubBGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+					$('#SubFGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+				}
+				break;
+			default:
+				break;
+			}
+		} catch (err) {
+			log('onmessage', e.data);
+		}
+	};
 
 	return (
 		<div id="App"

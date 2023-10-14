@@ -4,6 +4,7 @@ const ws = new WebSocket('ws://srv.puv.bar:11117');
 
 ws.onopen = () => {
 	log('Connection established');
+	wsSend('client_init', 'init');
 };
 
 ws.onclose = (e) => {
@@ -23,4 +24,6 @@ function wsSend(type, data) {
 	}
 }
 
-export default wsSend;
+export default ws;
+
+export { wsSend };
