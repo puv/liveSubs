@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import { log } from './ConsoleHandler';
 
-const handleTranslation = (config, text, targetLangs) => {
+const handleTranslation = (config, text) => {
+	let targetLangs = config.translations.map((translation) => translation.lang);
 	log('[ FINAL ]', text);
 	switch (config.api.type) {
 	case 'local':
