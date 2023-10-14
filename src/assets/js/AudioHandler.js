@@ -9,16 +9,25 @@ let init = false;
 let pauseTimeout;
 let deleteTimeout;
 let spokenText = '';
+let config;
+
+try {
+	config = JSON.parse(atob(localStorage.getItem('config')));
+} catch (e) {
+	localStorage.setItem('config', btoa(JSON.stringify(config)));
+	window.location.reload();
+}
+
+window.addEventListener('storage', function (event) {
+	if (event.key == 'config') {
+		config = JSON.parse(atob(event.newValue));
+		VoiceRecognition.lang = config.sub.lang;
+	}
+});
 
 const handleAudio = (config) => {
 	log('handleAudio');
 	
-	try {
-		config = JSON.parse(atob(localStorage.getItem('config')));
-	} catch (e) {
-		localStorage.setItem('config', btoa(JSON.stringify(config)));
-		window.location.reload();
-	}
 	try {
 		// eslint-disable-next-line no-undef
 		VoiceRecognition = new webkitSpeechRecognition();
@@ -35,18 +44,10 @@ const handleAudio = (config) => {
 
 	window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-	VoiceRecognition.onstart = () => {
-		// log('onStart', VoiceRecognition, e);
-		config = JSON.parse(atob(localStorage.getItem('config')));
-	};
+	// VoiceRecognition.onstart = () => log('onStart', VoiceRecognition);
 	VoiceRecognition.onaudiostart = (e) => {
 		log('onAudioStart', [VoiceRecognition, e]);
 		init = true;
-		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
-			config = JSON.parse(atob(localStorage.getItem('config')));
-			VoiceRecognition.lang = config.sub.lang;
-			VoiceRecognition.stop();
-		}
 	};
 	// VoiceRecognition.onsoundstart = (e) => log('onSoundStart', VoiceRecognition, e);
 	// VoiceRecognition.onspeechstart = (e) => log('onSpeechStart', VoiceRecognition, e);
@@ -55,25 +56,17 @@ const handleAudio = (config) => {
 	// VoiceRecognition.onaudioend = (e) => log('onAudioEnd', VoiceRecognition, e);
 	VoiceRecognition.onend = (e) => {
 		log('onEnd', spokenText.length, [VoiceRecognition, e]);
-		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
-			config = JSON.parse(atob(localStorage.getItem('config')));
-			VoiceRecognition.lang = config.sub.lang;
-		}
 		if (init) {
 			init = false;
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
-			handleTranslation(config, spokenText, config.translations.map((translation) => translation.lang));
+			handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 	};
 	VoiceRecognition.onerror = (e) => {
 		log('onError', [VoiceRecognition, e], e.error);
-		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
-			config = JSON.parse(atob(localStorage.getItem('config')));
-			VoiceRecognition.lang = config.sub.lang;
-		}
 		if (e.error == 'not-allowed') {
 			window.alert('Please allow microphone access');
 			navigator.mediaDevices.getUserMedia({ audio: true });
@@ -84,10 +77,6 @@ const handleAudio = (config) => {
 	};
 	VoiceRecognition.onnomatch = (e) => {
 		log('onNoMatch', [VoiceRecognition, e]);
-		if (localStorage.getItem('config') != btoa(JSON.stringify(config))) {
-			config = JSON.parse(atob(localStorage.getItem('config')));
-			VoiceRecognition.lang = config.sub.lang;
-		}
 		init = true;
 		VoiceRecognition.stop();
 	};
@@ -99,7 +88,7 @@ const handleAudio = (config) => {
 		if (init == true) {
 			log('Pause Stop', pauseTimeout, config.pause_timer);
 			VoiceRecognition.stop();
-			// handleTranslation(config, text, config.translations.map((translation) => translation.lang));
+			// handleTranslation(config, text);
 			// spokenText = '';
 		}
 	};
@@ -177,7 +166,7 @@ const handleAudio = (config) => {
 				return;
 			}
 
-			handleTranslation(config, spokenText, config.translations.map((translation) => translation.lang));
+			handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 
