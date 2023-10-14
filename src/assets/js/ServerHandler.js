@@ -4,7 +4,6 @@ const ws = new WebSocket('ws://srv.puv.bar:11117');
 
 ws.onopen = () => {
 	log('Connection established');
-	wsSend('client_init', 'init');
 };
 
 ws.onclose = (e) => {
@@ -17,10 +16,11 @@ ws.onerror = (e) => {
 
 function wsSend(type, data) {
 	if (ws.OPEN) {
-		ws.send(JSON.stringify({ 
+		console.log('Sending', type, data);
+		ws.send({ 
 			type: type,
 			data: data
-		}));
+		});
 	}
 }
 
