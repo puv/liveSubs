@@ -1,6 +1,6 @@
 import { err, log, warn } from './ConsoleHandler.js';
 
-const ws = new WebSocket('ws://localhost:11117');
+const ws = new WebSocket('ws://srv.puv.bar:11117');
 
 ws.onopen = () => {
 	log('Connection established');
