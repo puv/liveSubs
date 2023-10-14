@@ -1,23 +1,30 @@
 import { err, log, warn } from './ConsoleHandler.js';
 
-const ws = new WebSocket('ws://srv.puv.bar:11117');
+let ws;
 
-ws.onopen = () => {
-	log('Connection established');
-};
+try {
+	ws = new WebSocket('ws://srv.puv.bar:11117');
 
-ws.onclose = (e) => {
-	warn('Connection closed', e);
-};
+	ws.onopen = () => {
+		log('Connection established');
+	};
 
-ws.onerror = (e) => {
-	err('Connection error', e);
-};
+	ws.onclose = (e) => {
+		warn('Connection closed', e);
+	};
+
+	ws.onerror = (e) => {
+		err('Connection error', e);
+	};
+
+} catch (e) {
+	err('WebSocket error', e);
+}
 
 function wsSend(type, data) {
 	if (ws.OPEN) {
 		console.log('Sending', type, data);
-		ws.send(JSON.stringify({ 
+		ws.send(JSON.stringify({
 			type: type,
 			data: data
 		}));
