@@ -25,7 +25,7 @@ window.addEventListener('storage', function (event) {
 	}
 });
 
-const handleAudio = (config) => {
+const handleAudio = () => {
 	log('handleAudio');
 	
 	try {

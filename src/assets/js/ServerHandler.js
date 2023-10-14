@@ -1,6 +1,6 @@
 import { err, log, warn } from './ConsoleHandler.js';
 
-const ws = new WebSocket('ws://srv.puv.bar:11117');
+const ws = new WebSocket('ws://localhost:11117');
 
 ws.onopen = () => {
 	log('Connection established');
@@ -17,10 +17,10 @@ ws.onerror = (e) => {
 function wsSend(type, data) {
 	if (ws.OPEN) {
 		console.log('Sending', type, data);
-		ws.send({ 
+		ws.send(JSON.stringify({ 
 			type: type,
 			data: data
-		});
+		}));
 	}
 }
 

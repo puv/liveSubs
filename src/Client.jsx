@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
+import ws, { wsSend } from './assets/js/ServerHandler';
 
 import $ from 'jquery';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
 import { getConfig } from './assets/js/ConfigHandler';
+import handleTranslation from './assets/js/TranslationHandler';
 import { log } from './assets/js/ConsoleHandler';
-import ws from './assets/js/ServerHandler';
 
 function App() {
 	const [config, setConfig] = useState(getConfig());
 
+	ws.onopen = () => {
+		log('onopen');
+		wsSend('client_init');
+	};
+
 	ws.onmessage = (e) => {
 		try {
+			log('onmessage', e.data);
 			const msg = JSON.parse(e.data);
-			log('onmessage', msg);
 
 			switch (msg.type) {
 			case 'config':
+				log('onmessage', msg.data);
 				setConfig(msg.data);
 				break;
-			case 'text':
+			case 'speech':
+				log('onmessage', msg.data.text);
 				if (msg.data.final == true) {
 					$('#SubBGText')[0].innerText = msg.data.text;
 					$('#SubFGText')[0].innerText = msg.data.text;
+
+					handleTranslation(config, msg.data.text);
 				} else {
 					$('#SubBGText')[0].innerText = '<< ' + msg.data.text + ' >>';
 					$('#SubFGText')[0].innerText = '<< ' + msg.data.text + ' >>';
