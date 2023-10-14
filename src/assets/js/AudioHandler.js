@@ -28,13 +28,15 @@ window.addEventListener('storage', function (event) {
 	}
 });
 
-ws.onopen = () => {
-	if (config.server == true) wsSend('config', JSON.stringify(config));
-};
+if (config.server == true) {
+	ws.onopen = () => {
+		wsSend('config', JSON.stringify(config));
+	};
+}
 
 const handleAudio = () => {
 	log('handleAudio');
-	
+
 	try {
 		// eslint-disable-next-line no-undef
 		VoiceRecognition = new webkitSpeechRecognition();
@@ -42,7 +44,7 @@ const handleAudio = () => {
 		window.alert(Dictionary['browser_not_supported'][config.lang]);
 		window.location.reload();
 	}
-	
+
 	// VoiceRecognition.continuous = true;
 	VoiceRecognition.interimResults = true;
 	VoiceRecognition.lang = config.sub.lang;
@@ -89,8 +91,8 @@ const handleAudio = () => {
 	};
 
 	/**
-     * Stops the voice recognition after a given time with no input
-     */
+	 * Stops the voice recognition after a given time with no input
+	 */
 	const pauseStop = function () {
 		if (init == true) {
 			log('Pause Stop', pauseTimeout, config.pause_timer);
@@ -101,8 +103,8 @@ const handleAudio = () => {
 	};
 
 	/**
-     * Removes translated text from the screen
-     */
+	 * Removes translated text from the screen
+	 */
 	const Delete = function () {
 		$('#SubBGText')[0].innerText = '';
 		$('#SubFGText')[0].innerText = '';

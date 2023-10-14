@@ -3,7 +3,7 @@ import { err, log, warn } from './ConsoleHandler.js';
 let ws;
 
 try {
-	ws = new WebSocket('ws://srv.puv.bar:11117');
+	ws = new WebSocket('wss://srv.puv.bar:11117');
 
 	ws.onopen = () => {
 		log('Connection established');
