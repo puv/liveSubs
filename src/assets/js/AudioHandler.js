@@ -68,7 +68,7 @@ const handleAudio = () => {
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
-			handleTranslation(config, spokenText);
+			if (config.server == false) handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 	};
@@ -95,7 +95,7 @@ const handleAudio = () => {
 		if (init == true) {
 			log('Pause Stop', pauseTimeout, config.pause_timer);
 			VoiceRecognition.stop();
-			// handleTranslation(config, text);
+			// if(config.server == false) handleTranslation(config, text);
 			// spokenText = '';
 		}
 	};
@@ -144,11 +144,11 @@ const handleAudio = () => {
 				}
 
 				if (config.server == true) {
-					wsSend('speech', JSON.stringify({
+					wsSend('speech', {
 						text: spokenText,
 						final: false,
 						lang: config.sub.lang
-					}));
+					});
 					return;
 				}
 
@@ -180,15 +180,15 @@ const handleAudio = () => {
 			}
 
 			if (config.server == true) {
-				wsSend('speech', JSON.stringify({
+				wsSend('speech', {
 					text: spokenText,
 					final: true,
 					lang: config.sub.lang
-				}));
+				});
 				return;
 			}
 
-			handleTranslation(config, spokenText);
+			if (config.server == false) handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 

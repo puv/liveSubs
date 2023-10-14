@@ -18,16 +18,14 @@ function App() {
 
 	ws.onmessage = (e) => {
 		try {
-			log('onmessage', e.data);
 			const msg = JSON.parse(e.data);
 
 			switch (msg.type) {
 			case 'config':
-				log('onmessage', msg.data);
-				setConfig(msg.data);
+				log('config', JSON.parse(msg.data));
+				setConfig(JSON.parse(msg.data));
 				break;
 			case 'speech':
-				log('onmessage', msg.data.text);
 				if (msg.data.final == true) {
 					$('#SubBGText')[0].innerText = msg.data.text;
 					$('#SubFGText')[0].innerText = msg.data.text;
