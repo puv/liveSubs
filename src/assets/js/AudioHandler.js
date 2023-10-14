@@ -1,3 +1,5 @@
+import ws, { wsSend } from './ServerHandler';
+
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanClient';
 import Dictionary from './Dictionary';
@@ -22,8 +24,13 @@ window.addEventListener('storage', function (event) {
 	if (event.key == 'config') {
 		config = JSON.parse(atob(event.newValue));
 		VoiceRecognition.lang = config.sub.lang;
+		if (ws.OPEN && config.server == true) wsSend('config', JSON.stringify(config));
 	}
 });
+
+ws.onopen = () => {
+	if (config.server == true) wsSend('config', JSON.stringify(config));
+};
 
 const handleAudio = () => {
 	log('handleAudio');
@@ -135,6 +142,16 @@ const handleAudio = () => {
 					$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
 					$('#SubFGText')[0].innerText = '<< ' + spokenText + ' >>';
 				}
+
+				if (config.server == true) {
+					wsSend('speech', JSON.stringify({
+						text: spokenText,
+						final: false,
+						lang: config.sub.lang
+					}));
+					return;
+				}
+
 				return;
 			}
 
@@ -163,6 +180,11 @@ const handleAudio = () => {
 			}
 
 			if (config.server == true) {
+				wsSend('speech', JSON.stringify({
+					text: spokenText,
+					final: true,
+					lang: config.sub.lang
+				}));
 				return;
 			}
 
