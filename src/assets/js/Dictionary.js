@@ -209,11 +209,11 @@ const Dictionary = {
 		'ko': '언어 표시',
 		'zh': '显示语言'
 	},
-	'bouyoumiChan': {
-		'en': 'Bouyoumi-chan',
-		'ja': '防止ちゃん',
-		'ko': '보유미짱',
-		'zh': '防止酱'
+	'bouyomiChan': {
+		'en': 'Bouyomi-chan',
+		'ja': '棒読みちゃん',
+		'ko': 'Bouyomi-chan',
+		'zh': 'Bouyomi-chan'
 	},
 	'wordCensor': {
 		'en': 'Censor Words',

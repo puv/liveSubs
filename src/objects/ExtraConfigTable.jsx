@@ -41,7 +41,7 @@ function ExtraConfig({ config }) {
 					<th>{Dictionary['deleteSentenceTimer'][config.lang]}</th>
 					<th>{Dictionary['newSentenceTimer'][config.lang]}</th>
 					<th>{Dictionary['langNames'][config.lang]}</th>
-					<th>{Dictionary['bouyoumiChan'][config.lang]}</th>
+					<th>{Dictionary['bouyomiChan'][config.lang]}</th>
 					<th>{Dictionary['wordCensor'][config.lang]}</th>
 				</tr>
 			</thead>

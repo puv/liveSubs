@@ -1,6 +1,6 @@
 # liveSubs
 
-A real-time subtitling and translation application with Bouyoumi-Chan support, utilizing Google & DeepL translations.
+A real-time subtitling and translation application with Bouyomi-Chan support, utilizing Google & DeepL translations.
 Built with Tauri for Desktop use.
 
 Prerequisites
