@@ -1,9 +1,9 @@
 let Config = {
 	'api': {
-		'type': 'google',
+		'type': 'google', // local, libre, google, deepl
 		'key': '',
 	},
-	'lang': getLang(),
+	'lang': getLang(), // en, ja, ko, zh
 	'sub': {
 		'color': '#ffffff',
 		'border_color': '#000000',
@@ -15,17 +15,17 @@ let Config = {
 	},
 	'translations': [],
 	'bg_color': '#00ff00',
-	'reader_support': false,
-	'word_censor': false,
-	'lang_names': false,
+	'reader_support': false, // true, false
+	'word_censor': false, // true, false
+	'lang_names': false, // true, false
 	'pause_timer': 1000,
 	'delete_timer': 0,
-	'pos_h': 'center',
-	'pos_v': 'bottom',
-	'white_space': 'normal',
+	'pos_h': 'center', // left, center, right
+	'pos_v': 'bottom', // top, bottom
+	'white_space': 'normal', // normal, nowrap
 	'input_device': 'default',
 	'output_device': 'default',
-	'server': 'off',
+	'server': 'off', // off, local, remote
 };
 
 /**
