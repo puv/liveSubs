@@ -119,8 +119,8 @@ function BaseConfig({ config }) {
 						
 						<select id="serverMode" onChange={handleInput} name="server_mode" value={config.server_mode}>
 							<option value="off">{Dictionary['off'][config.lang]}</option>
-							<option value="local">{Dictionary['local'][config.lang]}</option>
-							<option value="remote">{Dictionary['remote'][config.lang]}</option>
+							<option disabled value="local">{Dictionary['local'][config.lang]}</option>
+							<option disabled value="remote">{Dictionary['remote'][config.lang]}</option>
 						</select>
 					</td>
 					<td>
