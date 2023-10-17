@@ -116,7 +116,12 @@ function BaseConfig({ config }) {
 						<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
 					</td>
 					<td>
-						<input type="checkbox" id="server_mode" onChange={handleInput} disabled={true} checked={config.server} name="server"></input>
+						
+						<select id="serverMode" onChange={handleInput} name="server_mode" value={config.server_mode}>
+							<option value="off">{Dictionary['off'][config.lang]}</option>
+							<option value="local">{Dictionary['local'][config.lang]}</option>
+							<option value="remote">{Dictionary['remote'][config.lang]}</option>
+						</select>
 					</td>
 					<td>
 						<select id="inputDevice" onChange={handleDevice} disabled={true} value={config.input_device} name="input_device" style={{

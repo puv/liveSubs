@@ -25,7 +25,7 @@ let Config = {
 	'white_space': 'normal',
 	'input_device': 'default',
 	'output_device': 'default',
-	'server': false
+	'server': 'off',
 };
 
 /**
