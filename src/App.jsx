@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import Overlay from './Overlay';
 import TranslationApp from './TranslationApp';
-import { getConfig } from './assets/js/ConfigHandler';
+import { getConfig } from './assets/js/handlers/ConfigHandler';
 
 function App() {
 	const [config, setConfig] = useState(getConfig());

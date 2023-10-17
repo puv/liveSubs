@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import ws, { wsSend } from './assets/js/ServerHandler';
+import ws, { wsSend } from './assets/js/handlers/ServerHandler';
 
 import $ from 'jquery';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
-import { getConfig } from './assets/js/ConfigHandler';
-import handleTranslation from './assets/js/TranslationHandler';
-import { log } from './assets/js/ConsoleHandler';
+import { getConfig } from './assets/js/handlers/ConfigHandler';
+import handleTranslation from './assets/js/handlers/TranslationHandler';
+import { log } from './assets/js/handlers/ConsoleHandler';
 
 function App() {
 	const [config, setConfig] = useState(getConfig());

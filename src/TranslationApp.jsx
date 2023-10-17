@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
-import handleAudio from './assets/js/AudioHandler';
+import handleAudio from './assets/js/handlers/AudioHandler';
 
 TranslationApp.propTypes = {
 	config: PropTypes.object.isRequired,

@@ -7,8 +7,8 @@ import React, { useEffect, useState } from 'react';
 
 import Dictionary from '../assets/js/Dictionary';
 import PropTypes from 'prop-types';
-import { log } from '../assets/js/ConsoleHandler';
-import { saveConfig } from '../assets/js/ConfigHandler';
+import { log } from '../assets/js/handlers/ConsoleHandler';
+import { saveConfig } from '../assets/js/handlers/ConfigHandler';
 
 BaseConfig.propTypes = {
 	config: PropTypes.object.isRequired,

@@ -1,8 +1,8 @@
 import ws, { wsSend } from './ServerHandler';
 
 import $ from 'jquery';
-import BouyomiChanClient from './BouyomiChanClient';
-import Dictionary from './Dictionary';
+import BouyomiChanClient from './BouyomiChanHandler';
+import Dictionary from '../Dictionary';
 import handleTranslation from './TranslationHandler';
 import { log } from './ConsoleHandler';
 
