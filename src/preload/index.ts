@@ -13,8 +13,10 @@ if (process.contextIsolated) {
 	try {
 		contextBridge.exposeInMainWorld('electron', electronAPI);
 		contextBridge.exposeInMainWorld('api', api);
-		contextBridge.exposeInMainWorld('wss', wss);
-		contextBridge.exposeInMainWorld('wsClient', WSClient);
+		contextBridge.exposeInMainWorld('ws', {
+			wss,
+			WSClient
+		});
 	} catch (error) {
 		console.error(error);
 	}

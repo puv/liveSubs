@@ -1,6 +1,6 @@
 import { err, log, warn } from './ConsoleHandler.js';
 
-import getConfig from './ConfigHandler.js';
+import { getConfig } from './ConfigHandler.js';
 
 let ws;
 
@@ -25,16 +25,32 @@ if (getConfig().server != 'off') {
 	}
 }
 
-function wsSend(type, data) {
-	if (getConfig().server != 'off' && ws.OPEN) {
-		console.log('Sending', type, data);
-		ws.send(JSON.stringify({
+function wsSendToServer(type, data) {
+	try {
+		if (getConfig().server != 'off' && ws.OPEN) {
+			log('STS', type, data);
+			ws.send(JSON.stringify({
+				type: type,
+				data: data
+			}));
+		}
+	} catch (e) {
+		err('STS error', e);
+	}
+}
+
+function wsSendToClient(type, data) {
+	log('STC', type, data);
+	try {
+		window.ws.WSClient.send(JSON.stringify({
 			type: type,
 			data: data
 		}));
+	} catch (e) {
+		err('STC error', e);
 	}
 }
 
 export default ws;
 
-export { wsSend };
+export { wsSendToServer, wsSendToClient };

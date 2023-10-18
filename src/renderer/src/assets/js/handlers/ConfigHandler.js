@@ -133,7 +133,4 @@ const deleteTranslation = (e) => {
 	saveConfig(newConfig);
 };
 
-
-export default getConfig;
-
-export { getNewConfig, addTranslation, deleteTranslation, Config, getConfig, saveConfig };
+export { getNewConfig, addTranslation, deleteTranslation, Config, getConfig, saveConfig, updateConfigValues };

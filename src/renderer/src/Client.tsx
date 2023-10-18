@@ -1,4 +1,4 @@
-import ws, { wsSend } from './assets/js/handlers/ServerHandler';
+import ws, { wsSendToServer } from './assets/js/handlers/ServerHandler';
 
 import $ from 'jquery';
 import Subtitle from './objects/Subtitle';
@@ -13,7 +13,7 @@ function App(): JSX.Element {
 
 	ws.onopen = (): void => {
 		log('onopen');
-		wsSend('client_init');
+		wsSendToServer('client_init');
 	};
 
 	ws.onmessage = (e): void => {

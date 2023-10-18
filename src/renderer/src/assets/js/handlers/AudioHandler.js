@@ -1,4 +1,4 @@
-import ws, { wsSend } from './ServerHandler';
+import ws, { wsSendToClient, wsSendToServer } from './ServerHandler';
 
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanHandler';
@@ -24,15 +24,16 @@ window.addEventListener('storage', function (event) {
 	if (event.key == 'config') {
 		config = JSON.parse(atob(event.newValue));
 		VoiceRecognition.lang = config.sub.lang;
-		if (ws.OPEN && config.server != 'off') wsSend('config', JSON.stringify(config));
+		if (ws.OPEN && config.server == 'remote') wsSendToServer('config', JSON.stringify(config));
+		else if (config.server == 'local') wsSendToClient('config', JSON.stringify(config));
 	}
 });
 
-if (config.server != 'off') {
+if (config.server == 'remote') {
 	ws.onopen = () => {
-		wsSend('config', JSON.stringify(config));
+		wsSendToServer('config', JSON.stringify(config));
 	};
-}
+} else if (config.server == 'local') wsSendToClient('config', JSON.stringify(config));
 
 const handleAudio = () => {
 	log('handleAudio');
@@ -146,7 +147,7 @@ const handleAudio = () => {
 				}
 
 				if (config.server != 'off') {
-					wsSend('speech', {
+					wsSendToServer('speech', {
 						text: spokenText,
 						final: false,
 						lang: config.sub.lang
@@ -182,7 +183,7 @@ const handleAudio = () => {
 			}
 
 			if (config.server != 'off') {
-				wsSend('speech', {
+				wsSendToServer('speech', {
 					text: spokenText,
 					final: true,
 					lang: config.sub.lang

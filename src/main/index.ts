@@ -1,7 +1,7 @@
 import { BrowserWindow, app, shell } from 'electron';
 import { electronApp, is, optimizer } from '@electron-toolkit/utils';
 
-import icon from '../../resources/icon128.svg?asset';
+import icon from '../../resources/icon128.png?asset';
 import { join } from 'path';
 
 function createWindow(): void {
@@ -10,6 +10,7 @@ function createWindow(): void {
 		width: 1366,
 		height: 768,
 		show: false,
+		icon: icon,
 		autoHideMenuBar: true,
 		...(process.platform === 'linux' ? { icon } : {}),
 		webPreferences: {

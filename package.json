@@ -1,5 +1,6 @@
 {
   "name": "livesubs",
+  "description": "A real-time subtitling and translation application with Bouyomi-Chan support, utilizing Google & DeepL translations.",
   "version": "1.0.0",
   "main": "./out/main/index.js",
   "author": {
@@ -16,6 +17,7 @@
     "preview": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",
+    "test": "jest --watchAll --verbose --coverage",
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "electron-vite build && electron-builder --mac --config",
