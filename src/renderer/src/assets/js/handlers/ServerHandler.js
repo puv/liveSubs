@@ -4,7 +4,7 @@ import { getConfig } from './ConfigHandler.js';
 
 let ws;
 
-if (getConfig().server) {
+if (window.location.pathname.includes('client')) {
 	try {
 		ws = new WebSocket('wss://localhost:11117');
 
@@ -42,10 +42,7 @@ function wsSendToServer(type, data) {
 function wsSendToClient(type, data) {
 	log('STC', type, data);
 	try {
-		window.ws.WSClient.send(JSON.stringify({
-			type: type,
-			data: data
-		}));
+		if (window.ws.WSClient) window.ws.WSClient.send(JSON.stringify( { type: type, data: data } ));
 	} catch (e) {
 		err('STC error', e);
 	}
