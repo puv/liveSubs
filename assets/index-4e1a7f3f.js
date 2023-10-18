@@ -9212,13 +9212,28 @@ if (getConfig().server != "off") {
     err("WebSocket error", e);
   }
 }
-function wsSend(type, data) {
-  if (getConfig().server != "off" && ws.OPEN) {
-    console.log("Sending", type, data);
-    ws.send(JSON.stringify({
+function wsSendToServer(type, data) {
+  try {
+    if (getConfig().server != "off" && ws.OPEN) {
+      log("STS", type, data);
+      ws.send(JSON.stringify({
+        type,
+        data
+      }));
+    }
+  } catch (e) {
+    err("STS error", e);
+  }
+}
+function wsSendToClient(type, data) {
+  log("STC", type, data);
+  try {
+    window.ws.WSClient.send(JSON.stringify({
       type,
       data
     }));
+  } catch (e) {
+    err("STC error", e);
   }
 }
 const ws$1 = ws;
@@ -9411,15 +9426,18 @@ window.addEventListener("storage", function(event) {
   if (event.key == "config") {
     config = JSON.parse(atob(event.newValue));
     VoiceRecognition.lang = config.sub.lang;
-    if (ws$1.OPEN && config.server != "off")
-      wsSend("config", JSON.stringify(config));
+    if (ws$1.OPEN && config.server == "remote")
+      wsSendToServer("config", JSON.stringify(config));
+    else if (config.server == "local")
+      wsSendToClient("config", JSON.stringify(config));
   }
 });
-if (config.server != "off") {
+if (config.server == "remote") {
   ws$1.onopen = () => {
-    wsSend("config", JSON.stringify(config));
+    wsSendToServer("config", JSON.stringify(config));
   };
-}
+} else if (config.server == "local")
+  wsSendToClient("config", JSON.stringify(config));
 const handleAudio = () => {
   log("handleAudio");
   try {
@@ -9496,7 +9514,7 @@ const handleAudio = () => {
           $("#SubFGText")[0].innerText = "<< " + spokenText + " >>";
         }
         if (config.server != "off") {
-          wsSend("speech", {
+          wsSendToServer("speech", {
             text: spokenText,
             final: false,
             lang: config.sub.lang
@@ -9517,7 +9535,7 @@ const handleAudio = () => {
         bouyomiChanClient.talk(spokenText);
       }
       if (config.server != "off") {
-        wsSend("speech", {
+        wsSendToServer("speech", {
           text: spokenText,
           final: true,
           lang: config.sub.lang
@@ -9602,7 +9620,7 @@ function App() {
   const [config2, setConfig] = reactExports.useState(getConfig());
   ws$1.onopen = () => {
     log("onopen");
-    wsSend("client_init");
+    wsSendToServer("client_init");
   };
   ws$1.onmessage = (e) => {
     try {
