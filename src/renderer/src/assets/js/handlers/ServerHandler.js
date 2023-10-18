@@ -6,7 +6,7 @@ let ws;
 
 if (getConfig().server != 'off') {
 	try {
-		ws = new WebSocket(getConfig().server === 'local' ? 'ws://localhost:11117' : 'ws://srv.puv.bar:11117');
+		ws = new WebSocket(getConfig().server === 'local' ? 'wss://localhost:11117' : 'wss://srv.puv.bar:11117');
 
 		ws.onopen = () => {
 			log('Connection established');
