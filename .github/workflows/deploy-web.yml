@@ -24,9 +24,9 @@ jobs:
         run: npm run build
 
       - name: Add CNAME file
-        run: echo "subs.puv.bar" > ./out/renderer/CNAME
+        run: echo "subs.puv.bar" > ./dist/CNAME
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ./out/renderer
+          folder: ./dist

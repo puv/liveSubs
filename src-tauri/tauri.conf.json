@@ -1,0 +1,55 @@
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "liveSubs",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.puv.bar",
+      "icon": [
+        "icons/icon32.png",
+        "icons/icon128.png",
+        "icons/icon.ico"
+      ]
+    },
+    "security": {
+      "csp": null,
+      "dangerousRemoteDomainIpcAccess": [
+        {
+          "windows": [
+            "liveSubs",
+            "main"
+          ],
+          "domain": "subs.puv.bar",
+          "enableTauriAPI": true
+        }
+      ]
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "liveSubs",
+        "width": 1366,
+        "height": 768,
+        "userAgent": "liveSubs/1.0.0"
+      }
+    ]
+  }
+}

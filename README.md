@@ -1,35 +1,28 @@
 # liveSubs
 
 A real-time subtitling and translation application with Bouyomi-Chan support, utilizing Google & DeepL translations.
-Uses electron to provide a Websocket server (optional)
 
 ## Recommended IDE Setup
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
-## Project Setup
 
-### Install
-
-```bash
-$ npm install
+## Prerequisites
+```
+Node.JS
+Rust
 ```
 
-### Development
-
-```bash
-$ npm run dev
+## Installation
+```
+npm install
 ```
 
-### Build
+## Contributing
+If you would like to contribute, feel free to do so, I will try to figure out how to accept valuable changes in the future.
 
-```bash
-# For windows
-$ npm run build:win
+## Issues
+If you encounter issues, or would like to request a feature, [please do so here](https://github.com/puv/liveSubs/issues)
 
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
-```
+## Credits
+Original version by [@sayonari](https://github.com/sayonari)
