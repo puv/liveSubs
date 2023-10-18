@@ -9213,7 +9213,7 @@ if (getConfig().server != "off") {
   }
 }
 function wsSend(type, data) {
-  if (ws.OPEN) {
+  if (getConfig().server != "off" && ws.OPEN) {
     console.log("Sending", type, data);
     ws.send(JSON.stringify({
       type,
@@ -9444,7 +9444,7 @@ const handleAudio = () => {
       VoiceRecognition.start();
     }
     if (spokenText.length > 0) {
-      if (config.server == false)
+      if (config.server == "off")
         handleTranslation(config, spokenText);
       spokenText = "";
     }
