@@ -1,5 +1,3 @@
-import ws, { wsSendToServer } from './assets/js/handlers/ServerHandler';
-
 import $ from 'jquery';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
@@ -7,13 +5,13 @@ import { getConfig } from './assets/js/handlers/ConfigHandler';
 import handleTranslation from './assets/js/handlers/TranslationHandler';
 import { log } from './assets/js/handlers/ConsoleHandler';
 import { useState } from 'react';
+import ws from './assets/js/handlers/ServerHandler';
 
 function App(): JSX.Element {
 	const [config, setConfig] = useState(getConfig());
 
 	ws.onopen = (): void => {
 		log('onopen');
-		wsSendToServer('client_init');
 	};
 
 	ws.onmessage = (e): void => {

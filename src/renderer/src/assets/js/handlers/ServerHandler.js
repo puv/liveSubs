@@ -4,9 +4,9 @@ import { getConfig } from './ConfigHandler.js';
 
 let ws;
 
-if (getConfig().server != 'off') {
+if (getConfig().server) {
 	try {
-		ws = new WebSocket(getConfig().server === 'local' ? 'wss://localhost:11117' : 'wss://srv.puv.bar:11117');
+		ws = new WebSocket('wss://localhost:11117');
 
 		ws.onopen = () => {
 			log('Connection established');
@@ -27,7 +27,7 @@ if (getConfig().server != 'off') {
 
 function wsSendToServer(type, data) {
 	try {
-		if (getConfig().server != 'off' && ws.OPEN) {
+		if (getConfig().server && ws.OPEN) {
 			log('STS', type, data);
 			ws.send(JSON.stringify({
 				type: type,

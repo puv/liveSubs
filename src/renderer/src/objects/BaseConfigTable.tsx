@@ -115,12 +115,7 @@ function BaseConfig({ config }): JSX.Element {
 						<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
 					</td>
 					<td>
-						
-						<select id="serverMode" onChange={handleInput} name="server_mode" value={config.server_mode}>
-							<option value="off">{Dictionary['off'][config.lang]}</option>
-							<option disabled value="local">{Dictionary['local'][config.lang]}</option>
-							<option disabled value="remote">{Dictionary['remote'][config.lang]}</option>
-						</select>
+						<input type="checkbox" name="server_mode" id="serverMode" checked={config.server_mode} onChange={handleInput} />
 					</td>
 					<td>
 						<select id="inputDevice" onChange={handleDevice} disabled={true} value={config.input_device} name="input_device" style={{

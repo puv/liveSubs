@@ -53,18 +53,6 @@ const Dictionary = {
 		'ko': '서버 모드',
 		'zh': '服务器模式'
 	},
-	'off': {
-		'en': 'Off',
-		'ja': 'オフ',
-		'ko': '끄기',
-		'zh': '关'
-	},
-	'remote': {
-		'en': 'Remote',
-		'ja': 'リモート',
-		'ko': '원격',
-		'zh': '遠程'
-	},
 	'input_device': {
 		'en': 'Input Device',
 		'ja': '入力デバイス',

@@ -25,7 +25,7 @@ let Config = {
 	'white_space': 'normal', // normal, nowrap
 	'input_device': 'default',
 	'output_device': 'default',
-	'server': 'off', // off, local, remote
+	'server': false, // true, false
 };
 
 /**

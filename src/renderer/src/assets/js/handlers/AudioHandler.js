@@ -1,4 +1,4 @@
-import ws, { wsSendToClient, wsSendToServer } from './ServerHandler';
+import { wsSendToClient, wsSendToServer } from './ServerHandler';
 
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanHandler';
@@ -24,16 +24,13 @@ window.addEventListener('storage', function (event) {
 	if (event.key == 'config') {
 		config = JSON.parse(atob(event.newValue));
 		VoiceRecognition.lang = config.sub.lang;
-		if (ws.OPEN && config.server == 'remote') wsSendToServer('config', JSON.stringify(config));
-		else if (config.server == 'local') wsSendToClient('config', JSON.stringify(config));
+		if (config.server) wsSendToClient('config', JSON.stringify(config));
 	}
 });
 
-if (config.server == 'remote') {
-	ws.onopen = () => {
-		wsSendToServer('config', JSON.stringify(config));
-	};
-} else if (config.server == 'local') wsSendToClient('config', JSON.stringify(config));
+if (config.server) {
+	wsSendToClient('config', JSON.stringify(config));
+}
 
 const handleAudio = () => {
 	log('handleAudio');
@@ -71,7 +68,7 @@ const handleAudio = () => {
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
-			if (config.server == 'off') handleTranslation(config, spokenText);
+			if (!config.server) handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 	};
@@ -98,8 +95,6 @@ const handleAudio = () => {
 		if (init == true) {
 			log('Pause Stop', pauseTimeout, config.pause_timer);
 			VoiceRecognition.stop();
-			// if(config.server == 'off') handleTranslation(config, text);
-			// spokenText = '';
 		}
 	};
 
@@ -146,8 +141,8 @@ const handleAudio = () => {
 					$('#SubFGText')[0].innerText = '<< ' + spokenText + ' >>';
 				}
 
-				if (config.server != 'off') {
-					wsSendToServer('speech', {
+				if (config.server) {
+					wsSendToClient('speech', {
 						text: spokenText,
 						final: false,
 						lang: config.sub.lang
@@ -182,7 +177,7 @@ const handleAudio = () => {
 				bouyomiChanClient.talk(spokenText);
 			}
 
-			if (config.server != 'off') {
+			if (config.server) {
 				wsSendToServer('speech', {
 					text: spokenText,
 					final: true,
