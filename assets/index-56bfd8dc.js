@@ -1339,8 +1339,8 @@ let Config = {
   // normal, nowrap
   "input_device": "default",
   "output_device": "default",
-  "server": "off"
-  // off, local, remote
+  "server": false
+  // true, false
 };
 function getConfig() {
   try {
@@ -7822,18 +7822,6 @@ const Dictionary = {
     "ko": "서버 모드",
     "zh": "服务器模式"
   },
-  "off": {
-    "en": "Off",
-    "ja": "オフ",
-    "ko": "끄기",
-    "zh": "关"
-  },
-  "remote": {
-    "en": "Remote",
-    "ja": "リモート",
-    "ko": "원격",
-    "zh": "遠程"
-  },
   "input_device": {
     "en": "Input Device",
     "ja": "入力デバイス",
@@ -8245,11 +8233,7 @@ function BaseConfig({ config: config2 }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { dangerouslySetInnerHTML: { __html: Dictionary[`api_${config2.api.type}_get`][config2.lang] } })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("td", { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("select", { id: "serverMode", onChange: handleInput, name: "server_mode", value: config2.server_mode, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "off", children: Dictionary["off"][config2.lang] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("option", { disabled: true, value: "local", children: Dictionary["local"][config2.lang] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("option", { disabled: true, value: "remote", children: Dictionary["remote"][config2.lang] })
-      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("td", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "checkbox", name: "server_mode", id: "serverMode", checked: config2.server_mode, onChange: handleInput }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("td", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("select", { id: "inputDevice", onChange: handleDevice, disabled: true, value: config2.input_device, name: "input_device", style: {
         maxWidth: "15em"
       }, children: inputDevices.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: Dictionary["no_input_device"][config2.lang] }) : inputDevices.map((device) => {
@@ -9196,9 +9180,9 @@ function Translation({ config: config2, index }) {
   );
 }
 let ws;
-if (getConfig().server != "off") {
+if (getConfig().server) {
   try {
-    ws = new WebSocket(getConfig().server === "local" ? "wss://localhost:11117" : "wss://srv.puv.bar:11117");
+    ws = new WebSocket("wss://localhost:11117");
     ws.onopen = () => {
       log("Connection established");
     };
@@ -9214,7 +9198,7 @@ if (getConfig().server != "off") {
 }
 function wsSendToServer(type, data) {
   try {
-    if (getConfig().server != "off" && ws.OPEN) {
+    if (getConfig().server && ws.OPEN) {
       log("STS", type, data);
       ws.send(JSON.stringify({
         type,
@@ -9426,18 +9410,13 @@ window.addEventListener("storage", function(event) {
   if (event.key == "config") {
     config = JSON.parse(atob(event.newValue));
     VoiceRecognition.lang = config.sub.lang;
-    if (ws$1.OPEN && config.server == "remote")
-      wsSendToServer("config", JSON.stringify(config));
-    else if (config.server == "local")
+    if (config.server)
       wsSendToClient("config", JSON.stringify(config));
   }
 });
-if (config.server == "remote") {
-  ws$1.onopen = () => {
-    wsSendToServer("config", JSON.stringify(config));
-  };
-} else if (config.server == "local")
+if (config.server) {
   wsSendToClient("config", JSON.stringify(config));
+}
 const handleAudio = () => {
   log("handleAudio");
   try {
@@ -9462,7 +9441,7 @@ const handleAudio = () => {
       VoiceRecognition.start();
     }
     if (spokenText.length > 0) {
-      if (config.server == "off")
+      if (!config.server)
         handleTranslation(config, spokenText);
       spokenText = "";
     }
@@ -9513,8 +9492,8 @@ const handleAudio = () => {
           $("#SubBGText")[0].innerText = "<< " + spokenText + " >>";
           $("#SubFGText")[0].innerText = "<< " + spokenText + " >>";
         }
-        if (config.server != "off") {
-          wsSendToServer("speech", {
+        if (config.server) {
+          wsSendToClient("speech", {
             text: spokenText,
             final: false,
             lang: config.sub.lang
@@ -9534,7 +9513,7 @@ const handleAudio = () => {
         let bouyomiChanClient = new BouyomiChanClient();
         bouyomiChanClient.talk(spokenText);
       }
-      if (config.server != "off") {
+      if (config.server) {
         wsSendToServer("speech", {
           text: spokenText,
           final: true,
@@ -9620,7 +9599,6 @@ function App() {
   const [config2, setConfig] = reactExports.useState(getConfig());
   ws$1.onopen = () => {
     log("onopen");
-    wsSendToServer("client_init");
   };
   ws$1.onmessage = (e) => {
     try {
