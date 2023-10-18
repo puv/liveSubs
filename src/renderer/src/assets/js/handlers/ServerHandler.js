@@ -26,7 +26,7 @@ if (getConfig().server != 'off') {
 }
 
 function wsSend(type, data) {
-	if (ws.OPEN) {
+	if (getConfig().server != 'off' && ws.OPEN) {
 		console.log('Sending', type, data);
 		ws.send(JSON.stringify({
 			type: type,

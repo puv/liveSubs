@@ -70,7 +70,7 @@ const handleAudio = () => {
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
-			if (config.server == false) handleTranslation(config, spokenText);
+			if (config.server == 'off') handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 	};
@@ -97,7 +97,7 @@ const handleAudio = () => {
 		if (init == true) {
 			log('Pause Stop', pauseTimeout, config.pause_timer);
 			VoiceRecognition.stop();
-			// if(config.server == false) handleTranslation(config, text);
+			// if(config.server == 'off') handleTranslation(config, text);
 			// spokenText = '';
 		}
 	};
