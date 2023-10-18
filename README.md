@@ -1,6 +1,7 @@
 # liveSubs
 
 A real-time subtitling and translation application with Bouyomi-Chan support, utilizing Google & DeepL translations.
+Uses electron to provide a Websocket server (optional)
 
 ## Recommended IDE Setup
 
