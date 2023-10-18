@@ -3,18 +3,17 @@
 import './assets/css/App.css';
 import './assets/css/Fonts.css';
 
-import React, { useEffect } from 'react';
-
 import PropTypes from 'prop-types';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
 import handleAudio from './assets/js/handlers/AudioHandler';
+import { useEffect } from 'react';
 
 TranslationApp.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function TranslationApp({ config }) {
+function TranslationApp({ config }): JSX.Element {
 	useEffect(() => {
 		if (document.readyState === 'complete') {
 			handleAudio();
@@ -22,6 +21,7 @@ function TranslationApp({ config }) {
 			window.addEventListener('load', handleAudio, false);
 			return () => window.removeEventListener('load', handleAudio);
 		}
+		return;
 	}, []);
 
 	return (
@@ -38,7 +38,7 @@ function TranslationApp({ config }) {
 				}}>
 				<Subtitle config={config} />
 				{
-					config.translations.map((translation, index) => {
+					config.translations.map((_translation, index) => {
 						return (
 							<Translation key={index} config={config} index={index} />
 						);

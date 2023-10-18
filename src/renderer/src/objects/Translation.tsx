@@ -5,14 +5,13 @@ import '../assets/css/Fonts.css';
 
 import Dictionary from '../assets/js/Dictionary';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 Translation.propTypes = {
 	config: PropTypes.object.isRequired,
 	index: PropTypes.number.isRequired,
 };
 
-function Translation({ config, index }) {
+function Translation({ config, index }): JSX.Element {
 	return (
 		<div id="Translation" data-tr={index} data-lang={config.translations[index].lang}
 			style={{

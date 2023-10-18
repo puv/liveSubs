@@ -1,0 +1,4 @@
+owner: puv
+repo: liveSubs
+provider: github
+updaterCacheDirName: livesubs-updater

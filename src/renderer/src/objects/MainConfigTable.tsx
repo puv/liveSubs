@@ -9,20 +9,19 @@ import Dictionary from '../assets/js/Dictionary';
 import Fonts from '../assets/js/Fonts';
 import Languages from '../assets/js/Languages';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { log } from '../assets/js/handlers/ConsoleHandler';
 
 MainConfig.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function MainConfig({ config }) {
+function MainConfig({ config }): JSX.Element {
 	/**
 	 * Handles input from the settings menu
 	 * @param {Element} e 
 	 */
-	const handleInput = (e) => {
-		let newConfig = { ...config };
+	const handleInput = (e): void => {
+		const newConfig = { ...config };
 		const keys = e.target.name.split('.');
 		log(e.target.name, e.target.value);
 		let currentConfig = newConfig;
@@ -105,7 +104,7 @@ function MainConfig({ config }) {
 				{
 					config['translations'].length < 5 ?
 						<tr>
-							<td colSpan="9" id="addTranslation" onClick={addTranslation}>
+							<td colSpan={9} id="addTranslation" onClick={addTranslation}>
 								{Dictionary['add_translation'][config.lang]}
 							</td>
 						</tr> : <></>
@@ -115,7 +114,7 @@ function MainConfig({ config }) {
 	);
 }
 
-function TranslationOption(number, config, handleInput, deleteTranslation) {
+function TranslationOption(number, config, handleInput, deleteTranslation): JSX.Element {
 	return (
 		<tr key={number}>
 			<td>{Dictionary['translation'][config.lang]} {number + 1}</td>

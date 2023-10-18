@@ -5,7 +5,6 @@ import '../assets/css/Fonts.css';
 
 import Dictionary from '../assets/js/Dictionary';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { log } from '../assets/js/handlers/ConsoleHandler';
 import { saveConfig } from '../assets/js/handlers/ConfigHandler';
 
@@ -13,13 +12,13 @@ ExtraConfig.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function ExtraConfig({ config }) {
+function ExtraConfig({ config }): JSX.Element {
 	/**
 	 * Handles input from the settings menu
 	 * @param {Element} e 
 	 */
-	const handleInput = (e) => {
-		let newConfig = { ...config };
+	const handleInput = (e): void => {
+		const newConfig = { ...config };
 		const keys = e.target.name.split('.');
 		log(e.target.name, e.target.value);
 		let currentConfig = newConfig;

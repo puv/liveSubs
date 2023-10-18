@@ -10,13 +10,12 @@ import Dictionary from './assets/js/Dictionary';
 import ExtraConfigTable from './objects/ExtraConfigTable';
 import MainConfigTable from './objects/MainConfigTable';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 Overlay.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function Overlay({ config }) {
+function Overlay({ config }): JSX.Element {
 	return (
 		<div id="overlay">
 			<div id="settings">
@@ -34,15 +33,15 @@ OverlayFooter.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function OverlayFooter({ config }) {
+function OverlayFooter({ config }) : JSX.Element {
 	/**
 	 * Sets the language of the overlay
 	 * @param {Element} e 
 	 */
-	const setLanguage = (e) => {
-		let newConfig = {
+	const setLanguage = (e): void => {
+		const newConfig = {
 			...config,
-			['lang']: e.target.getAttribute('name'),
+			['lang']: e.target.getAttribute('data-name'),
 		};
 		saveConfig(newConfig);
 	};
@@ -53,13 +52,13 @@ function OverlayFooter({ config }) {
 				display: 'flex',
 				gap: '1em',
 			}}>
-				<div className="button closeButton btn_success" onClick={() => {
+				<div className="button closeButton btn_success" onClick={(): void => {
 					$('#overlay').css('display', 'none');
 				}}>
 					<a>{Dictionary['close'][config.lang]}</a>
 				</div>
 
-				<div className="button resetButton btn_error" onClick={() => {
+				<div className="button resetButton btn_error" onClick={(): void => {
 					saveConfig(getNewConfig());
 				}}>
 					<a>{Dictionary['reset'][config.lang]}</a>
@@ -74,16 +73,16 @@ function OverlayFooter({ config }) {
 				</div>
 			</div>
 			<div className="language">
-				<div className="button langButton btn_neutral" name='en' onClick={setLanguage}>
+				<div className="button langButton btn_neutral" data-name='en' onClick={setLanguage}>
 							English
 				</div>
-				<div className="button langButton btn_neutral" name='ja' onClick={setLanguage}>
+				<div className="button langButton btn_neutral" data-name='ja' onClick={setLanguage}>
 							日本語
 				</div>
-				<div className="button langButton btn_neutral" name='ko' onClick={setLanguage}>
+				<div className="button langButton btn_neutral" data-name='ko' onClick={setLanguage}>
 							한국인
 				</div>
-				<div className="button langButton btn_neutral" name='zh' onClick={setLanguage}>
+				<div className="button langButton btn_neutral" data-name='zh' onClick={setLanguage}>
 							中國人
 				</div>
 			</div>

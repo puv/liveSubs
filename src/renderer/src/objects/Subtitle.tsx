@@ -5,13 +5,12 @@ import '../assets/css/Fonts.css';
 
 import Dictionary from '../assets/js/Dictionary';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 Subtitle.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function Subtitle({ config }) {
+function Subtitle({ config }): JSX.Element {
 	return (
 		<div id='Subtitle'
 			style={{

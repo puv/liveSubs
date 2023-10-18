@@ -1,16 +1,17 @@
 /* eslint-disable no-undef */
 
-import React, { useState } from 'react';
-
 import Overlay from './Overlay';
 import TranslationApp from './TranslationApp';
 import { getConfig } from './assets/js/handlers/ConfigHandler';
+import { useState } from 'react';
 
-function App() {
+function App(): JSX.Element {
 	const [config, setConfig] = useState(getConfig());
 
 	window.addEventListener('storage', function (event) {
-		if (event.key == 'config') setConfig(JSON.parse(atob(event.newValue)));
+		if (event.key == 'config' && event.newValue !== null) {
+			setConfig(JSON.parse(atob(event.newValue)));
+		}
 	});
 
 	return (

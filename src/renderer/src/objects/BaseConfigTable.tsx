@@ -3,7 +3,7 @@
 import '../assets/css/App.css';
 import '../assets/css/Fonts.css';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Dictionary from '../assets/js/Dictionary';
 import PropTypes from 'prop-types';
@@ -14,16 +14,16 @@ BaseConfig.propTypes = {
 	config: PropTypes.object.isRequired,
 };
 
-function BaseConfig({ config }) {
-	const [inputDevices, setInputDevices] = useState([]);
-	const [outputDevices, setOutputDevices] = useState([]);
+function BaseConfig({ config }): JSX.Element {
+	const [inputDevices, setInputDevices] = useState<MediaDeviceInfo[]>([]);
+	const [outputDevices, setOutputDevices] = useState<MediaDeviceInfo[]>([]);
 
 	/**
 	 * Handles input from the settings menu
 	 * @param {Element} e 
 	 */
-	const handleInput = (e) => {
-		let newConfig = { ...config };
+	const handleInput = (e): void => {
+		const newConfig = { ...config };
 		const keys = e.target.name.split('.');
 		log(e.target.name, e.target.value);
 		let currentConfig = newConfig;
@@ -38,7 +38,7 @@ function BaseConfig({ config }) {
      * Handles the input device selection
      * @param {Element} e 
      */
-	const handleDevice = (e) => {
+	const handleDevice = (e): void => {
 		switch (e.target.id) {
 		case 'inputDevice':
 			config.input_device = e.target.value;
@@ -46,8 +46,6 @@ function BaseConfig({ config }) {
 				audio: {
 					deviceId: e.target.value ? { exact: e.target.value } : 'default',
 				}
-			}).then((stream) => {
-				window.stream = stream;
 			});
 			saveConfig(config);
 			break;
@@ -64,7 +62,7 @@ function BaseConfig({ config }) {
 	/**
      * Gets the input and output devices after the page loads
      */
-	const onPageLoad = () => {
+	const onPageLoad = (): void => {
 		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
 			log('Got stream');
 			navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -86,6 +84,7 @@ function BaseConfig({ config }) {
 			window.addEventListener('load', onPageLoad, false);
 			return () => window.removeEventListener('load', onPageLoad);
 		}
+		return;
 	}, []);
 
 	return (
@@ -111,7 +110,7 @@ function BaseConfig({ config }) {
 					</td>
 					<td>
 						<input type="text" name="api_key" id="api_key"
-							size="60" onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
+							size={60} onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
 						<br />
 						<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
 					</td>

@@ -1,49 +1,35 @@
 module.exports = {
-	'env': {
-		'browser': true,
-		'commonjs': true,
-		'es2021': true
+	env: {
+		browser: true,
+		commonjs: true,
+		es2021: true
 	},
-	'extends': [
+	extends: [
 		'eslint:recommended',
-		'plugin:react/recommended'
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
+		'@electron-toolkit/eslint-config-ts/recommended',
 	],
-	'overrides': [
+	overrides: [
 		{
-			'env': {
-				'node': true
+			env: {
+				node: true
 			},
-			'files': [
-				'.eslintrc.{js,cjs}'
-			],
-			'parserOptions': {
-				'sourceType': 'script'
+			files: ['.eslintrc.{js,cjs}'],
+			parserOptions: {
+				sourceType: 'script'
 			}
 		}
 	],
-	'parserOptions': {
-		'ecmaVersion': 'latest',
-		'sourceType': 'module'
+	parserOptions: {
+		ecmaVersion: 'latest',
+		sourceType: 'module'
 	},
-	'plugins': [
-		'react'
-	],
-	'rules': {
-		'indent': [
-			'error',
-			'tab'
-		],
-		'linebreak-style': [
-			'error',
-			'windows'
-		],
-		'quotes': [
-			'error',
-			'single'
-		],
-		'semi': [
-			'error',
-			'always'
-		]
-	},
+	plugins: ['react'],
+	rules: {
+		indent: ['error', 'tab'],
+		'linebreak-style': ['error', 'windows'],
+		quotes: ['error', 'single'],
+		semi: ['error', 'always']
+	}
 };

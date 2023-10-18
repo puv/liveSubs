@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import ws, { wsSend } from './assets/js/handlers/ServerHandler';
 
 import $ from 'jquery';
@@ -7,16 +6,17 @@ import Translation from './objects/Translation';
 import { getConfig } from './assets/js/handlers/ConfigHandler';
 import handleTranslation from './assets/js/handlers/TranslationHandler';
 import { log } from './assets/js/handlers/ConsoleHandler';
+import { useState } from 'react';
 
-function App() {
+function App(): JSX.Element {
 	const [config, setConfig] = useState(getConfig());
 
-	ws.onopen = () => {
+	ws.onopen = (): void => {
 		log('onopen');
 		wsSend('client_init');
 	};
 
-	ws.onmessage = (e) => {
+	ws.onmessage = (e): void => {
 		try {
 			const msg = JSON.parse(e.data);
 
@@ -58,7 +58,7 @@ function App() {
 				}}>
 				<Subtitle config={config} />
 				{
-					config.translations.map((translation, index) => {
+					config.translations.map((_translation, index) => {
 						return (
 							<Translation key={index} config={config} index={index} />
 						);
