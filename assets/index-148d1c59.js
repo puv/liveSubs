@@ -9180,7 +9180,7 @@ function Translation({ config: config2, index }) {
   );
 }
 let ws;
-if (getConfig().server) {
+if (window.location.pathname.includes("client")) {
   try {
     ws = new WebSocket("wss://localhost:11117");
     ws.onopen = () => {
@@ -9212,10 +9212,8 @@ function wsSendToServer(type, data) {
 function wsSendToClient(type, data) {
   log("STC", type, data);
   try {
-    window.ws.WSClient.send(JSON.stringify({
-      type,
-      data
-    }));
+    if (window.ws.WSClient)
+      window.ws.WSClient.send(JSON.stringify({ type, data }));
   } catch (e) {
     err("STC error", e);
   }
