@@ -2,7 +2,6 @@ import $ from 'jquery';
 import Subtitle from './objects/Subtitle';
 import Translation from './objects/Translation';
 import { getConfig } from './assets/js/handlers/ConfigHandler';
-import handleTranslation from './assets/js/handlers/TranslationHandler';
 import { log } from './assets/js/handlers/ConsoleHandler';
 import { useState } from 'react';
 import ws from './assets/js/handlers/ServerHandler';
@@ -19,37 +18,37 @@ function App() {
 			const msg = JSON.parse(e.data);
 
 			switch (msg.type) {
-				case 'config':
-					log('config', JSON.parse(msg.data));
-					setConfig(JSON.parse(msg.data));
-					break;
-				case 'speech':
-					if (msg.data.final == true) {
-						if (msg.data.text.length > 0) {
-							$('#SubBGText')[0].innerText = msg.data.text;
-							$('#SubFGText')[0].innerText = msg.data.text;
-						}
-
-						msg.data.translations.forEach((translation, index) => {
-							$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
-							$(`#TBg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
-						});
-					} else {
-						$('#SubBGText')[0].innerText = '<< ' + msg.data.text + ' >>';
-						$('#SubFGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+			case 'config':
+				log('config', JSON.parse(msg.data));
+				setConfig(JSON.parse(msg.data));
+				break;
+			case 'speech':
+				if (msg.data.final == true) {
+					if (msg.data.text.length > 0) {
+						$('#SubBGText')[0].innerText = msg.data.text;
+						$('#SubFGText')[0].innerText = msg.data.text;
 					}
-					break;
-				case 'clear':
-					$('#SubBGText')[0].innerText = '';
-					$('#SubFGText')[0].innerText = '';
-					
-					config.translations.forEach((translation, index) => {
-						$(`#TFg[data-tr="${index}"]`)[0].innerText = '';
-						$(`#TBg[data-tr="${index}"]`)[0].innerText = '';
+
+					msg.data.translations.forEach((translation, index) => {
+						$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+						$(`#TBg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
 					});
-					break;
-				default:
-					break;
+				} else {
+					$('#SubBGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+					$('#SubFGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+				}
+				break;
+			case 'clear':
+				$('#SubBGText')[0].innerText = '';
+				$('#SubFGText')[0].innerText = '';
+					
+				config.translations.forEach((translation, index) => {
+					$(`#TFg[data-tr="${index}"]`)[0].innerText = '';
+					$(`#TBg[data-tr="${index}"]`)[0].innerText = '';
+				});
+				break;
+			default:
+				break;
 			}
 		} catch (err) {
 			log('onmessage', e.data);

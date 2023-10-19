@@ -1,21 +1,19 @@
-import $ from 'jquery';
 import { log } from './ConsoleHandler';
 
 const handleTranslation = async (config, text) => {
 	let targetLangs = config.translations.map((translation) => translation.lang);
 	log('[ FINAL ]', text);
-	let translations;
 	switch (config.api.type) {
-		case 'local':
-			return translateLocal(config, text, targetLangs);
-		case 'libre':
-			return translateLibre(config, text, targetLangs);
-		case 'google':
-			return translateGoogle(config, text, targetLangs);
-		case 'deepl':
-			return translateDeepl(config, text, targetLangs);
-		default:
-			return null;
+	case 'local':
+		return translateLocal(config, text, targetLangs);
+	case 'libre':
+		return translateLibre(config, text, targetLangs);
+	case 'google':
+		return translateGoogle(config, text, targetLangs);
+	case 'deepl':
+		return translateDeepl(config, text, targetLangs);
+	default:
+		return null;
 	}
 };
 

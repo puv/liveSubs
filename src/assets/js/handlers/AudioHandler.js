@@ -1,4 +1,4 @@
-import { wsSendToClient, wsSendToServer } from './ServerHandler';
+/* eslint-disable no-undef */
 
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanHandler';
@@ -6,6 +6,7 @@ import Dictionary from '../Dictionary';
 import { getConfig } from './ConfigHandler';
 import handleTranslation from './TranslationHandler';
 import { log } from './ConsoleHandler';
+import { wsSendToClient } from './ServerHandler';
 
 let VoiceRecognition;
 let init = false;
@@ -194,7 +195,7 @@ const handleAudio = () => {
 
 
 			let translations = await handleTranslation(config, spokenText);
-			console.log('translations', translations)
+			console.log('translations', translations);
 
 			translations.forEach((translation, index) => {
 				$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;

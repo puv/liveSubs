@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import { err, log, warn } from './ConsoleHandler.js';
 
 import { getConfig } from './ConfigHandler.js';
