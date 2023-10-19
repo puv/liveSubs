@@ -7,25 +7,33 @@ import { invoke } from '@tauri-apps/api/tauri';
 
 let ws;
 
-if (isClient) {
+function connect() {
 	try {
 		ws = new WebSocket('ws://localhost:11117');
 
+		
 		ws.onopen = () => {
 			log('Connection established');
 		};
 
 		ws.onclose = (e) => {
 			warn('Connection closed', e);
+			setTimeout(location.reload(), 1000);
 		};
 
 		ws.onerror = (e) => {
 			err('Connection error', e);
+			setTimeout(location.reload(), 1000);
 		};
+
+		return ws;
 	} catch (e) {
 		err('WebSocket error', e);
+		setTimeout(location.reload(), 1000);
 	}
 }
+
+if (isClient) ws = connect();
 
 function wsSendToServer(type, data) {
 	try {

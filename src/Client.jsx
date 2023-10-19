@@ -9,10 +9,6 @@ import ws from './assets/js/handlers/ServerHandler';
 function App() {
 	const [config, setConfig] = useState(getConfig());
 
-	ws.onopen = () => {
-		log('onopen');
-	};
-
 	ws.onmessage = (e) => {
 		try {
 			const msg = JSON.parse(e.data);
@@ -53,10 +49,6 @@ function App() {
 		} catch (err) {
 			log('onmessage', e.data);
 		}
-	};
-
-	ws.onclose = () => {
-		log('onclose');
 	};
 
 	return (
