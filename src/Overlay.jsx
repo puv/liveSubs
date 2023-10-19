@@ -63,6 +63,12 @@ function OverlayFooter({ config }) {
 				}}>
 					<a>{Dictionary['reset'][config.lang]}</a>
 				</div>
+
+				<div className='button updateButton btn_neutral' onClick={() => {
+					window.location.reload();
+				}}>
+					<a>{Dictionary['update'][config.lang]}</a>
+				</div>
 			</div>
 
 			<div className="credits">

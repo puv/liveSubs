@@ -269,6 +269,12 @@ const Dictionary = {
 		'ko': '초기화',
 		'zh': '重启'
 	},
+	'update': {
+		'en': 'Update',
+		'ja': '更新',
+		'ko': '업데이트',
+		'zh': '更新'
+	},
 	'credits': [
 		{
 			'en': 'Updated by <a target=\'_blank\' href=\'https://github.com/puv\'>@puv</a>',
