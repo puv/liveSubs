@@ -193,6 +193,12 @@
                 text-decoration: none;
             }
         }
+
+        .updateButton {
+            font-size: xx-large;
+            width: max-content;
+            place-self: center;
+        }
     }
 }
 

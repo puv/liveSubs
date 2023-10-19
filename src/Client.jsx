@@ -55,6 +55,10 @@ function App() {
 		}
 	};
 
+	ws.onclose = () => {
+		log('onclose');
+	};
+
 	return (
 		<div id="App"
 			style={{
