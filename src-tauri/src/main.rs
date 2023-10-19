@@ -52,6 +52,11 @@ fn ws_server() {
 fn send_to_client(message: &str) {
     println!("Sending message to client: {}", message);
     unsafe {
-        CLIENT.clone().unwrap().1.send(Message::Text(String::from(message)));
+        if CLIENT.is_none() {
+            println!("No client connected.");
+            return;
+        } else {
+            CLIENT.clone().unwrap().1.send(Message::Text(String::from(message)));
+        }
     }
 }

@@ -19,23 +19,37 @@ function App() {
 			const msg = JSON.parse(e.data);
 
 			switch (msg.type) {
-			case 'config':
-				log('config', JSON.parse(msg.data));
-				setConfig(JSON.parse(msg.data));
-				break;
-			case 'speech':
-				if (msg.data.final == true) {
-					$('#SubBGText')[0].innerText = msg.data.text;
-					$('#SubFGText')[0].innerText = msg.data.text;
+				case 'config':
+					log('config', JSON.parse(msg.data));
+					setConfig(JSON.parse(msg.data));
+					break;
+				case 'speech':
+					if (msg.data.final == true) {
+						if (msg.data.text.length > 0) {
+							$('#SubBGText')[0].innerText = msg.data.text;
+							$('#SubFGText')[0].innerText = msg.data.text;
+						}
 
-					handleTranslation(config, msg.data.text);
-				} else {
-					$('#SubBGText')[0].innerText = '<< ' + msg.data.text + ' >>';
-					$('#SubFGText')[0].innerText = '<< ' + msg.data.text + ' >>';
-				}
-				break;
-			default:
-				break;
+						msg.data.translations.forEach((translation, index) => {
+							$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+							$(`#TBg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+						});
+					} else {
+						$('#SubBGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+						$('#SubFGText')[0].innerText = '<< ' + msg.data.text + ' >>';
+					}
+					break;
+				case 'clear':
+					$('#SubBGText')[0].innerText = '';
+					$('#SubFGText')[0].innerText = '';
+					
+					config.translations.forEach((translation, index) => {
+						$(`#TFg[data-tr="${index}"]`)[0].innerText = '';
+						$(`#TBg[data-tr="${index}"]`)[0].innerText = '';
+					});
+					break;
+				default:
+					break;
 			}
 		} catch (err) {
 			log('onmessage', e.data);

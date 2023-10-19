@@ -106,6 +106,7 @@ const handleAudio = () => {
 	 * Removes translated text from the screen
 	 */
 	const Delete = function () {
+		wsSendToClient('clear', null);
 		$('#SubBGText')[0].innerText = '';
 		$('#SubFGText')[0].innerText = '';
 		config.translations.forEach((translation, index) => {
@@ -114,7 +115,7 @@ const handleAudio = () => {
 		});
 	};
 
-	VoiceRecognition.onresult = function (event) {
+	VoiceRecognition.onresult = async function (event) {
 		clearTimeout(pauseTimeout);
 		var results = event.results;
 		spokenText = '';
@@ -149,7 +150,7 @@ const handleAudio = () => {
 					wsSendToClient('speech', {
 						text: spokenText,
 						final: false,
-						translation: null,
+						translations: null,
 						lang: config.sub.lang
 					});
 					return;
@@ -186,15 +187,31 @@ const handleAudio = () => {
 				wsSendToClient('speech', {
 					text: spokenText,
 					final: true,
-					translation: handleTranslation(config, spokenText),
+					translations: null,
 					lang: config.sub.lang
 				});
-			} else {
-				handleTranslation(config, spokenText);
 			}
-			
-			spokenText = '';
+
+
+			let translations = await handleTranslation(config, spokenText);
+			console.log('translations', translations)
+
+			translations.forEach((translation, index) => {
+				$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+				$(`#TBg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+			});
+
+			if (config.server && !isClient && translations.length > 0) {
+				wsSendToClient('speech', {
+					text: spokenText,
+					final: true,
+					translations: translations,
+					lang: config.sub.lang
+				});	
+			}
 		}
+		
+		spokenText = '';
 
 		if (config.delete_timer != 0) {
 			clearTimeout(deleteTimeout);
