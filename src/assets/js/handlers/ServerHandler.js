@@ -3,17 +3,11 @@ import { err, log, warn } from './ConsoleHandler.js';
 import { getConfig } from './ConfigHandler.js';
 import { invoke } from '@tauri-apps/api/tauri';
 
-try {
-	const invoke = window.__TAURI__.invoke
-} catch (e) {
-	err('Tauri not found', e);
-}
-
 let ws;
 
-if (window.location.pathname.includes('client')) {
+if (window.location.pathname.toLowerCase().includes('client')) {
 	try {
-		ws = new WebSocket('wss://localhost:11117');
+		ws = new WebSocket('ws://localhost:11117');
 
 		ws.onopen = () => {
 			log('Connection established');
@@ -26,9 +20,16 @@ if (window.location.pathname.includes('client')) {
 		ws.onerror = (e) => {
 			err('Connection error', e);
 		};
-
 	} catch (e) {
 		err('WebSocket error', e);
+	}
+} else {
+	try {
+		// const invoke = window.__TAURI__.invoke;
+		log('Tauri found');
+		invoke('ws_server');
+	} catch (e) {
+		err('Tauri not found', e);
 	}
 }
 
