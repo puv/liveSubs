@@ -149,6 +149,7 @@ const handleAudio = () => {
 					wsSendToClient('speech', {
 						text: spokenText,
 						final: false,
+						translation: null,
 						lang: config.sub.lang
 					});
 					return;
@@ -182,15 +183,16 @@ const handleAudio = () => {
 			}
 
 			if (config.server && !isClient) {
-				wsSendToServer('speech', {
+				wsSendToClient('speech', {
 					text: spokenText,
 					final: true,
+					translation: handleTranslation(config, spokenText),
 					lang: config.sub.lang
 				});
-				return;
+			} else {
+				handleTranslation(config, spokenText);
 			}
-
-			handleTranslation(config, spokenText);
+			
 			spokenText = '';
 		}
 
