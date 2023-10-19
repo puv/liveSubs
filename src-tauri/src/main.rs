@@ -1,18 +1,23 @@
 use simple_websockets::{Event, Responder, Message};
+use std::thread;
 
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #[cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
+    let t1 = thread::spawn(|| {
+        ws_server();
+    });
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![ws_server, send_to_client])
+        .invoke_handler(tauri::generate_handler![send_to_client])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    t1.join().expect("The server thread panicked");
+    println!("Finished.");
 }
 
 static mut CLIENT: Option<(u64, Responder)> = None;
 
-#[tauri::command]
 fn ws_server() {
     let port: u16 = 11117;
     println!("Starting server on port {}", port);

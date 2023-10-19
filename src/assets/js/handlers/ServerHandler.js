@@ -23,14 +23,6 @@ if (isClient) {
 	} catch (e) {
 		err('WebSocket error', e);
 	}
-} else {
-	try {
-		// const invoke = window.__TAURI__.invoke;
-		log('Tauri found');
-		invoke('ws_server');
-	} catch (e) {
-		err('Tauri not found', e);
-	}
 }
 
 function wsSendToServer(type, data) {

@@ -29,6 +29,9 @@ window.addEventListener('storage', function (event) {
 	}
 });
 
+console.log('isClient', isClient);
+console.log('config', config);
+
 if (config.server && !isClient) {
 	wsSendToClient('config', JSON.stringify(config));
 }
