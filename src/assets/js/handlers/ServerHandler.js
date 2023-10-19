@@ -5,7 +5,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 
 let ws;
 
-if (window.location.pathname.toLowerCase().includes('client')) {
+if (isClient) {
 	try {
 		ws = new WebSocket('ws://localhost:11117');
 

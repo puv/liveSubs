@@ -25,11 +25,11 @@ window.addEventListener('storage', function (event) {
 	if (event.key == 'config') {
 		config = JSON.parse(atob(event.newValue));
 		VoiceRecognition.lang = config.sub.lang;
-		if (config.server) wsSendToClient('config', JSON.stringify(config));
+		if (config.server && !isClient) wsSendToClient('config', JSON.stringify(config));
 	}
 });
 
-if (config.server) {
+if (config.server && !isClient) {
 	wsSendToClient('config', JSON.stringify(config));
 }
 
@@ -69,7 +69,7 @@ const handleAudio = () => {
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
-			if (!config.server) handleTranslation(config, spokenText);
+			if (!config.server && !isClient) handleTranslation(config, spokenText);
 			spokenText = '';
 		}
 	};
@@ -142,7 +142,7 @@ const handleAudio = () => {
 					$('#SubFGText')[0].innerText = '<< ' + spokenText + ' >>';
 				}
 
-				if (config.server) {
+				if (config.server && !isClient) {
 					wsSendToClient('speech', {
 						text: spokenText,
 						final: false,
@@ -178,7 +178,7 @@ const handleAudio = () => {
 				bouyomiChanClient.talk(spokenText);
 			}
 
-			if (config.server) {
+			if (config.server && !isClient) {
 				wsSendToServer('speech', {
 					text: spokenText,
 					final: true,

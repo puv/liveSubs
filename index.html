@@ -33,6 +33,8 @@
 				dispatchStorageEvent(key, oldValue, newValue);
 			}
 		};
+
+		const isClient = window.location.pathname.toLowerCase().endsWith('client') ? true : false;
 	</script>
 
 	<!-- Google tag (gtag.js) -->
