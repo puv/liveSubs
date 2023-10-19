@@ -10,8 +10,8 @@
 }
 
 #overlay {
-    justify-self: center;
-    margin-top: 1em;
+    place-self: center;
+    /* margin-top: 1em; */
     position: absolute;
     width: 1280px;
     min-height: 448px;
