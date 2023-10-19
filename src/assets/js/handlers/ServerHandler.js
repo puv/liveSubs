@@ -1,6 +1,13 @@
 import { err, log, warn } from './ConsoleHandler.js';
 
 import { getConfig } from './ConfigHandler.js';
+import { invoke } from '@tauri-apps/api/tauri';
+
+try {
+	const invoke = window.__TAURI__.invoke
+} catch (e) {
+	err('Tauri not found', e);
+}
 
 let ws;
 
@@ -42,7 +49,12 @@ function wsSendToServer(type, data) {
 function wsSendToClient(type, data) {
 	log('STC', type, data);
 	try {
-		if (window.ws.WSClient) window.ws.WSClient.send(JSON.stringify( { type: type, data: data } ));
+		invoke('send_to_client', {
+			message: JSON.stringify({
+				type: type,
+				data: data
+			})
+		});
 	} catch (e) {
 		err('STC error', e);
 	}
