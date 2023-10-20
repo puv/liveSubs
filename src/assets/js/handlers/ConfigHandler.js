@@ -28,6 +28,8 @@ let Config = {
 	'server': window.__TAURI__ ? true : false,
 };
 
+let configTimeout;
+
 /**
  * Get renewed config object
  * @returns Config object
@@ -52,9 +54,12 @@ function getConfig() {
  * @param {Object} config 
  */
 const saveConfig = (config) => {
-	let stringConfig = JSON.stringify(config);
-	let encodedConfig = btoa(stringConfig);
-	localStorage.setItem('config', encodedConfig);
+	clearTimeout(configTimeout);
+	configTimeout = setTimeout(() => {
+		let stringConfig = JSON.stringify(config);
+		let encodedConfig = btoa(stringConfig);
+		localStorage.setItem('config', encodedConfig);
+	}, 1);
 };
 
 /**
