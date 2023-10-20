@@ -14,7 +14,7 @@
     /* margin-top: 1em; */
     position: absolute;
     width: 1280px;
-    min-height: 406px;
+    min-height: 338px;
     background-color: rgba(241, 239, 241, 255);
     font-family: "M PLUS Rounded 1c", sans-serif;
     padding: 1em;
@@ -118,10 +118,11 @@
 
         .language {
             display: grid;
-            grid-template-columns: max-content max-content;
+            grid-template-rows: max-content max-content;
             grid-gap: .25em;
             align-items: center;
             text-align: center;
+            place-content: center;
         }
 
         .button {

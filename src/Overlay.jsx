@@ -8,6 +8,7 @@ import $ from 'jquery';
 import BaseConfigTable from './objects/BaseConfigTable';
 import Dictionary from './assets/js/Dictionary';
 import ExtraConfigTable from './objects/ExtraConfigTable';
+import Languages from './assets/js/Languages';
 import MainConfigTable from './objects/MainConfigTable';
 import PropTypes from 'prop-types';
 
@@ -23,7 +24,9 @@ function Overlay({ config }) {
 				<MainConfigTable config={config} />
 				<ExtraConfigTable config={config} />
 				<OverlayFooter config={config} />
-				<span dangerouslySetInnerHTML={{ __html: Dictionary['bottomText'][config.lang] }}></span>
+				{ 
+					Dictionary['bottomText'] ? <span dangerouslySetInnerHTML={{ __html: Dictionary['bottomText'][config.lang] }}></span> : <></>
+				}
 			</div>
 		</div>
 	);
@@ -41,7 +44,7 @@ function OverlayFooter({ config }) {
 	const setLanguage = (e) => {
 		const newConfig = {
 			...config,
-			['lang']: e.target.getAttribute('data-name'),
+			['lang']: e.target.value,
 		};
 		saveConfig(newConfig);
 	};
@@ -82,18 +85,16 @@ function OverlayFooter({ config }) {
 				</div>
 			</div>
 			<div className="language">
-				<div className="button langButton btn_neutral" data-name='en' onClick={setLanguage}>
-							English
-				</div>
-				<div className="button langButton btn_neutral" data-name='ja' onClick={setLanguage}>
-							日本語
-				</div>
-				<div className="button langButton btn_neutral" data-name='ko' onClick={setLanguage}>
-							한국인
-				</div>
-				<div className="button langButton btn_neutral" data-name='zh' onClick={setLanguage}>
-							中國人
-				</div>
+				<span dangerouslySetInnerHTML={{ __html: Dictionary['ui_lang'][config.lang] }}></span>
+				<select onChange={setLanguage} value={config.lang}>
+					{
+						Languages.filter(l => ['en', 'ja', 'ko', 'zh-CN'].includes(l.code)).map((lang) => {
+							return (
+								<option key={lang.code} value={lang.code}>{lang.name.native} ({lang['name'][config.lang]})</option>
+							);
+						})
+					}
+				</select>
 			</div>
 		</div>
 	);

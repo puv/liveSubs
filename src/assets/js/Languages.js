@@ -6,7 +6,7 @@ const Languages = [
 			'en': 'Japanese',
 			'ja': '日本語',
 			'ko': '일본어',
-			'zh': '日语'
+			'zh-CN': '日语'
 		}
 	},
 	{
@@ -16,7 +16,7 @@ const Languages = [
 			'en': 'English',
 			'ja': '英語',
 			'ko': '영어',
-			'zh': '英语'
+			'zh-CN': '英语'
 		}
 	},
 	{
@@ -26,7 +26,7 @@ const Languages = [
 			'en': 'Korean',
 			'ja': '韓国語',
 			'ko': '한국어',
-			'zh': '韩语'
+			'zh-CN': '韩语'
 		}
 	},
 	{
@@ -36,6 +36,7 @@ const Languages = [
 			'en': 'Chinese',
 			'ja': '中国語',
 			'ko': '중국어',
+			'zh-CN': '中文'
 		}
 	},
 	{
@@ -45,6 +46,7 @@ const Languages = [
 			'en': 'Taiwanese',
 			'ja': '台湾語',
 			'ko': '대만어',
+			'zh-CN': '台湾语'
 		}
 	},
 	{
@@ -54,7 +56,7 @@ const Languages = [
 			'en': 'French',
 			'ja': 'フランス語',
 			'ko': '프랑스어',
-			'zh': '法语'
+			'zh-CN': '法语'
 		}
 	},
 	{
@@ -64,7 +66,7 @@ const Languages = [
 			'en': 'Italian',
 			'ja': 'イタリア語',
 			'ko': '이탈리아어',
-			'zh': '意大利语'
+			'zh-CN': '意大利语'
 		}
 	},
 	{
@@ -74,7 +76,7 @@ const Languages = [
 			'en': 'German',
 			'ja': 'ドイツ語',
 			'ko': '독일어',
-			'zh': '德语'
+			'zh-CN': '德语'
 		}
 	},
 	{
@@ -84,7 +86,7 @@ const Languages = [
 			'en': 'Turkish',
 			'ja': 'トルコ語',
 			'ko': '터키어',
-			'zh': '土耳其语'
+			'zh-CN': '土耳其语'
 		}
 	},
 	{
@@ -94,7 +96,7 @@ const Languages = [
 			'en': 'Polish',
 			'ja': 'ポーランド語',
 			'ko': '폴란드어',
-			'zh': '波兰语'
+			'zh-CN': '波兰语'
 		}
 	},
 	{
@@ -104,7 +106,7 @@ const Languages = [
 			'en': 'Ukrainian',
 			'ja': 'ウクライナ語',
 			'ko': '우크라이나어',
-			'zh': '乌克兰语'
+			'zh-CN': '乌克兰语'
 		}
 	},
 	{
@@ -114,7 +116,7 @@ const Languages = [
 			'en': 'Russian',
 			'ja': 'ロシア語',
 			'ko': '러시아어',
-			'zh': '俄语'
+			'zh-CN': '俄语'
 		}
 	},
 	{
@@ -124,7 +126,7 @@ const Languages = [
 			'en': 'Spanish',
 			'ja': 'スペイン語',
 			'ko': '스페인어',
-			'zh': '西班牙语'
+			'zh-CN': '西班牙语'
 		}
 	},
 	{
@@ -134,7 +136,7 @@ const Languages = [
 			'en': 'Portuguese',
 			'ja': 'ポルトガル語',
 			'ko': '포르투갈어',
-			'zh': '葡萄牙语'
+			'zh-CN': '葡萄牙语'
 		}
 	},
 	{
@@ -144,7 +146,7 @@ const Languages = [
 			'en': 'Dutch',
 			'ja': 'オランダ語',
 			'ko': '네덜란드어',
-			'zh': '荷兰语'
+			'zh-CN': '荷兰语'
 		}
 	},
 	{
@@ -154,7 +156,7 @@ const Languages = [
 			'en': 'Hindi',
 			'ja': 'ヒンディー語',
 			'ko': '힌디어',
-			'zh': '印地语'
+			'zh-CN': '印地语'
 		}
 	},
 	{
@@ -164,7 +166,7 @@ const Languages = [
 			'en': 'Vietnamese',
 			'ja': 'ベトナム語',
 			'ko': '베트남어',
-			'zh': '越南语'
+			'zh-CN': '越南语'
 		}
 	},
 	{
@@ -174,7 +176,7 @@ const Languages = [
 			'en': 'Thai',
 			'ja': 'タイ語',
 			'ko': '태국어',
-			'zh': '泰语'
+			'zh-CN': '泰语'
 		}
 	},
 	{
@@ -184,7 +186,7 @@ const Languages = [
 			'en': 'Arabic',
 			'ja': 'アラビア語',
 			'ko': '아랍어',
-			'zh': '阿拉伯语'
+			'zh-CN': '阿拉伯语'
 		}
 	},
 	{
@@ -194,7 +196,7 @@ const Languages = [
 			'en': 'Somali',
 			'ja': 'ソマリ語',
 			'ko': '소말리아어',
-			'zh': '索马里语'
+			'zh-CN': '索马里语'
 		}
 	},
 	{
@@ -204,7 +206,7 @@ const Languages = [
 			'en': 'Lithuanian',
 			'ja': 'リトアニア語',
 			'ko': '리투아니아어',
-			'zh': '立陶宛语'
+			'zh-CN': '立陶宛语'
 		}
 	},
 	{
@@ -214,7 +216,7 @@ const Languages = [
 			'en': 'Latvian',
 			'ja': 'ラトビア語',
 			'ko': '라트비아어',
-			'zh': '拉脱维亚语'
+			'zh-CN': '拉脱维亚语'
 		}
 	},
 	{
@@ -224,7 +226,7 @@ const Languages = [
 			'en': 'Estonian',
 			'ja': 'エストニア語',
 			'ko': '에스토니아어',
-			'zh': '爱沙尼亚语'
+			'zh-CN': '爱沙尼亚语'
 		}
 	},
 	{
@@ -234,7 +236,7 @@ const Languages = [
 			'en': 'Esperanto',
 			'ja': 'エスペラント語',
 			'ko': '에스페란토어',
-			'zh': '世界语'
+			'zh-CN': '世界语'
 		}
 	},
 	{
@@ -244,7 +246,7 @@ const Languages = [
 			'en': 'Swedish',
 			'ja': 'スウェーデン語',
 			'ko': '스웨덴어',
-			'zh': '瑞典语'
+			'zh-CN': '瑞典语'
 		}
 	},
 	{
@@ -254,7 +256,7 @@ const Languages = [
 			'en': 'Norwegian',
 			'ja': 'ノルウェー語',
 			'ko': '노르웨이어',
-			'zh': '挪威语'
+			'zh-CN': '挪威语'
 		}
 	},
 	{
@@ -264,7 +266,7 @@ const Languages = [
 			'en': 'Finnish',
 			'ja': 'フィンランド語',
 			'ko': '핀란드어',
-			'zh': '芬兰语'
+			'zh-CN': '芬兰语'
 		}
 	},
 	{
@@ -274,7 +276,7 @@ const Languages = [
 			'en': 'Danish',
 			'ja': 'デンマーク語',
 			'ko': '덴마크어',
-			'zh': '丹麦语'
+			'zh-CN': '丹麦语'
 		}
 	},
 	{
@@ -284,7 +286,7 @@ const Languages = [
 			'en': 'Hungarian',
 			'ja': 'ハンガリー語',
 			'ko': '헝가리어',
-			'zh': '匈牙利语'
+			'zh-CN': '匈牙利语'
 		}
 	},
 	{
@@ -294,7 +296,7 @@ const Languages = [
 			'en': 'Czech',
 			'ja': 'チェコ語',
 			'ko': '체코어',
-			'zh': '捷克语'
+			'zh-CN': '捷克语'
 		}
 	},
 	{
@@ -304,7 +306,7 @@ const Languages = [
 			'en': 'Romanian',
 			'ja': 'ルーマニア語',
 			'ko': '루마니아어',
-			'zh': '罗马尼亚语'
+			'zh-CN': '罗马尼亚语'
 		}
 	},
 	{
@@ -314,7 +316,7 @@ const Languages = [
 			'en': 'Bulgarian',
 			'ja': 'ブルガリア語',
 			'ko': '불가리아어',
-			'zh': '保加利亚语'
+			'zh-CN': '保加利亚语'
 		}
 	},
 	{
@@ -324,7 +326,7 @@ const Languages = [
 			'en': 'Greek',
 			'ja': 'ギリシャ語',
 			'ko': '그리스어',
-			'zh': '希腊语'
+			'zh-CN': '希腊语'
 		}
 	},
 	{
@@ -334,7 +336,7 @@ const Languages = [
 			'en': 'Serbian',
 			'ja': 'セルビア語',
 			'ko': '세르비아어',
-			'zh': '塞尔维亚语'
+			'zh-CN': '塞尔维亚语'
 		}
 	},
 	{
@@ -344,7 +346,7 @@ const Languages = [
 			'en': 'Croatian',
 			'ja': 'クロアチア語',
 			'ko': '크로아티아어',
-			'zh': '克罗地亚语'
+			'zh-CN': '克罗地亚语'
 		}
 	},
 	{
@@ -354,7 +356,7 @@ const Languages = [
 			'en': 'Macedonian',
 			'ja': 'マケドニア語',
 			'ko': '마케도니아어',
-			'zh': '马其顿语'
+			'zh-CN': '马其顿语'
 		}
 	},
 	{
@@ -364,7 +366,7 @@ const Languages = [
 			'en': 'Albanian',
 			'ja': 'アルバニア語',
 			'ko': '알바니아어',
-			'zh': '阿尔巴尼亚语'
+			'zh-CN': '阿尔巴尼亚语'
 		}
 	},
 	{
@@ -374,7 +376,7 @@ const Languages = [
 			'en': 'Armenian',
 			'ja': 'アルメニア語',
 			'ko': '아르메니아어',
-			'zh': '亚美尼亚语'
+			'zh-CN': '亚美尼亚语'
 		}
 	},
 	{
@@ -384,7 +386,7 @@ const Languages = [
 			'en': 'Georgian',
 			'ja': 'グルジア語',
 			'ko': '조지아어',
-			'zh': '格鲁吉亚语'
+			'zh-CN': '格鲁吉亚语'
 		}
 	},
 	{
@@ -394,7 +396,7 @@ const Languages = [
 			'en': 'Azerbaijani',
 			'ja': 'アゼルバイジャン語',
 			'ko': '아제르바이잔어',
-			'zh': '阿塞拜疆语'
+			'zh-CN': '阿塞拜疆语'
 		}
 	},
 	{
@@ -404,7 +406,7 @@ const Languages = [
 			'en': 'Basque',
 			'ja': 'バスク語',
 			'ko': '바스크어',
-			'zh': '巴斯克语'
+			'zh-CN': '巴斯克语'
 		}
 	},
 	{
@@ -414,7 +416,7 @@ const Languages = [
 			'en': 'Icelandic',
 			'ja': 'アイスランド語',
 			'ko': '아이슬란드어',
-			'zh': '冰岛语'
+			'zh-CN': '冰岛语'
 		}
 	},
 	{
@@ -424,7 +426,7 @@ const Languages = [
 			'en': 'Afrikaans',
 			'ja': 'アフリカーンス語',
 			'ko': '아프리칸스어',
-			'zh': '南非语'
+			'zh-CN': '南非语'
 		}
 	},
 ].sort((a, b) => {
