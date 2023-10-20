@@ -218,3 +218,7 @@
         filter:hue-rotate(0deg);
     }
 }
+
+input[type='color'] {
+    width: 100%;
+}
