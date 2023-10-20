@@ -49,12 +49,6 @@ function MainConfig({ config }) {
 			</thead>
 			<tbody>
 				<tr>
-					<td>{Dictionary['background'][config.lang]}</td>
-					<td>
-						<input id="bgColor" type="color" value={config.bg_color} name="bg_color" onInput={handleInput} />
-					</td>
-				</tr>
-				<tr>
 					<td>{Dictionary['subtitle'][config.lang]}</td>
 					<td><input id="SubColor" type="color" value={config.sub.color} name="sub.color" onInput={handleInput} /></td>
 					<td><input id="SubBorderColor" type="color" value={config.sub.border_color} name="sub.border_color" onInput={handleInput} /></td>

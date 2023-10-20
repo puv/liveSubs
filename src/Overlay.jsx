@@ -50,7 +50,8 @@ function OverlayFooter({ config }) {
 		<div className="footer">
 			<div style={{
 				display: 'flex',
-				gap: '1em',
+				gap: '.25em',
+				textAlign: 'center',
 			}}>
 				<div className="button closeButton btn_success" onClick={() => {
 					$('#overlay').css('display', 'none');

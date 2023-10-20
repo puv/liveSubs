@@ -93,6 +93,7 @@ function BaseConfig({ config }) {
 				<tr>
 					<th>{Dictionary['api_type'][config.lang]}</th>
 					<th>{Dictionary['api_key'][config.lang]}</th>
+					<th>{Dictionary['background_color'][config.lang]}</th>
 					<th>{Dictionary['server_mode'][config.lang]}</th>
 					<th>{Dictionary['input_device'][config.lang]}</th>
 					<th>{Dictionary['output_device'][config.lang]}</th>
@@ -110,16 +111,19 @@ function BaseConfig({ config }) {
 					</td>
 					<td>
 						<input type="text" name="api_key" id="api_key"
-							size={60} onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
+							size={40} onInput={handleInput} disabled={config.api.type == 'local' || config.api.type == 'libre'} />
 						<br />
 						<span dangerouslySetInnerHTML={{ __html: Dictionary[`api_${config.api.type}_get`][config.lang] }}></span>
+					</td>
+					<td>
+						<input id="bgColor" type="color" value={config.bg_color} name="bg_color" onInput={handleInput} />
 					</td>
 					<td>
 						<input type="checkbox" name="server" id="serverMode" checked={config.server} onChange={handleInput} />
 					</td>
 					<td>
 						<select id="inputDevice" onChange={handleDevice} disabled={true} value={config.input_device} name="input_device" style={{
-							maxWidth: '15em'
+							maxWidth: '10em'
 						}}>
 							{
 								inputDevices.length === 0 ? <option value="">{Dictionary['no_input_device'][config.lang]}</option> :
@@ -133,7 +137,7 @@ function BaseConfig({ config }) {
 					</td>
 					<td>
 						<select id="outputDevice" onChange={handleDevice} disabled={true} value={config.output_device} name="output_device" style={{
-							maxWidth: '15em'
+							maxWidth: '10em'
 						}}>
 							{
 								(outputDevices.length === 0) ? <option value="">{Dictionary['no_output_device'][config.lang]}</option> :

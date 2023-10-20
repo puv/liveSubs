@@ -131,11 +131,11 @@ const Dictionary = {
 		'ko': '삭제',
 		'zh': '删除'
 	},
-	'background': {
-		'en': 'Background',
-		'ja': '背景',
-		'ko': '배경',
-		'zh': '背景'
+	'background_color': {
+		'en': 'Background Color',
+		'ja': '背景色',
+		'ko': '배경색',
+		'zh': '背景颜色'
 	},
 	'subtitle': {
 		'en': 'Subtitle',
