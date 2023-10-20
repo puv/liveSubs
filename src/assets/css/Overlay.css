@@ -172,21 +172,18 @@
         .closeButton {
             font-size: x-large;
             place-self: center;
-            width: -webkit-fill-available;
         }
 
         .resetButton {
             font-size: x-large;
             width: max-content;
             place-self: center;
-            width: -webkit-fill-available;
         }
         
         .updateButton {
             font-size: x-large;
             width: max-content;
             place-self: center;
-            width: -webkit-fill-available;
         }
 
         .langButton {
