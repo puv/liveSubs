@@ -1,6 +1,7 @@
 # liveSubs
 
 A real-time subtitling and translation application with Bouyomi-Chan support, utilizing Google & DeepL translations.
+Documentation can be found [here](http://docs.subs.puv.bar)
 
 ## Recommended IDE Setup
 

@@ -289,12 +289,12 @@ const Dictionary = {
 			'zh-CN': '原始版本 <a target=\'_blank\' href=\'https://github.com/sayonari\'>@sayonari</a>'
 		}
 	],
-	// 'bottomText': {
-	// 	'en': 'WARNING: Translations with API keys might not work. We suggest using Google without an API key. If you encounter issues, <a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>please report them here.</a>',
-	// 	'ja': '警告：APIキーを使用した翻訳は機能しない場合があります。APIキーなしでGoogleを使用することをお勧めします。問題が発生した場合は、<a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>こちらで報告してください。</a>',
-	// 	'ko': '경고 : API 키를 사용한 번역이 작동하지 않을 수 있습니다. API 키없이 Google을 사용하는 것이 좋습니다. 문제가 발생하면 <a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>여기에 보고하십시오.</a>',
-	// 	'zh-CN': '警告：使用API密钥的翻译可能无法正常工作。 我们建议使用没有API密钥的Google。 如果遇到问题，<a target=\'blank\' href=\'https://github.com/puv/liveSubs/issues\'>请在此处报告。</a>'
-	// },
+	'bottomText': {
+		'en': 'If you need help, a guide can be found <a target=\'blank\' href=\'http://docs.subs.puv.bar\'>here.</a>',
+		'ja': 'ヘルプが必要な場合は、<a target=\'blank\' href=\'http://docs.subs.puv.bar\'>ここに</a>ガイドがあります。</a>',
+		'ko': '도움이 필요하면 <a target=\'blank\' href=\'http://docs.subs.puv.bar\'>여기</a>에 가이드가 있습니다.</a>',
+		'zh-CN': '如果您需要帮助，可以在<a target=\'blank\' href=\'http://docs.subs.puv.bar\'>此处</a>找到指南。</a>'
+	},
 	'browser_not_supported': {
 		'en': 'Your browser does not support speech recognition. Please use Google Chrome or Microsoft Edge.',
 		'ja': 'お使いのブラウザは音声認識に対応していません。Google ChromeまたはMicrosoft Edgeをご使用ください。',
