@@ -55,8 +55,8 @@
         }
 
         & #addTranslation {
-            padding-top: 12px;
-            padding-bottom: 12px;
+            padding-top: 9px;
+            padding-bottom: 9px;
             background-color: var(--success);
             color: white;
             border: 1px solid #ddd;
