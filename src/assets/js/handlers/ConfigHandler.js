@@ -25,7 +25,7 @@ let Config = {
 	'white_space': 'normal', // normal, nowrap
 	'input_device': 'default',
 	'output_device': 'default',
-	'server': false, // true, false
+	'server': window.__TAURI__ ? true : false,
 };
 
 /**
