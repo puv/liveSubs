@@ -74,7 +74,9 @@ function OverlayFooter({ config }) {
 			<div className="credits">
 				<span dangerouslySetInnerHTML={{ __html: Dictionary['credits'][0][config.lang] }}></span>
 				<span dangerouslySetInnerHTML={{ __html: Dictionary['credits'][1][config.lang] }}></span>
-				<div className='button downloadButton btn_info'>
+				<div className='button downloadButton btn_info' style={{
+					display: window.__TAURI__ ? 'none' : 'block',
+				}}>
 					<span dangerouslySetInnerHTML={{ __html: Dictionary['download'][config.lang] }}></span>
 				</div>
 			</div>
