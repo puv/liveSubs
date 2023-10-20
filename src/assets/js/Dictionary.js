@@ -290,10 +290,10 @@ const Dictionary = {
 		}
 	],
 	'bottomText': {
-		'en': 'If you need help, a guide can be found <a target=\'blank\' href=\'http://docs.subs.puv.bar\'>here.</a>',
-		'ja': 'ヘルプが必要な場合は、<a target=\'blank\' href=\'http://docs.subs.puv.bar\'>ここに</a>ガイドがあります。</a>',
-		'ko': '도움이 필요하면 <a target=\'blank\' href=\'http://docs.subs.puv.bar\'>여기</a>에 가이드가 있습니다.</a>',
-		'zh-CN': '如果您需要帮助，可以在<a target=\'blank\' href=\'http://docs.subs.puv.bar\'>此处</a>找到指南。</a>'
+		'en': 'If you need help, a guide can be found <a target=\'blank\' href=\'http://docs.subs.puv.bar/en/\'>here.</a>',
+		'ja': 'ヘルプが必要な場合は、<a target=\'blank\' href=\'http://docs.subs.puv.bar/ja/\'>ここに</a>ガイドがあります。</a>',
+		'ko': '도움이 필요하면 <a target=\'blank\' href=\'http://docs.subs.puv.bar/ko/\'>여기</a>에 가이드가 있습니다.</a>',
+		'zh-CN': '如果您需要帮助，可以在<a target=\'blank\' href=\'http://docs.subs.puv.bar/zh-CN/\'>此处</a>找到指南。</a>'
 	},
 	'browser_not_supported': {
 		'en': 'Your browser does not support speech recognition. Please use Google Chrome or Microsoft Edge.',
