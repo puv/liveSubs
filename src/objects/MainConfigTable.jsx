@@ -150,7 +150,11 @@ function TranslationOption(number, config, handleInput, deleteTranslation) {
 				</select>
 			</td>
 			<td>
-				<button onClick={deleteTranslation} name={`translations.${number}`}>X</button>
+				<button onClick={deleteTranslation} name={`translations.${number}`} style={{
+					backgroundColor: 'red',
+					color: 'white',
+					fontWeight: 'bolder',
+				}}>X</button>
 			</td>
 		</tr>
 	);
