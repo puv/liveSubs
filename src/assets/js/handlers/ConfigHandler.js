@@ -28,6 +28,17 @@ let Config = {
 	'server': window.__TAURI__ ? true : false,
 };
 
+let defaultTranslationConfig = {
+	'text': '',
+	'color': '#ffffff',
+	'border_color': '#000000',
+	'size': 24,
+	'weight': 900,
+	'border_width': 5,
+	'lang': 'en',
+	'font': 'YasashisaB',
+};
+
 let configTimeout;
 
 /**
@@ -110,16 +121,7 @@ const addTranslation = () => {
 		...config,
 		['translations']: [
 			...config['translations'],
-			{
-				'text': '',
-				'color': '#ffffff',
-				'border_color': '#000000',
-				'size': 32,
-				'weight': 900,
-				'border_width': 5,
-				'lang': 'en',
-				'font': 'YasashisaB',
-			}
+			defaultTranslationConfig
 		]
 	};
 	saveConfig(newConfig);
