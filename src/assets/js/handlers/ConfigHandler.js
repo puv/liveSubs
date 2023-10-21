@@ -21,7 +21,7 @@ let Config = {
 	'pause_timer': 1000,
 	'delete_timer': 0,
 	'pos_h': 'center', // left, center, right
-	'pos_v': 'bottom', // top, bottom
+	'pos_v': 'top', // top, bottom
 	'white_space': 'normal', // normal, nowrap
 	'input_device': 'default',
 	'output_device': 'default',
