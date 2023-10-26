@@ -66,14 +66,29 @@ const handleAudio = () => {
 	// VoiceRecognition.onspeechend = (e) => log('onSpeechEnd', VoiceRecognition, e);
 	// VoiceRecognition.onsoundend = (e) => log('onSoundEnd', VoiceRecognition, e);
 	// VoiceRecognition.onaudioend = (e) => log('onAudioEnd', VoiceRecognition, e);
-	VoiceRecognition.onend = (e) => {
+	VoiceRecognition.onend = async (e) => {
 		log('onEnd', spokenText.length, [VoiceRecognition, e]);
 		if (init) {
 			init = false;
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
-			if (!config.server && !isClient) handleTranslation(config, spokenText);
+			let translations = await handleTranslation(config, spokenText);
+			console.log('translations', translations);
+
+			translations.forEach((translation, index) => {
+				$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+				$(`#TBg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
+			});
+
+			if (config.server && !isClient && translations.length > 0) {
+				wsSendToClient('speech', {
+					text: spokenText,
+					final: true,
+					translations: translations,
+					lang: config.sub.lang
+				});	
+			}
 			spokenText = '';
 		}
 	};
