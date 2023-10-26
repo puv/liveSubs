@@ -1,8 +1,13 @@
 /* eslint-disable no-undef */
+let debugCss = 'background-color: #afafaf; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
 let logCss = 'background-color: #348fff; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
 let warnCss = 'background-color: #ff9f00; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
 let errCss = 'background-color: #ff0000; padding-inline: 6px; padding-block: 4px; border-radius: 4px; color: white; font-weight: bold';
 let reset = 'background-color: transparent; color: unset; font-weight: unset';
+
+const debug = (...args) => {
+	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, debugCss, reset, ...args);
+};
 
 const log = (...args) => {
 	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, logCss, reset, ...args);
@@ -27,4 +32,4 @@ function prettyTime(milliseconds) {
 	return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds_remainder.toString().padStart(3, '0')}`;
 }
 
-export { log, warn, err };
+export { debug, log, warn, err };
