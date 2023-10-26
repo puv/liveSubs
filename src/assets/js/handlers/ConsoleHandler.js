@@ -6,19 +6,19 @@ let errCss = 'background-color: #ff0000; padding-inline: 6px; padding-block: 4px
 let reset = 'background-color: transparent; color: unset; font-weight: unset';
 
 const debug = (...args) => {
-	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, debugCss, reset, ...args);
+	console.debug(`%c${prettyTime(Date.now() - startTimestamp)}%c`, debugCss, reset, ...args);
 };
 
 const log = (...args) => {
-	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, logCss, reset, ...args);
+	console.info(`%c${prettyTime(Date.now() - startTimestamp)}%c`, logCss, reset, ...args);
 };
 
 const warn = (...args) => {
-	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, warnCss, reset, ...args);
+	console.warn(`%c${prettyTime(Date.now() - startTimestamp)}%c`, warnCss, reset, ...args);
 };
 
 const err = (...args) => {
-	console.log(`%c${prettyTime(Date.now() - startTimestamp)}%c`, errCss, reset, ...args);
+	console.error(`%c${prettyTime(Date.now() - startTimestamp)}%c`, errCss, reset, ...args);
 };
 
 function prettyTime(milliseconds) {
