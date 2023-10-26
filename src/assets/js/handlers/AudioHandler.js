@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
 
+import { debug, err, log } from './ConsoleHandler';
+
 import $ from 'jquery';
 import BouyomiChanClient from './BouyomiChanHandler';
 import Dictionary from '../Dictionary';
 import { getConfig } from './ConfigHandler';
 import handleTranslation from './TranslationHandler';
-import { log } from './ConsoleHandler';
 import { wsSendToClient } from './ServerHandler';
 
 let VoiceRecognition;
@@ -30,8 +31,8 @@ window.addEventListener('storage', function (event) {
 	}
 });
 
-console.log('isClient', isClient);
-console.log('config', config);
+log('isClient', isClient);
+log('config', config);
 
 if (config.server && !isClient) {
 	wsSendToClient('config', JSON.stringify(config));
@@ -58,7 +59,7 @@ const handleAudio = () => {
 
 	// VoiceRecognition.onstart = () => log('onStart', VoiceRecognition);
 	VoiceRecognition.onaudiostart = (e) => {
-		log('onAudioStart', [VoiceRecognition, e]);
+		debug('onAudioStart', [VoiceRecognition, e]);
 		init = true;
 	};
 	// VoiceRecognition.onsoundstart = (e) => log('onSoundStart', VoiceRecognition, e);
@@ -67,14 +68,14 @@ const handleAudio = () => {
 	// VoiceRecognition.onsoundend = (e) => log('onSoundEnd', VoiceRecognition, e);
 	// VoiceRecognition.onaudioend = (e) => log('onAudioEnd', VoiceRecognition, e);
 	VoiceRecognition.onend = async (e) => {
-		log('onEnd', spokenText.length, [VoiceRecognition, e]);
+		debug('onEnd', spokenText.length, [VoiceRecognition, e]);
 		if (init) {
 			init = false;
 			VoiceRecognition.start();
 		}
 		if (spokenText.length > 0) {
 			let translations = await handleTranslation(config, spokenText);
-			console.log('translations', translations);
+			log('translations', translations);
 
 			translations.forEach((translation, index) => {
 				$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
@@ -93,7 +94,7 @@ const handleAudio = () => {
 		}
 	};
 	VoiceRecognition.onerror = (e) => {
-		log('onError', [VoiceRecognition, e], e.error);
+		err('onError', [VoiceRecognition, e], e.error);
 		if (e.error == 'not-allowed') {
 			window.alert('Please allow microphone access');
 			navigator.mediaDevices.getUserMedia({ audio: true });
@@ -103,7 +104,7 @@ const handleAudio = () => {
 		}
 	};
 	VoiceRecognition.onnomatch = (e) => {
-		log('onNoMatch', [VoiceRecognition, e]);
+		err('onNoMatch', [VoiceRecognition, e]);
 		init = true;
 		VoiceRecognition.stop();
 	};
@@ -155,7 +156,7 @@ const handleAudio = () => {
 				//     }
 				// }
 
-				log('[LIVE] ', spokenText);
+				debug('[LIVE] ', spokenText);
 
 				if (spokenText.length > 0) {
 					$('#SubBGText')[0].innerText = '<< ' + spokenText + ' >>';
@@ -210,7 +211,7 @@ const handleAudio = () => {
 
 
 			let translations = await handleTranslation(config, spokenText);
-			console.log('translations', translations);
+			log('translations', translations);
 
 			translations.forEach((translation, index) => {
 				$(`#TFg[data-tr="${index}"]`)[0].innerText = `${config.lang_names ? `[${translation.lang.toUpperCase()}] ` : ''}${translation.text}`;
