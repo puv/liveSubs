@@ -94,7 +94,6 @@ function BaseConfig({ config }) {
 					<th>{Dictionary['api_type'][config.lang]}</th>
 					<th>{Dictionary['api_key'][config.lang]}</th>
 					<th>{Dictionary['background_color'][config.lang]}</th>
-					<th>{Dictionary['server_mode'][config.lang]}</th>
 					<th>{Dictionary['input_device'][config.lang]}</th>
 					<th>{Dictionary['output_device'][config.lang]}</th>
 				</tr>
@@ -117,9 +116,6 @@ function BaseConfig({ config }) {
 					</td>
 					<td>
 						<input id="bgColor" type="color" value={config.bg_color} name="bg_color" onInput={handleInput} />
-					</td>
-					<td>
-						<input type="checkbox" name="server" id="serverMode" checked={config.server} onChange={handleInput} />
 					</td>
 					<td>
 						<select id="inputDevice" onChange={handleDevice} disabled={true} value={config.input_device} name="input_device" style={{
